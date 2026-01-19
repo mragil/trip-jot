@@ -11,15 +11,29 @@ import {
 	FieldDescription,
 	FieldGroup,
 	FieldLabel,
-	FieldSeparator,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
+interface LoginFormProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
+	onSubmit?: (data: { email: string; password?: string }) => void;
+	isPending?: boolean;
+}
+
 export function LoginForm({
 	className,
+	onSubmit,
+	isPending,
 	...props
-}: React.ComponentProps<'div'>) {
+}: LoginFormProps) {
+	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const formData = new FormData(event.currentTarget);
+		const email = formData.get('email') as string;
+		const password = formData.get('password') as string;
+		onSubmit?.({ email, password });
+	};
+
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
 			<Card>
@@ -30,14 +44,15 @@ export function LoginForm({
 					</CardDescription>
 				</CardHeader>
 				<CardContent>
-					<form>
+					<form onSubmit={handleSubmit}>
 						<FieldGroup>
 							<Field>
 								<FieldLabel htmlFor="email">Email</FieldLabel>
 								<Input
 									id="email"
+									name="email"
 									type="email"
-									placeholder="m@example.com"
+									placeholder="mail@example.com"
 									required
 								/>
 							</Field>
@@ -51,10 +66,17 @@ export function LoginForm({
 										Forgot your password?
 									</a>
 								</div>
-								<Input id="password" type="password" required />
+								<Input
+									id="password"
+									name="password"
+									type="password"
+									required
+								/>
 							</Field>
 							<Field>
-								<Button type="submit">Login</Button>
+								<Button type="submit" disabled={isPending}>
+									{isPending ? 'Logging in...' : 'Login'}
+								</Button>
 								<FieldDescription className="text-center">
 									Don&apos;t have an account? <a href="#">Sign up</a>
 								</FieldDescription>

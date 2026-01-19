@@ -4,11 +4,28 @@ import { GalleryVerticalEnd } from 'lucide-react';
 
 import { LoginForm } from '@/components/login-form';
 
+import { useLoginMutation } from '@/hooks/use-login-mutation';
+
 export const Route = createFileRoute('/login')({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
+	const navigate = Route.useNavigate();
+	const loginMutation = useLoginMutation();
+
+	const handleLogin = (data: { email: string; password?: string }) => {
+		loginMutation.mutate(data, {
+			onSuccess: () => {
+				navigate({ to: '/trips' });
+			},
+			onError: (error) => {
+				console.error('Login failed:', error);
+				// TODO: Show error toast
+			},
+		});
+	};
+
 	return (
 		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
 			<div className="flex w-full max-w-sm flex-col gap-6">
@@ -18,7 +35,10 @@ function RouteComponent() {
 					</div>
 					Itinerary Planner - Your Travel Companion
 				</a>
-				<LoginForm />
+				<LoginForm
+					onSubmit={handleLogin}
+					isPending={loginMutation.isPending}
+				/>
 			</div>
 		</div>
 	);
