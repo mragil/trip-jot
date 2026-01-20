@@ -16,11 +16,11 @@ import {
 import { cn } from '@/lib/utils';
 import { tripSchema } from '@/lib/schemas';
 import api from '@/lib/api';
+import { toast } from 'sonner';
 
 export default function TripForm({ className }: React.ComponentProps<'form'>) {
   const navigate = useNavigate();
 
-  
   const form = useForm({
     defaultValues: {
       name: '',
@@ -35,9 +35,8 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
       try {
         await api.post('/trips', value);
         navigate({ to: '/trips' });
-      } catch (error) {
-        console.error('Failed to create trip:', error);
-        // Handle error (e.g. show toast)
+      } catch {
+        toast.error('Failed to create trip');
       }
     },
   });

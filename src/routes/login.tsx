@@ -4,7 +4,8 @@ import { GalleryVerticalEnd } from 'lucide-react';
 
 import { LoginForm } from '@/components/login-form';
 
-import { useLoginMutation } from '@/hooks/use-login-mutation';
+import { useLoginMutation } from '@/hooks/useAuth';
+import { toast } from 'sonner';
 
 export const Route = createFileRoute('/login')({
 	component: RouteComponent,
@@ -19,9 +20,8 @@ function RouteComponent() {
 			onSuccess: () => {
 				navigate({ to: '/trips' });
 			},
-			onError: (error) => {
-				console.error('Login failed:', error);
-				// TODO: Show error toast
+			onError: () => {
+				toast.error('Login failed');
 			},
 		});
 	};

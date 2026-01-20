@@ -13,11 +13,15 @@ import ActivityForm from './ActivityForm';
 type NewTripDrawerProps = {
 	isFormOpen: boolean;
 	setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+	tripId: number;
+	date: Date;
 };
 
 export default function ActivityFormDrawer({
 	isFormOpen: open,
 	setIsFormOpen: setOpen,
+	tripId,
+	date,
 }: NewTripDrawerProps) {
 	const isDesktop = useMediaQuery('(min-width: 768px)');
 
@@ -26,7 +30,7 @@ export default function ActivityFormDrawer({
 		return (
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent className="sm:max-w-2xl">
-					<ActivityForm />
+					<ActivityForm tripId={tripId} date={date} onCancel={() => setOpen(false)} />
 				</DialogContent>
 			</Dialog>
 		);
@@ -36,10 +40,9 @@ export default function ActivityFormDrawer({
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerContent className="max-h-[90vh]">
 				<div className="overflow-y-auto px-4">
-					<ActivityForm />
+					<ActivityForm tripId={tripId} date={date} onCancel={() => setOpen(false)} />
 				</div>
 				<DrawerFooter className="pt-2">
-					<Button type="submit">Add Activity</Button>
 					<DrawerClose asChild>
 						<Button variant="outline">Cancel</Button>
 					</DrawerClose>

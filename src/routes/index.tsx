@@ -22,7 +22,7 @@ function LandingPage() {
       {/* Hero Section */}
       <section className="container mx-auto px-4 py-20 text-center md:py-32">
         <h1 className="mb-6 text-4xl font-extrabold tracking-tight md:text-6xl text-primary">
-          Plan Your Perfect Local Trip
+          WanderLog: Your Personal Travel Journal
         </h1>
         <p className="mx-auto mb-10 max-w-2xl text-lg text-muted-foreground md:text-xl">
           A web app that helps travelers create day-by-day itineraries, visualize optimized routes on maps, and organize documents securely with full offline access.
@@ -63,7 +63,7 @@ function LandingPage() {
             <FeatureCard
               icon={<Search className="h-10 w-10 text-primary" />}
               title="Smart Destination Search"
-              description="Autocomplete for local spots—add multiple places easily."
+              description="Autocomplete for locations. Add multiple places easily."
             />
             <FeatureCard
               icon={<Map className="h-10 w-10 text-primary" />}
@@ -111,7 +111,7 @@ function LandingPage() {
             Why Choose Itinerary Planner?
           </h2>
           <p className="mx-auto mb-8 max-w-3xl text-lg text-muted-foreground">
-            Your trips, your data—nothing stored on our servers. Perfect for spontaneous local adventures or detailed day trips. Focus on experiences, not logistics.
+            Your trips, your documents, your data stored locally. Perfect for your trips. Focus on experiences, not logistics.
           </p>
         </div>
       </section>

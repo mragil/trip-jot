@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
 
 import api from '@/lib/api';
@@ -19,6 +20,18 @@ export const useLoginMutation = () => {
 				credentials,
 			);
 			return response.data;
+		},
+	});
+};
+
+export const useLogoutMutation = () => {
+	const navigate = useNavigate();
+	
+	return useMutation({
+		mutationFn: async () => {
+			await api.post('/auth/logout');
+			
+			navigate({ to: '/login' });
 		},
 	});
 };

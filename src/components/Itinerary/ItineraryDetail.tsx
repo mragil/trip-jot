@@ -2,17 +2,19 @@ import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Activity } from '@/hooks/use-trips';
+import { Activity } from '@/hooks/useTrips';
 import ActivityCard from './ActivityCard';
 
 interface ItineraryDetailProps {
-	addActivity: () => void;
-	selectedDay: number;
 	activities: Activity[];
+	date: Date;
+	addActivity: (date: Date) => void;
+	selectedDay: number;
 }
 
 export default function ItineraryDetail({
 	selectedDay,
+	date,
 	addActivity,
 	activities,
 }: ItineraryDetailProps) {
@@ -21,7 +23,7 @@ export default function ItineraryDetail({
 			<div className="flex items-center justify-between">
 				<h3 className="text-xl font-bold">Day {selectedDay} Details</h3>
 				<Button
-					onClick={addActivity}
+					onClick={() => addActivity(date)}
 					className="bg-white text-primary border border-gray-200 hover:bg-gray-50"
 				>
 					<Plus className="h-4 w-4 mr-1" />

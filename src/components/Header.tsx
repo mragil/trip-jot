@@ -1,16 +1,21 @@
+import { Button } from '@/components/ui/button';
 import { Link } from '@tanstack/react-router';
-import { GalleryVerticalEnd } from 'lucide-react';
+import { useLogoutMutation } from '@/hooks/useAuth';
+
 
 export default function Header() {
+
+	const logout = useLogoutMutation();
+
 	return (
 		<header className="p-4 flex items-center justify-between bg-white text-black shadow-lg">
 			<div className="flex items-center gap-2">
 				<Link to="/">
-					<GalleryVerticalEnd className="size-4" />
+					<img src="/logo.png" alt="WanderLog" className="h-28 w-auto object-contain" />
 				</Link>
 			</div>
 
-			<h1 className="text-xl font-semibold">Profile</h1>
+			<Button variant={'ghost'} className='text-md' onClick={() => logout.mutate()}	>Logout</Button>
 		</header>
 	);
 }

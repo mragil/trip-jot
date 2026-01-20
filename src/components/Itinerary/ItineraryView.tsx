@@ -3,11 +3,11 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Trip } from '@/hooks/use-trips';
+import { Trip } from '@/hooks/useTrips';
 import ItineraryDetail from './ItineraryDetail';
 
 type Props = {
-	addActivity: () => void;
+	addActivity: (date: Date) => void;
 	trip: Trip;
 }
 
@@ -15,7 +15,6 @@ export default function ItineraryView(props: Props) {
 	const { addActivity, trip } = props;
 	const [selectedDay, setSelectedDay] = useState<number>(1);
 
-	// Generate days array dynamically
 	const daysInterval = eachDayOfInterval({
 		start: new Date(trip.startDate),
 		end: new Date(trip.endDate),
@@ -40,7 +39,6 @@ export default function ItineraryView(props: Props) {
 
 	return (
 		<div className="flex flex-col gap-4">
-			{/* Mobile: Horizontal Scrollable Tabs */}
 			<div className="md:hidden">
 				<ScrollArea className="w-full">
 					<div className="flex gap-2 pb-2">
@@ -89,8 +87,7 @@ export default function ItineraryView(props: Props) {
 				</ScrollArea>
 			</div>
 
-			{/* Desktop: Vertical Cards + Detail Side by Side */}
-			<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+		<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
 				<div className="hidden md:block md:col-span-1">
 					<ScrollArea className="h-150 w-full rounded-md border p-4">
 						<div className="flex flex-col gap-3">
@@ -124,7 +121,8 @@ export default function ItineraryView(props: Props) {
 				</div>
 				<div className="md:col-span-2">
 					<ItineraryDetail 
-						selectedDay={selectedDay} 
+						selectedDay={selectedDay}
+						date={currentDayData.fullDate}
 						addActivity={addActivity} 
 						activities={currentDayData ? currentDayData.activities : []}
 					/>

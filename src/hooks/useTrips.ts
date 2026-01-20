@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import api from '@/lib/api';
 
@@ -9,8 +9,8 @@ export interface Activity {
 	type: string;
 	notes: string;
 	location: string;
-	startTime: string; // ISO date string
-	endTime: string; // ISO date string
+	startTime: string;
+	endTime: string;
 	cost: number;
 	currency: string;
 	isCompleted: boolean;
@@ -47,5 +47,19 @@ export const useTrip = (id: string) => {
 			return response.data;
 		},
 		enabled: !!id,
+	});
+};
+
+export const useCreateActivity = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async (newActivity: Omit<Activity, 'id'>) => {
+			const response = await api.post<Activity>('/activities', newActivity);
+			return response.data;
+		},
+		onSuccess: (data) => {
+			queryClient.invalidateQueries({ queryKey: ['trips', String(data.tripId)] });
+		},
 	});
 };

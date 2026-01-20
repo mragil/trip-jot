@@ -8,7 +8,7 @@ import DynamicTabs from '@/components/DynamicTabs';
 import ActivityFormDrawer from '@/components/Itinerary/ActivityFormDrawer';
 import ItineraryView from '@/components/Itinerary/ItineraryView';
 import TripErrorState from '@/components/Trip/TripErrorState';
-import { useTrip } from '@/hooks/use-trips';
+import { useTrip } from '@/hooks/useTrips';
 
 export const Route = createFileRoute('/trips/$id')({
 	component: RouteComponent,
@@ -19,6 +19,7 @@ function RouteComponent() {
 	const { data: trip, isLoading, isError, refetch } = useTrip(id);
 	
 	const [formOpen, setFormOpen] = useState(false);
+	const [selectedDate, setSelectedDate] = useState<Date>(trip?.startDate || new Date());	
 
 	if (isLoading) {
 		return (
@@ -42,7 +43,10 @@ function RouteComponent() {
 		{
 			id: 'itinerary',
 			title: 'Itinerary',
-			content: <ItineraryView addActivity={() => setFormOpen(true)} trip={trip} />,
+			content: <ItineraryView addActivity={(date: Date) => {
+				setSelectedDate(date);
+				setFormOpen(true);
+			}} trip={trip} />,
 		},
 		{
 			id: 'maps',
@@ -85,7 +89,12 @@ function RouteComponent() {
 				</div>
 				<DynamicTabs tabs={tabsData} tabsTriggerClassName="py-4" />
 			</div>
-			<ActivityFormDrawer isFormOpen={formOpen} setIsFormOpen={setFormOpen} />
+			<ActivityFormDrawer
+				isFormOpen={formOpen}
+				setIsFormOpen={setFormOpen}
+				tripId={parseInt(id)}
+				date={selectedDate}
+			/>
 		</>
 	);
 }

@@ -7,7 +7,7 @@ import TripCardSkeleton from '@/components/Trip/TripCardSkeleton';
 import TripErrorState from '@/components/Trip/TripErrorState';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useTrips } from '@/hooks/use-trips';
+import { useTrips } from '@/hooks/useTrips';
 
 export const Route = createFileRoute('/trips/')({
 	component: RouteComponent,

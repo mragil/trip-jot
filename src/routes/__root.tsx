@@ -10,6 +10,7 @@ import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
 import Header from '../components/Header';
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
+import { Toaster } from '@/components/ui/sonner';
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -31,13 +32,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 				content: 'width=device-width, initial-scale=1',
 			},
 			{
-				title: 'TanStack Start Starter',
+				title: 'WanderLog',
 			},
 		],
 		links: [
 			{
 				rel: 'stylesheet',
 				href: appCss,
+			},
+			{
+				rel: 'icon',
+				href: '/favicon.png',
+				type: 'image/png',
 			},
 		],
 	}),
@@ -67,6 +73,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					]}
 				/>
 				<Scripts />
+				<Toaster />
 			</body>
 		</html>
 	);
