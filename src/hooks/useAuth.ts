@@ -9,7 +9,11 @@ interface LoginCredentials {
 }
 
 interface LoginResponse {
-	message: string;
+	user: {
+		email: string;
+		id: number;
+		name: string;
+	}
 }
 
 export const useLoginMutation = () => {
@@ -19,7 +23,7 @@ export const useLoginMutation = () => {
 				'/auth/login',
 				credentials,
 			);
-			return response.data;
+			return response.data.user;
 		},
 	});
 };
