@@ -1,10 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Calendar, MapPin } from 'lucide-react';
+import { format } from 'date-fns';
+import { Calendar, Loader2, MapPin } from 'lucide-react';
 import { useState } from 'react';
+
 import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 import DynamicTabs from '@/components/DynamicTabs';
 import ActivityFormDrawer from '@/components/Itinerary/ActivityFormDrawer';
 import ItineraryView from '@/components/Itinerary/ItineraryView';
+import TripErrorState from '@/components/Trip/TripErrorState';
+import { useTrip } from '@/hooks/use-trips';
 
 export const Route = createFileRoute('/trips/$id')({
 	component: RouteComponent,
@@ -12,12 +16,27 @@ export const Route = createFileRoute('/trips/$id')({
 
 function RouteComponent() {
 	const { id } = Route.useParams();
-	console.log('Trip ID:', id);
+	const { data: trip, isLoading, isError, refetch } = useTrip(id);
+	
 	const [formOpen, setFormOpen] = useState(false);
 
-	const tripName = 'Tokyo Adventure';
-	const location = 'Seoul, South Korea';
-	const dateRange = 'Dec 22 - Dec 24, 2026';
+	if (isLoading) {
+		return (
+			<div className="flex h-[50vh] w-full items-center justify-center">
+				<Loader2 className="text-primary h-8 w-8 animate-spin" />
+			</div>
+		);
+	}
+
+	if (isError || !trip) {
+		return (
+			<div className="flex w-full items-center justify-center p-6">
+				<TripErrorState onRetry={refetch} />
+			</div>
+		);
+	}
+
+	const dateRange = `${format(new Date(trip.startDate), 'MMM dd')} - ${format(new Date(trip.endDate), 'MMM dd, yyyy')}`;
 
 	const tabsData = [
 		{
@@ -43,19 +62,19 @@ function RouteComponent() {
 				<DynamicBreadcrumbs
 					labelMapper={(segment, path) => {
 						if (path === `/trips/${id}`) {
-							return tripName;
+							return trip.name;
 						}
 						return segment.charAt(0).toUpperCase() + segment.slice(1);
 					}}
 				/>
 				<div className="flex flex-col gap-2">
 					<h1 className="text-2xl sm:text-3xl md:text-4xl font-bold">
-						{tripName}
+						{trip.name}
 					</h1>
 					<div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-2 text-gray-700 text-sm sm:text-base md:text-lg">
 						<div className="flex items-center gap-2">
 							<MapPin className="h-4 w-4 sm:h-5 sm:w-5 shrink-0" />
-							<span>{location}</span>
+							<span>{trip.destination}</span>
 						</div>
 						<span className="hidden sm:inline">•</span>
 						<div className="flex items-center gap-2">

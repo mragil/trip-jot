@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "vite dev --port 3001",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest run",
@@ -16,6 +16,7 @@
     "@fontsource-variable/outfit": "^5.2.8",
     "@tailwindcss/vite": "^4.0.6",
     "@tanstack/react-devtools": "^0.7.0",
+    "@tanstack/react-form": "^1.27.7",
     "@tanstack/react-query": "^5.66.5",
     "@tanstack/react-query-devtools": "^5.84.2",
     "@tanstack/react-router": "^1.132.0",
@@ -23,6 +24,7 @@
     "@tanstack/react-router-ssr-query": "^1.131.7",
     "@tanstack/react-start": "^1.132.0",
     "@tanstack/router-plugin": "^1.132.0",
+    "@tanstack/zod-form-adapter": "^0.42.1",
     "axios": "^1.13.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -37,7 +39,8 @@
     "tailwindcss": "^4.0.6",
     "tw-animate-css": "^1.3.6",
     "vaul": "^1.1.2",
-    "vite-tsconfig-paths": "^6.0.2"
+    "vite-tsconfig-paths": "^6.0.2",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.4",

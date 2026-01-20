@@ -15,6 +15,11 @@ interface MyRouterContext {
 	queryClient: QueryClient;
 }
 
+const _shouldShowHeader = (pathname: string) => {
+	const paths = ['/login', '/register', '/'];
+	return !paths.includes(pathname);
+};	
+
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	head: () => ({
 		meta: [
@@ -47,7 +52,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 				<HeadContent />
 			</head>
 			<body className="bg-warm-white">
-				{useLocation().pathname !== '/login' && <Header />}
+				{_shouldShowHeader(useLocation().pathname) && <Header />}
 				{children}
 				<TanStackDevtools
 					config={{
