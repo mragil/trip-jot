@@ -2,6 +2,20 @@ import { useQuery } from '@tanstack/react-query';
 
 import api from '@/lib/api';
 
+export interface Activity {
+	id: number;
+	tripId: number;
+	name: string;
+	type: string;
+	notes: string;
+	location: string;
+	startTime: string; // ISO date string
+	endTime: string; // ISO date string
+	cost: number;
+	currency: string;
+	isCompleted: boolean;
+}
+
 export interface Trip {
 	name: string;
 	id: number;
@@ -12,6 +26,7 @@ export interface Trip {
 	endDate: Date;
 	isCompleted: boolean;
 	userId: number;
+	activities: Activity[];
 }
 
 export const useTrips = () => {

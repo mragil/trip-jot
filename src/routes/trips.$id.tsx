@@ -42,7 +42,7 @@ function RouteComponent() {
 		{
 			id: 'itinerary',
 			title: 'Itinerary',
-			content: <ItineraryView addActivity={() => setFormOpen(true)} />,
+			content: <ItineraryView addActivity={() => setFormOpen(true)} trip={trip} />,
 		},
 		{
 			id: 'maps',

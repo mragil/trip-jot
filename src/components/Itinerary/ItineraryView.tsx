@@ -1,23 +1,42 @@
+import { eachDayOfInterval, format, isSameDay } from 'date-fns';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Trip } from '@/hooks/use-trips';
 import ItineraryDetail from './ItineraryDetail';
 
 type Props = {
 	addActivity: () => void;
+	trip: Trip;
 }
 
 export default function ItineraryView(props: Props) {
-	const { addActivity } = props;
+	const { addActivity, trip } = props;
 	const [selectedDay, setSelectedDay] = useState<number>(1);
 
-	const days = [
-		{ day: 1, date: 'Tue, Dec 22', places: 0 },
-		{ day: 2, date: 'Wed, Dec 23', places: 0 },
-		{ day: 3, date: 'Thu, Dec 24', places: 0 },
-		{ day: 4, date: 'Fri, Dec 25', places: 0 },
-	];
+	// Generate days array dynamically
+	const daysInterval = eachDayOfInterval({
+		start: new Date(trip.startDate),
+		end: new Date(trip.endDate),
+	});
+
+	const days = daysInterval.map((date, index) => {
+		const dayNum = index + 1;
+		const dayActivities = trip.activities ? trip.activities.filter(activity => 
+			isSameDay(new Date(activity.startTime), date)
+		) : [];
+		
+		return {
+			day: dayNum,
+			date: format(date, 'eee, MMM dd'),
+			fullDate: date,
+			places: dayActivities.length,
+			activities: dayActivities
+		};
+	});
+
+	const currentDayData = days.find(d => d.day === selectedDay) || days[0];
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -29,39 +48,41 @@ export default function ItineraryView(props: Props) {
 							<Button
 								key={dayInfo.day}
 								onClick={() => setSelectedDay(dayInfo.day)}
-								className={`shrink-0 px-4 py-3 rounded-lg border-2 transition-all text-center ${
+								className={`shrink-0 px-4 py-3 rounded-lg border-2 transition-all text-center h-auto ${
 									selectedDay === dayInfo.day
 										? 'bg-primary text-primary-foreground border-primary'
 										: 'bg-background border-border hover:border-primary/50'
 								}`}
 							>
-								<p
-									className={`text-xs font-medium whitespace-nowrap ${
-										selectedDay === dayInfo.day
-											? 'text-primary-foreground'
-											: 'text-primary'
-									}`}
-								>
-									Day {dayInfo.day}
-								</p>
-								<p
-									className={`text-sm font-bold whitespace-nowrap ${
-										selectedDay === dayInfo.day
-											? 'text-primary-foreground'
-											: 'text-primary'
-									}`}
-								>
-									{dayInfo.date}
-								</p>
-								<p
-									className={`text-xs whitespace-nowrap ${
-										selectedDay === dayInfo.day
-											? 'text-primary-foreground/70'
-											: 'text-gray-500'
-									}`}
-								>
-									{dayInfo.places} Places
-								</p>
+								<div className="flex flex-col items-center">
+									<p
+										className={`text-xs font-medium whitespace-nowrap ${
+											selectedDay === dayInfo.day
+												? 'text-primary-foreground'
+												: 'text-primary'
+										}`}
+									>
+										Day {dayInfo.day}
+									</p>
+									<p
+										className={`text-sm font-bold whitespace-nowrap ${
+											selectedDay === dayInfo.day
+												? 'text-primary-foreground'
+												: 'text-primary'
+										}`}
+									>
+										{dayInfo.date}
+									</p>
+									<p
+										className={`text-xs whitespace-nowrap ${
+											selectedDay === dayInfo.day
+												? 'text-primary-foreground/70'
+												: 'text-gray-500'
+										}`}
+									>
+										{dayInfo.places} Places
+									</p>
+								</div>
 							</Button>
 						))}
 					</div>
@@ -102,7 +123,11 @@ export default function ItineraryView(props: Props) {
 					</ScrollArea>
 				</div>
 				<div className="md:col-span-2">
-					<ItineraryDetail selectedDay={selectedDay} addActivity={addActivity} />
+					<ItineraryDetail 
+						selectedDay={selectedDay} 
+						addActivity={addActivity} 
+						activities={currentDayData ? currentDayData.activities : []}
+					/>
 				</div>
 			</div>
 		</div>

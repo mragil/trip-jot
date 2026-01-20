@@ -1,17 +1,20 @@
+import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
-import { useId } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Activity } from '@/hooks/use-trips';
 import ActivityCard from './ActivityCard';
 
 interface ItineraryDetailProps {
 	addActivity: () => void;
 	selectedDay: number;
+	activities: Activity[];
 }
 
 export default function ItineraryDetail({
 	selectedDay,
 	addActivity,
+	activities,
 }: ItineraryDetailProps) {
 	return (
 		<div className="flex flex-col gap-4">
@@ -25,28 +28,36 @@ export default function ItineraryDetail({
 					Add Activity
 				</Button>
 			</div>
-			<Card className="flex items-centerr">
-				<CardContent className="flex flex-col gap-4">
-					<ActivityCard
-						id={useId()}
-						type="attraction"
-						title="Sample Activity"
-						time="10:00 AM"
-						location="Sample Location"
-						onDelete={() => console.log('Delete')}
-						onNavigate={() => console.log('Navigate')}
-					/>
-					<ActivityCard
-						id={useId()}
-						type="restaurant"
-						title="Sample Activity"
-						time="12:00 PM"
-						location="Sample Location"
-						onDelete={() => console.log('Delete')}
-						onNavigate={() => console.log('Navigate')}
-					/>
-				</CardContent>
-			</Card>
+			{activities.length === 0 ? (
+				<Card>
+					<CardContent className="p-6 text-center text-gray-500">
+						No activities planned for this day.
+					</CardContent>
+				</Card>
+			) : (
+				<Card className="flex items-centerr">
+					<CardContent className="flex flex-col gap-4 pt-6">
+						{activities.map((activity) => (
+							<ActivityCard
+								key={activity.id}
+								id={String(activity.id)}
+								type={
+									['attraction', 'restaurant', 'accommodation', 'transportation'].includes(
+										activity.type
+									)
+										? (activity.type as any)
+										: 'other'
+								}
+								title={activity.name}
+								time={format(new Date(activity.startTime), 'h:mm a')}
+								location={activity.location}
+								onDelete={() => console.log('Delete', activity.id)}
+								onNavigate={() => console.log('Navigate', activity.id)}
+							/>
+						))}
+					</CardContent>
+				</Card>
+			)}
 		</div>
 	);
 }
