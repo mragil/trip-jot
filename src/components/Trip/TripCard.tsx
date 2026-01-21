@@ -28,11 +28,10 @@ export default function TripCard({ trip }: TripCardProps) {
 		<Link to="/trips/$id" params={{ id: trip.id.toString() }} className="block">
 			<Card className="w-full max-w-sm overflow-hidden pt-0 transition-all hover:shadow-lg">
 				<div className="bg-primary absolute aspect-video opacity-50 mix-blend-color" />
-				<img
-					src="/trip-placeholder.png"
-					alt={trip.destination}
-					className="relative z-20 aspect-video w-full object-cover brightness-60 grayscale"
-				/>
+				<div className="relative z-20 aspect-video w-full bg-linear-to-br from-primary to-primary/60 p-6 flex items-center justify-center">
+					<MapPin className="h-16 w-16 text-primary-foreground/20 absolute -bottom-2 -right-2 rotate-[-15deg]" />
+					<Calendar className="h-12 w-12 text-primary-foreground/20 absolute top-4 left-4" />
+				</div>
 				<CardHeader>
 					<CardTitle>{trip.name}</CardTitle>
 					<CardDescription>

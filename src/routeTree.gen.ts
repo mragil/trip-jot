@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TripsRouteImport } from './routes/trips'
+import { Route as RegisterRouteImport } from './routes/register'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as TripsIndexRouteImport } from './routes/trips.index'
@@ -19,6 +20,11 @@ import { Route as TripsIdRouteImport } from './routes/trips.$id'
 const TripsRoute = TripsRouteImport.update({
   id: '/trips',
   path: '/trips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisterRoute = RegisterRouteImport.update({
+  id: '/register',
+  path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LoginRoute = LoginRouteImport.update({
@@ -50,6 +56,7 @@ const TripsIdRoute = TripsIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/trips': typeof TripsRouteWithChildren
   '/trips/$id': typeof TripsIdRoute
   '/trips/new-trip': typeof TripsNewTripRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/trips/$id': typeof TripsIdRoute
   '/trips/new-trip': typeof TripsNewTripRoute
   '/trips': typeof TripsIndexRoute
@@ -66,6 +74,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/register': typeof RegisterRoute
   '/trips': typeof TripsRouteWithChildren
   '/trips/$id': typeof TripsIdRoute
   '/trips/new-trip': typeof TripsNewTripRoute
@@ -76,16 +85,18 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/register'
     | '/trips'
     | '/trips/$id'
     | '/trips/new-trip'
     | '/trips/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/trips/$id' | '/trips/new-trip' | '/trips'
+  to: '/' | '/login' | '/register' | '/trips/$id' | '/trips/new-trip' | '/trips'
   id:
     | '__root__'
     | '/'
     | '/login'
+    | '/register'
     | '/trips'
     | '/trips/$id'
     | '/trips/new-trip'
@@ -95,6 +106,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LoginRoute: typeof LoginRoute
+  RegisterRoute: typeof RegisterRoute
   TripsRoute: typeof TripsRouteWithChildren
 }
 
@@ -105,6 +117,13 @@ declare module '@tanstack/react-router' {
       path: '/trips'
       fullPath: '/trips'
       preLoaderRoute: typeof TripsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/register': {
+      id: '/register'
+      path: '/register'
+      fullPath: '/register'
+      preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/login': {
@@ -162,6 +181,7 @@ const TripsRouteWithChildren = TripsRoute._addFileChildren(TripsRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LoginRoute: LoginRoute,
+  RegisterRoute: RegisterRoute,
   TripsRoute: TripsRouteWithChildren,
 }
 export const routeTree = rootRouteImport

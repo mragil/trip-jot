@@ -25,14 +25,16 @@ export default function ItineraryDetail({
 					<h3 className="text-2xl font-bold tracking-tight">Day {selectedDay}</h3>
 					<p className="text-muted-foreground">{format(date, 'EEEE, MMMM do')}</p>
 				</div>
-				<Button
-					onClick={() => addActivity(date)}
-					size="sm"
-					className="rounded-full shadow-sm"
-				>
-					<Plus className="h-4 w-4 mr-1.5" />
-					Add Activity
-				</Button>
+				{activities.length > 0 && (
+					<Button
+						onClick={() => addActivity(date)}
+						size="sm"
+						className="rounded-full shadow-sm"
+					>
+						<Plus className="h-4 w-4 mr-1.5" />
+						Add Activity
+					</Button>
+				)}
 			</div>
 
 			{/* Timeline Container */}

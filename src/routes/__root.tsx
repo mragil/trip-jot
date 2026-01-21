@@ -72,7 +72,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
 					]}
 				/>
 				<Scripts />
-				<Toaster />
+				<Toaster position="top-center" />
 			</body>
 		</html>
 	);

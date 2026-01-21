@@ -24,9 +24,14 @@ export default function ItineraryView(props: Props) {
 	const days = daysInterval.map((date, index) => {
 		const dayNum = index + 1;
 		const dayActivities = trip.activities
-			? trip.activities.filter((activity) =>
-					isSameDay(new Date(activity.startTime), date),
-				)
+			? trip.activities
+					.filter((activity) =>
+						isSameDay(new Date(activity.startTime), date),
+					)
+					.sort(
+						(a, b) =>
+							new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
+					)
 			: [];
 
 		return {
@@ -44,7 +49,6 @@ export default function ItineraryView(props: Props) {
 
 	return (
 		<div className="flex flex-col h-[calc(100vh-140px)] gap-4 relative">
-			{/* Top Navigation / Day Selector */}
 			<div className="border rounded-xl bg-card p-1 shadow-sm shrink-0">
 				<ScrollArea className="w-full whitespace-nowrap">
 					<div className="flex w-max min-w-full justify-center space-x-2 p-1">
@@ -76,9 +80,7 @@ export default function ItineraryView(props: Props) {
 				</ScrollArea>
 			</div>
 
-			{/* Main Split View */}
 			<div className="flex-1 grid grid-cols-1 lg:grid-cols-3 gap-6 min-h-0">
-				{/* Left Column: Timeline details - Hidden on mobile if map is shown */}
 				<div
 					className={`
 						lg:col-span-1 overflow-y-auto pr-2 pl-4
@@ -93,18 +95,19 @@ export default function ItineraryView(props: Props) {
 					/>
 				</div>
 
-				{/* Right Column: Visual Map - Hidden on mobile unless toggled */}
 				<div
 					className={`
 						lg:block lg:col-span-2 h-full rounded-2xl overflow-hidden border border-border shadow-sm sticky top-0
 						${showMap ? 'block' : 'hidden'}
 					`}
 				>
-					<ItineraryMap />
+					<ItineraryMap
+						activities={currentDayData ? currentDayData.activities : []}
+						onAddActivity={() => addActivity(currentDayData.fullDate)}
+					/>
 				</div>
 			</div>
 
-			{/* Mobile Toggle Button */}
 			<div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 lg:hidden">
 				<Button
 					onClick={() => setShowMap(!showMap)}

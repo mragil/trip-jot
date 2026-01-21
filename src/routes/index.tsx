@@ -48,7 +48,7 @@ function LandingPage() {
 					</p>
 					<div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
 						<Link
-							to="/login"
+							to="/register"
 							className="inline-flex h-14 items-center justify-center rounded-full bg-primary px-8 text-lg font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all hover:bg-primary/90 hover:scale-105 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 						>
 							Start Planning Free
@@ -183,7 +183,7 @@ function LandingPage() {
 					</p>
 					<div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
 						<Link
-							to="/login"
+							to="/register"
 							className="inline-flex h-14 items-center justify-center rounded-full bg-primary px-10 text-lg font-semibold text-primary-foreground shadow-xl transition-all hover:bg-primary/90 hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
 						>
 							Start Your Free Trip

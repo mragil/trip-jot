@@ -2,27 +2,28 @@ import { createFileRoute } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import { GalleryVerticalEnd } from 'lucide-react';
 import { toast } from 'sonner';
-import { LoginForm } from '@/components/login-form';
-import { useLoginMutation } from '@/hooks/useAuth';
+import { RegisterForm } from '@/components/register-form';
+import { useRegisterMutation } from '@/hooks/useAuth';
 
-export const Route = createFileRoute('/login')({
+export const Route = createFileRoute('/register')({
 	component: RouteComponent,
 });
 
 function RouteComponent() {
 	const navigate = Route.useNavigate();
-	const loginMutation = useLoginMutation();
+	const registerMutation = useRegisterMutation();
 
-	const handleLogin = (data: { email: string; password?: string }) => {
-		loginMutation.mutate(data, {
+	const handleRegister = (data: { email: string; password?: string; name: string }) => {
+		registerMutation.mutate(data, {
 			onSuccess: () => {
+				toast.success('Welcome to WanderLog! Let’s plan your first trip.');
 				navigate({ to: '/trips' });
 			},
 			onError: (error) => {
 				if (error instanceof AxiosError && error.response?.data?.message) {
 					toast.error(error.response.data.message);
 				} else {
-					toast.error('Invalid email or password');
+					toast.error('Registration failed. Please try again.');
 				}
 			},
 		});
@@ -37,7 +38,7 @@ function RouteComponent() {
 					</div>
 					WanderLog
 				</a>
-				<LoginForm onSubmit={handleLogin} isPending={loginMutation.isPending} />
+				<RegisterForm onSubmit={handleRegister} isPending={registerMutation.isPending} />
 			</div>
 		</div>
 	);

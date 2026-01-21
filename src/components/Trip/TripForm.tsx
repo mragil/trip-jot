@@ -128,7 +128,7 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 												mode="single"
 												selected={field.state.value}
 												onSelect={(newDate) => field.handleChange(newDate)}
-												initialFocus
+												autoFocus
 											/>
 										</PopoverContent>
 									</Popover>
@@ -168,7 +168,7 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 												mode="single"
 												selected={field.state.value}
 												onSelect={(newDate) => field.handleChange(newDate)}
-												initialFocus
+												autoFocus
 											/>
 										</PopoverContent>
 									</Popover>

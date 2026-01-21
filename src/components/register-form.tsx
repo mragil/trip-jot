@@ -1,11 +1,5 @@
 import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	Field,
 	FieldDescription,
@@ -15,34 +9,40 @@ import {
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 
-interface LoginFormProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
-	onSubmit?: (data: { email: string; password?: string }) => void;
+interface RegisterFormProps
+	extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
+	onSubmit?: (data: { email: string; password?: string; name: string }) => void;
 	isPending?: boolean;
 }
 
-export function LoginForm({
+export function RegisterForm({
 	className,
 	onSubmit,
 	isPending,
 	...props
-}: LoginFormProps) {
+}: RegisterFormProps) {
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
-		onSubmit?.({ email, password });
+		const name = formData.get('name') as string;
+		onSubmit?.({ email, password, name });
 	};
 
 	return (
 		<div className={cn('flex flex-col gap-6', className)} {...props}>
 			<Card>
 				<CardHeader className="text-center">
-					<CardTitle className="text-xl">Welcome back</CardTitle>
+					<CardTitle className="text-xl">Create an account</CardTitle>
 				</CardHeader>
 				<CardContent>
 					<form onSubmit={handleSubmit}>
 						<FieldGroup>
+							<Field>
+								<FieldLabel htmlFor="name">Name</FieldLabel>
+								<Input id="name" name="name" placeholder="John Doe" required />
+							</Field>
 							<Field>
 								<FieldLabel htmlFor="email">Email</FieldLabel>
 								<Input
@@ -54,23 +54,15 @@ export function LoginForm({
 								/>
 							</Field>
 							<Field>
-								<div className="flex items-center">
-									<FieldLabel htmlFor="password">Password</FieldLabel>
-									<a
-										href="#"
-										className="ml-auto text-sm underline-offset-4 hover:underline"
-									>
-										Forgot your password?
-									</a>
-								</div>
+								<FieldLabel htmlFor="password">Password</FieldLabel>
 								<Input id="password" name="password" type="password" required />
 							</Field>
 							<Field>
 								<Button type="submit" disabled={isPending}>
-									{isPending ? 'Logging in...' : 'Login'}
+									{isPending ? 'Creating account...' : 'Sign Up'}
 								</Button>
 								<FieldDescription className="text-center">
-									Don&apos;t have an account? <a href="/register">Sign up</a>
+									Already have an account? <a href="/login">Login</a>
 								</FieldDescription>
 							</Field>
 						</FieldGroup>
@@ -78,8 +70,8 @@ export function LoginForm({
 				</CardContent>
 			</Card>
 			<FieldDescription className="px-6 text-center">
-				By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
-				and <a href="#">Privacy Policy</a>.
+				By clicking continue, you agree to our <a href="/">Terms of Service</a>{' '}
+				and <a href="/">Privacy Policy</a>.
 			</FieldDescription>
 		</div>
 	);

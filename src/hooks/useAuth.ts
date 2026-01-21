@@ -38,3 +38,21 @@ export const useLogoutMutation = () => {
 		},
 	});
 };
+
+interface RegisterCredentials {
+	email: string;
+	password?: string;
+	name: string;
+}
+
+export const useRegisterMutation = () => {
+	return useMutation({
+		mutationFn: async (credentials: RegisterCredentials) => {
+			const response = await api.post<LoginResponse>(
+				'/auth/register',
+				credentials,
+			);
+			return response.data.user;
+		},
+	});
+};
