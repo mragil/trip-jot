@@ -55,11 +55,6 @@ function RouteComponent() {
 			),
 		},
 		{
-			id: 'maps',
-			title: 'Maps',
-			content: <p className="text-gray-600">Maps view content goes here</p>,
-		},
-		{
 			id: 'documents',
 			title: 'Documents',
 			content: <p className="text-gray-600">Documents content goes here</p>,
