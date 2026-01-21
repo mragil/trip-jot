@@ -1,7 +1,14 @@
-import { Clock, GripVertical, MapPin, Navigation, Trash2 } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import {
+	Bed,
+	Camera,
+	GripVertical,
+	Landmark,
+	MapPin,
+	Navigation,
+	Trash2,
+	Utensils,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 
 interface ActivityCardProps {
 	id: string;
@@ -18,23 +25,20 @@ interface ActivityCardProps {
 	onNavigate?: (id: string) => void;
 }
 
-const typeLabels: Record<string, string> = {
-	attraction: 'Attraction',
-	restaurant: 'Restaurant',
-	accommodation: 'Accommodation',
-	transportation: 'Transportation',
-	other: 'Other',
+const typeIcons: Record<string, typeof Utensils> = {
+	restaurant: Utensils,
+	attraction: Camera,
+	accommodation: Bed,
+	transportation: Navigation,
+	other: Landmark, // simplified default
 };
 
 const typeColors: Record<string, string> = {
-	attraction: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-	restaurant:
-		'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-300',
-	accommodation:
-		'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
-	transportation:
-		'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-	other: 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-300',
+	attraction: 'text-blue-500',
+	restaurant: 'text-orange-500',
+	accommodation: 'text-purple-500',
+	transportation: 'text-green-500',
+	other: 'text-gray-500',
 };
 
 export default function ActivityCard({
@@ -46,73 +50,66 @@ export default function ActivityCard({
 	onDelete,
 	onNavigate,
 }: ActivityCardProps) {
+	const Icon = typeIcons[type] || Landmark;
+	const iconColor = typeColors[type] || 'text-gray-500';
+
 	return (
-		<Card className="flex flex-row justify-start transition-shadow hover:shadow-md">
-			<CardContent className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 w-full">
-				<div className="flex items-center gap-4 sm:gap-6 flex-1">
-					<button
-						type="button"
-						className="touch-none cursor-grab active:cursor-grabbing text-gray-400 hover:text-gray-600 transition-colors"
-						aria-label="Drag to reorder"
-					>
-						<GripVertical className="h-5 w-5" />
-					</button>
-					<div className="space-y-2 flex-1">
-						<div className="flex items-center gap-4">
-							<h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-gray-100">
-								{title}
-							</h3>
-							<Badge
-								variant="secondary"
-								className={`text-xs px-2 py-0.5 ${typeColors[type]}`}
+		<div className="group relative">
+			{/* Timeline Dot connector handled by parent/layout, but we style the Card itself here */}
+			<div className="rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:translate-x-1 hover:shadow-md">
+				{/* Top Row: Time & Icon */}
+				<div className="flex justify-between items-start mb-2">
+					{time ? (
+						<span className="text-xs font-mono text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded">
+							{time}
+						</span>
+					) : (
+						<span className="text-xs font-mono text-muted-foreground">--:--</span>
+					)}
+					
+					{/* Actions (hidden by default, show on hover) */}
+					<div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 bg-card/80 backdrop-blur rounded-md p-0.5 border border-border">
+						{onNavigate && (
+							<Button
+								variant="ghost"
+								size="icon-xs"
+								className="h-6 w-6"
+								onClick={() => onNavigate(id)}
 							>
-								{typeLabels[type]}
-							</Badge>
-						</div>
-						<div className="flex gap-1.5 text-sm text-gray-600 dark:text-gray-400">
-							{time && (
-								<div className="flex items-center gap-1.5">
-									<Clock className="h-4 w-4 shrink-0" />
-									<span className="truncate">{time}</span>
-								</div>
-							)}
-							{location && (
-								<div className="flex items-center gap-1.5">
-									<MapPin className="h-4 w-4 shrink-0" />
-									<span className="truncate">{location}</span>
-								</div>
-							)}
+								<Navigation className="h-3 w-3" />
+							</Button>
+						)}
+						{onDelete && (
+							<Button
+								variant="ghost"
+								size="icon-xs"
+								className="h-6 w-6 text-destructive hover:text-destructive"
+								onClick={() => onDelete(id)}
+							>
+								<Trash2 className="h-3 w-3" />
+							</Button>
+						)}
+						<div className="w-px h-4 bg-border mx-0.5 self-center" />
+						<div className="cursor-grab active:cursor-grabbing p-1 text-muted-foreground hover:text-foreground">
+							<GripVertical className="h-3 w-3" />
 						</div>
 					</div>
+
+					<Icon className={`h-4 w-4 ${iconColor}`} />
 				</div>
-				{/* ACTION BUTTON */}
-				<div className="flex items-center gap-2 justify-end sm:justify-start">
-					{onDelete && (
-						<Button
-							type="button"
-							variant="ghost"
-							size="icon-sm"
-							onClick={() => onDelete(id)}
-							className="text-red-600 hover:text-red-700 hover:bg-red-50 dark:text-red-400 dark:hover:text-red-300 dark:hover:bg-red-900/20"
-							aria-label="Delete"
-						>
-							<Trash2 className="h-4 w-4 sm:h-5 sm:w-5" />
-						</Button>
-					)}
-					{onNavigate && (
-						<Button
-							type="button"
-							variant="ghost"
-							size="icon-sm"
-							onClick={() => onNavigate(id)}
-							className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100"
-							aria-label="Navigate"
-						>
-							<Navigation className="h-4 w-4 sm:h-5 sm:w-5" />
-						</Button>
-					)}
-				</div>
-			</CardContent>
-		</Card>
+
+				{/* Content */}
+				<h3 className="font-medium text-sm text-foreground line-clamp-2 leading-tight">
+					{title}
+				</h3>
+				
+				{location && (
+					<div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
+						<MapPin className="h-3 w-3 shrink-0" />
+						<span className="truncate">{location}</span>
+					</div>
+				)}
+			</div>
+		</div>
 	);
 }
