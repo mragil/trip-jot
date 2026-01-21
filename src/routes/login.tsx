@@ -30,7 +30,7 @@ function RouteComponent() {
 					<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
 						<GalleryVerticalEnd className="size-4" />
 					</div>
-					Itinerary Planner - Your Travel Companion
+					WanderLog
 				</a>
 				<LoginForm onSubmit={handleLogin} isPending={loginMutation.isPending} />
 			</div>
