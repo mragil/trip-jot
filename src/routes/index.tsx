@@ -74,18 +74,6 @@ function LandingPage() {
 					<div className="grid md:grid-cols-2 gap-16 items-center">
 						<div className="order-2 md:order-1 relative">
 							<HeroImage />
-							{/* Floating Element */}
-							<div className="absolute -bottom-8 -right-8 bg-card p-6 rounded-xl shadow-xl border border-border max-w-xs animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-								<div className="flex items-center gap-4 mb-3">
-									<div className="h-10 w-10 rounded-full bg-green-100 flex items-center justify-center text-green-600">
-										<Zap className="h-5 w-5" />
-									</div>
-									<div>
-										<p className="font-semibold text-sm">Route Optimized</p>
-										<p className="text-xs text-muted-foreground">Saved 2.5 hours</p>
-									</div>
-								</div>
-							</div>
 						</div>
 						<div className="order-1 md:order-2">
 							<h2 className="text-3xl font-bold tracking-tight md:text-4xl mb-6">
