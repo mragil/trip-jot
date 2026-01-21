@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { Plus } from 'lucide-react';
-
 import EmptyTripCard from '@/components/Trip/EmptyTripCard';
 import TripCard from '@/components/Trip/TripCard';
 import TripCardSkeleton from '@/components/Trip/TripCardSkeleton';
@@ -49,17 +48,17 @@ function RouteComponent() {
 
 			{trips && trips.length > 0 ? (
 				<>
-			<Link to="/trips/new-trip">
-				<Button className="w-fit px-6">
-					<Plus className="mr-2 h-4 w-4" />
-					New Trip
-				</Button>
-			</Link>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-					{trips.map((trip) => (
-						<TripCard key={trip.id} trip={trip} />
-					))}
-				</div>
+					<Link to="/trips/new-trip">
+						<Button className="w-fit px-6">
+							<Plus className="mr-2 h-4 w-4" />
+							New Trip
+						</Button>
+					</Link>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						{trips.map((trip) => (
+							<TripCard key={trip.id} trip={trip} />
+						))}
+					</div>
 				</>
 			) : (
 				<EmptyTripCard />

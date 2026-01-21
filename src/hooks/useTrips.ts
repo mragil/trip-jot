@@ -1,5 +1,4 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-
 import api from '@/lib/api';
 
 export interface Activity {
@@ -59,7 +58,9 @@ export const useCreateActivity = () => {
 			return response.data;
 		},
 		onSuccess: (data) => {
-			queryClient.invalidateQueries({ queryKey: ['trips', String(data.tripId)] });
+			queryClient.invalidateQueries({
+				queryKey: ['trips', String(data.tripId)],
+			});
 		},
 	});
 };

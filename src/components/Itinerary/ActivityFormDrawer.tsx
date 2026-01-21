@@ -30,7 +30,11 @@ export default function ActivityFormDrawer({
 		return (
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogContent className="sm:max-w-2xl">
-					<ActivityForm tripId={tripId} date={date} onCancel={() => setOpen(false)} />
+					<ActivityForm
+						tripId={tripId}
+						date={date}
+						onCancel={() => setOpen(false)}
+					/>
 				</DialogContent>
 			</Dialog>
 		);
@@ -40,7 +44,11 @@ export default function ActivityFormDrawer({
 		<Drawer open={open} onOpenChange={setOpen}>
 			<DrawerContent className="max-h-[90vh]">
 				<div className="overflow-y-auto px-4">
-					<ActivityForm tripId={tripId} date={date} onCancel={() => setOpen(false)} />
+					<ActivityForm
+						tripId={tripId}
+						date={date}
+						onCancel={() => setOpen(false)}
+					/>
 				</div>
 				<DrawerFooter className="pt-2">
 					<DrawerClose asChild>

@@ -66,12 +66,7 @@ export function LoginForm({
 										Forgot your password?
 									</a>
 								</div>
-								<Input
-									id="password"
-									name="password"
-									type="password"
-									required
-								/>
+								<Input id="password" name="password" type="password" required />
 							</Field>
 							<Field>
 								<Button type="submit" disabled={isPending}>

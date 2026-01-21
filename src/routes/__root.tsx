@@ -1,5 +1,3 @@
-import { TanStackDevtools } from '@tanstack/react-devtools';
-import type { QueryClient } from '@tanstack/react-query';
 import {
 	createRootRouteWithContext,
 	HeadContent,
@@ -7,10 +5,12 @@ import {
 	useLocation,
 } from '@tanstack/react-router';
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools';
+import { TanStackDevtools } from '@tanstack/react-devtools';
+import type { QueryClient } from '@tanstack/react-query';
+import { Toaster } from '@/components/ui/sonner';
 import Header from '../components/Header';
 import TanStackQueryDevtools from '../integrations/tanstack-query/devtools';
 import appCss from '../styles.css?url';
-import { Toaster } from '@/components/ui/sonner';
 
 interface MyRouterContext {
 	queryClient: QueryClient;
@@ -19,7 +19,7 @@ interface MyRouterContext {
 const _shouldShowHeader = (pathname: string) => {
 	const paths = ['/login', '/register', '/'];
 	return !paths.includes(pathname);
-};	
+};
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({
 	head: () => ({

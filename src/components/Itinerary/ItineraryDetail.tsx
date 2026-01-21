@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { Activity } from '@/hooks/useTrips';
+import type { Activity } from '@/hooks/useTrips';
 import ActivityCard from './ActivityCard';
 
 interface ItineraryDetailProps {
@@ -44,9 +44,12 @@ export default function ItineraryDetail({
 								key={activity.id}
 								id={String(activity.id)}
 								type={
-									['attraction', 'restaurant', 'accommodation', 'transportation'].includes(
-										activity.type
-									)
+									[
+										'attraction',
+										'restaurant',
+										'accommodation',
+										'transportation',
+									].includes(activity.type)
 										? (activity.type as any)
 										: 'other'
 								}

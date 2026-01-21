@@ -20,7 +20,26 @@
 		"enabled": true,
 		"indentStyle": "tab"
 	},
-	"assist": { "actions": { "source": { "organizeImports": "on" } } },
+	"assist": {
+		"actions": {
+			"source": {
+				"organizeImports": {
+					"level": "on",
+					"options": {
+						"groups": [
+							"react",
+							"react-dom",
+							"@tanstack/react-router",
+							"@tanstack/react-router-devtools",
+							"@tanstack/*",
+							"match:.*",
+							"@/*"
+						]
+					}
+				}
+			}
+		}
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {

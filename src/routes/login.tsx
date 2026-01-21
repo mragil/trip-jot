@@ -1,11 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router';
-
 import { GalleryVerticalEnd } from 'lucide-react';
-
-import { LoginForm } from '@/components/login-form';
-
-import { useLoginMutation } from '@/hooks/useAuth';
 import { toast } from 'sonner';
+import { LoginForm } from '@/components/login-form';
+import { useLoginMutation } from '@/hooks/useAuth';
 
 export const Route = createFileRoute('/login')({
 	component: RouteComponent,
@@ -35,10 +32,7 @@ function RouteComponent() {
 					</div>
 					Itinerary Planner - Your Travel Companion
 				</a>
-				<LoginForm
-					onSubmit={handleLogin}
-					isPending={loginMutation.isPending}
-				/>
+				<LoginForm onSubmit={handleLogin} isPending={loginMutation.isPending} />
 			</div>
 		</div>
 	);

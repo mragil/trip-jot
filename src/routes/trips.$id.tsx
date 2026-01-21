@@ -1,8 +1,7 @@
+import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
 import { format } from 'date-fns';
 import { Calendar, Loader2, MapPin } from 'lucide-react';
-import { useState } from 'react';
-
 import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 import DynamicTabs from '@/components/DynamicTabs';
 import ActivityFormDrawer from '@/components/Itinerary/ActivityFormDrawer';
@@ -17,9 +16,11 @@ export const Route = createFileRoute('/trips/$id')({
 function RouteComponent() {
 	const { id } = Route.useParams();
 	const { data: trip, isLoading, isError, refetch } = useTrip(id);
-	
+
 	const [formOpen, setFormOpen] = useState(false);
-	const [selectedDate, setSelectedDate] = useState<Date>(trip?.startDate || new Date());	
+	const [selectedDate, setSelectedDate] = useState<Date>(
+		trip?.startDate || new Date(),
+	);
 
 	if (isLoading) {
 		return (
@@ -43,10 +44,15 @@ function RouteComponent() {
 		{
 			id: 'itinerary',
 			title: 'Itinerary',
-			content: <ItineraryView addActivity={(date: Date) => {
-				setSelectedDate(date);
-				setFormOpen(true);
-			}} trip={trip} />,
+			content: (
+				<ItineraryView
+					addActivity={(date: Date) => {
+						setSelectedDate(date);
+						setFormOpen(true);
+					}}
+					trip={trip}
+				/>
+			),
 		},
 		{
 			id: 'maps',

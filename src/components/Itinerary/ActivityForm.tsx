@@ -1,8 +1,15 @@
-import { useForm, ValidationError } from '@tanstack/react-form';
-import { z } from 'zod';
-import { Bed, Loader2, MapPin, MoreHorizontal, Train, Utensils } from 'lucide-react';
 import { useId } from 'react';
-
+import { useForm, type ValidationError } from '@tanstack/react-form';
+import { setHours, setMinutes } from 'date-fns';
+import {
+	Bed,
+	Loader2,
+	MapPin,
+	MoreHorizontal,
+	Train,
+	Utensils,
+} from 'lucide-react';
+import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -15,8 +22,6 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateActivity } from '@/hooks/useTrips';
-import { setHours, setMinutes } from 'date-fns';
-
 
 interface ActivityFormProps {
 	tripId: number;
@@ -67,7 +72,13 @@ const formSchema = z.object({
 	tripId: z.number(),
 	name: z.string().min(1, 'Name is required'),
 	location: z.string().min(1, 'Location is required'),
-	type: z.enum(['attraction', 'restaurant', 'accommodation', 'transportation', 'other']),
+	type: z.enum([
+		'attraction',
+		'restaurant',
+		'accommodation',
+		'transportation',
+		'other',
+	]),
 	startTime: z.string().min(1, 'Start time is required'),
 	endTime: z.string().min(1, 'End time is required'),
 	cost: z.number().min(0, 'Cost must be positive'),
@@ -96,7 +107,12 @@ export default function ActivityForm({
 			tripId,
 			name: '',
 			location: '',
-			type: 'attraction' as 'attraction' | 'restaurant' | 'accommodation' | 'transportation' | 'other',
+			type: 'attraction' as
+				| 'attraction'
+				| 'restaurant'
+				| 'accommodation'
+				| 'transportation'
+				| 'other',
 			startTime: '',
 			endTime: '',
 			cost: 0,
@@ -112,8 +128,14 @@ export default function ActivityForm({
 			const [startTimeHour, startTimeMinute] = value.startTime.split(':');
 			const [endTimeHour, endTimeMinute] = value.endTime.split(':');
 
-			const fullDateStart = setHours(setMinutes(date, parseInt(startTimeMinute)), parseInt(startTimeHour));
-			const fullDateEnd = setHours(setMinutes(date, parseInt(endTimeMinute)), parseInt(endTimeHour));
+			const fullDateStart = setHours(
+				setMinutes(date, parseInt(startTimeMinute)),
+				parseInt(startTimeHour),
+			);
+			const fullDateEnd = setHours(
+				setMinutes(date, parseInt(endTimeMinute)),
+				parseInt(endTimeHour),
+			);
 
 			console.log({ date, fullDateStart, fullDateEnd });
 
@@ -289,7 +311,7 @@ export default function ActivityForm({
 						</Field>
 					)}
 				/>
-                <form.Field
+				<form.Field
 					name="currency"
 					children={(field) => (
 						<Field>
@@ -335,8 +357,14 @@ export default function ActivityForm({
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 					children={([canSubmit, isSubmitting]) => (
-						<Button type="submit" disabled={!canSubmit || isSubmitting} className="w-full">
-							{isSubmitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+						<Button
+							type="submit"
+							disabled={!canSubmit || isSubmitting}
+							className="w-full"
+						>
+							{isSubmitting && (
+								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							)}
 							Add Activity
 						</Button>
 					)}
