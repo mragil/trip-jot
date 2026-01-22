@@ -1,11 +1,19 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
 import { AxiosError } from 'axios';
 import { GalleryVerticalEnd } from 'lucide-react';
 import { toast } from 'sonner';
 import { LoginForm } from '@/components/login-form';
 import { useLoginMutation } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/user';
 
 export const Route = createFileRoute('/login')({
+	beforeLoad: () => {
+		if (useUserStore.getState().user) {
+			throw redirect({
+				to: '/trips',
+			});
+		}
+	},
 	component: RouteComponent,
 });
 
