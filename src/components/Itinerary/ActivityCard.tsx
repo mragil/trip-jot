@@ -1,7 +1,6 @@
 import {
 	Bed,
 	Camera,
-	GripVertical,
 	Landmark,
 	MapPin,
 	Navigation,
@@ -89,10 +88,6 @@ export default function ActivityCard({
 								<Trash2 className="h-3 w-3" />
 							</Button>
 						)}
-						<div className="w-px h-4 bg-border mx-0.5 self-center" />
-						<div className="cursor-grab active:cursor-grabbing p-1 text-muted-foreground hover:text-foreground">
-							<GripVertical className="h-3 w-3" />
-						</div>
 					</div>
 
 					<Icon className={`h-4 w-4 ${iconColor}`} />
