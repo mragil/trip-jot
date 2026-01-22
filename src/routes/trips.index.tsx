@@ -7,6 +7,7 @@ import TripErrorState from '@/components/Trip/TripErrorState';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useTrips } from '@/hooks/useTrips';
+import { useUserStore } from '@/store/user';
 
 export const Route = createFileRoute('/trips/')({
 	component: RouteComponent,
@@ -14,6 +15,7 @@ export const Route = createFileRoute('/trips/')({
 
 function RouteComponent() {
 	const { data: trips, isLoading, isError, refetch } = useTrips();
+	const user = useUserStore((state) => state.user);
 
 	if (isLoading) {
 		return (
@@ -43,7 +45,7 @@ function RouteComponent() {
 
 	return (
 		<div className="p-4 grid grid-cols-1 gap-6">
-			<h1 className="text-4xl font-bold">Hi, User</h1>
+			<h1 className="text-4xl font-bold">Hi, {user?.name || 'User'}</h1>
 			<p className="text-gray-700 text-2xl">Ready for your next adventure?</p>
 
 			{trips && trips.length > 0 ? (

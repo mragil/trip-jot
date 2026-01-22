@@ -1,6 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
 import api from '@/lib/api';
+import { useUserStore } from '@/store/user';
 
 interface LoginCredentials {
 	email: string;
@@ -22,6 +23,7 @@ export const useLoginMutation = () => {
 				'/auth/login',
 				credentials,
 			);
+			useUserStore.getState().setUser(response.data.user);
 			return response.data.user;
 		},
 	});
@@ -33,7 +35,7 @@ export const useLogoutMutation = () => {
 	return useMutation({
 		mutationFn: async () => {
 			await api.post('/auth/logout');
-
+			useUserStore.getState().logout();
 			navigate({ to: '/login' });
 		},
 	});
@@ -52,6 +54,7 @@ export const useRegisterMutation = () => {
 				'/auth/register',
 				credentials,
 			);
+			useUserStore.getState().setUser(response.data.user);
 			return response.data.user;
 		},
 	});
