@@ -1,8 +1,15 @@
+export type ActivityType =
+	| 'attraction'
+	| 'restaurant'
+	| 'accommodation'
+	| 'transportation'
+	| 'other';
+
 export interface Activity {
 	id: number;
 	tripId: number;
 	name: string;
-	type: string;
+	type: ActivityType;
 	notes: string;
 	location: string;
 	startTime: string;

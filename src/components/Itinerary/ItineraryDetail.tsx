@@ -63,17 +63,7 @@ export default function ItineraryDetail({
 
 							<ActivityCard
 								id={String(activity.id)}
-								type={
-									[
-										'attraction',
-										'restaurant',
-										'accommodation',
-										'transportation',
-									].includes(activity.type)
-										// biome-ignore lint/suspicious/noExplicitAny: type casting required for dynamic check
-										? (activity.type as any)
-										: 'other'
-								}
+								type={activity.type}
 								title={activity.name}
 								time={format(new Date(activity.startTime), 'h:mm a')}
 								location={activity.location}

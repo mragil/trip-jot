@@ -22,6 +22,7 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateActivity } from '@/hooks/useTrips';
+import type { ActivityType } from '@/types/trip';
 
 interface ActivityFormProps {
 	tripId: number;
@@ -205,8 +206,7 @@ export default function ActivityForm({
 								<FieldLabel htmlFor={typeId}>Type</FieldLabel>
 								<Select
 									value={field.state.value}
-									// biome-ignore lint/suspicious/noExplicitAny: library requires any for value change handler here
-									onValueChange={(value: any) => field.handleChange(value)}
+									onValueChange={(value) => field.handleChange(value as ActivityType)}
 								>
 									<SelectTrigger id={typeId} className="w-full">
 										<SelectValue>

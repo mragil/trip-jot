@@ -9,15 +9,12 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
+import type { ActivityType } from '@/types/trip';
+
 interface ActivityCardProps {
 	id: string;
 	title: string;
-	type:
-		| 'attraction'
-		| 'restaurant'
-		| 'accommodation'
-		| 'transportation'
-		| 'other';
+	type: ActivityType;
 	time?: string;
 	location?: string;
 	onDelete?: (id: string) => void;
