@@ -3,7 +3,7 @@ import { eachDayOfInterval, format, isSameDay } from 'date-fns';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import type { Trip } from '@/hooks/useTrips';
+import type { Trip } from '@/types/trip';
 import ItineraryDetail from './ItineraryDetail';
 import ItineraryMap from './ItineraryMap';
 

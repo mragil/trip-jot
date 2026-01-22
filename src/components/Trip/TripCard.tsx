@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
-import type { Trip } from '@/hooks/useTrips';
+import type { Trip } from '@/types/trip';
 
 interface TripCardProps {
 	trip: Trip;

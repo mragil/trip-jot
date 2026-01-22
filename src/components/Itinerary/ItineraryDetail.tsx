@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { Activity } from '@/hooks/useTrips';
+import type { Activity } from '@/types/trip';
 import ActivityCard from './ActivityCard';
 
 interface ItineraryDetailProps {

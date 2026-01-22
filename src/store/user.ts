@@ -1,11 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-
-interface User {
-	email: string;
-	id: number;
-	name: string;
-}
+import type { User } from '@/types/user';
 
 interface UserState {
 	user: User | null;

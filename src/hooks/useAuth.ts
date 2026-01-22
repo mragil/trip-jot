@@ -2,19 +2,11 @@ import { useNavigate } from '@tanstack/react-router';
 import { useMutation } from '@tanstack/react-query';
 import api from '@/lib/api';
 import { useUserStore } from '@/store/user';
-
-interface LoginCredentials {
-	email: string;
-	password?: string;
-}
-
-interface LoginResponse {
-	user: {
-		email: string;
-		id: number;
-		name: string;
-	};
-}
+import type {
+	LoginCredentials,
+	LoginResponse,
+	RegisterCredentials,
+} from '@/types/auth';
 
 export const useLoginMutation = () => {
 	return useMutation({
@@ -41,11 +33,6 @@ export const useLogoutMutation = () => {
 	});
 };
 
-interface RegisterCredentials {
-	email: string;
-	password?: string;
-	name: string;
-}
 
 export const useRegisterMutation = () => {
 	return useMutation({

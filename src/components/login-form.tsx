@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button';
 import {
 	Card,
 	CardContent,
-	CardDescription,
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
@@ -14,9 +13,10 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import type { LoginCredentials } from '@/types/auth';
 
 interface LoginFormProps extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
-	onSubmit?: (data: { email: string; password?: string }) => void;
+	onSubmit?: (data: LoginCredentials) => void;
 	isPending?: boolean;
 }
 

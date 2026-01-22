@@ -8,10 +8,11 @@ import {
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
+import type { RegisterCredentials } from '@/types/auth';
 
 interface RegisterFormProps
 	extends Omit<React.ComponentProps<'div'>, 'onSubmit'> {
-	onSubmit?: (data: { email: string; password?: string; name: string }) => void;
+	onSubmit?: (data: RegisterCredentials) => void;
 	isPending?: boolean;
 }
 
