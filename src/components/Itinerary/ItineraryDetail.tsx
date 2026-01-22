@@ -22,8 +22,12 @@ export default function ItineraryDetail({
 			{/* Day Header */}
 			<div className="flex items-center justify-between mb-6">
 				<div>
-					<h3 className="text-2xl font-bold tracking-tight">Day {selectedDay}</h3>
-					<p className="text-muted-foreground">{format(date, 'EEEE, MMMM do')}</p>
+					<h3 className="text-2xl font-bold tracking-tight">
+						Day {selectedDay}
+					</h3>
+					<p className="text-muted-foreground">
+						{format(date, 'EEEE, MMMM do')}
+					</p>
 				</div>
 				{activities.length > 0 && (
 					<Button
@@ -56,7 +60,7 @@ export default function ItineraryDetail({
 						<div key={activity.id} className="relative">
 							{/* Timeline Dot */}
 							<div className="absolute -left-[33px] top-4 h-4 w-4 rounded-full bg-primary border-4 border-background ring-1 ring-border shadow-sm z-10" />
-							
+
 							<ActivityCard
 								id={String(activity.id)}
 								type={
@@ -66,6 +70,7 @@ export default function ItineraryDetail({
 										'accommodation',
 										'transportation',
 									].includes(activity.type)
+										// biome-ignore lint/suspicious/noExplicitAny: type casting required for dynamic check
 										? (activity.type as any)
 										: 'other'
 								}

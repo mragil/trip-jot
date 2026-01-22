@@ -21,7 +21,11 @@ function RouteComponent() {
 	const navigate = Route.useNavigate();
 	const registerMutation = useRegisterMutation();
 
-	const handleRegister = (data: { email: string; password?: string; name: string }) => {
+	const handleRegister = (data: {
+		email: string;
+		password?: string;
+		name: string;
+	}) => {
 		registerMutation.mutate(data, {
 			onSuccess: () => {
 				toast.success('Welcome to WanderLog! Let’s plan your first trip.');
@@ -46,7 +50,10 @@ function RouteComponent() {
 					</div>
 					WanderLog
 				</a>
-				<RegisterForm onSubmit={handleRegister} isPending={registerMutation.isPending} />
+				<RegisterForm
+					onSubmit={handleRegister}
+					isPending={registerMutation.isPending}
+				/>
 			</div>
 		</div>
 	);

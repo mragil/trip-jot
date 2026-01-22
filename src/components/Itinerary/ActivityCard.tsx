@@ -63,9 +63,11 @@ export default function ActivityCard({
 							{time}
 						</span>
 					) : (
-						<span className="text-xs font-mono text-muted-foreground">--:--</span>
+						<span className="text-xs font-mono text-muted-foreground">
+							--:--
+						</span>
 					)}
-					
+
 					{/* Actions (hidden by default, show on hover) */}
 					<div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 bg-card/80 backdrop-blur rounded-md p-0.5 border border-border">
 						{onNavigate && (
@@ -97,7 +99,7 @@ export default function ActivityCard({
 				<h3 className="font-medium text-sm text-foreground line-clamp-2 leading-tight">
 					{title}
 				</h3>
-				
+
 				{location && (
 					<div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
 						<MapPin className="h-3 w-3 shrink-0" />

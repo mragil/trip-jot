@@ -93,7 +93,7 @@ function RouteComponent() {
 			<ActivityFormDrawer
 				isFormOpen={formOpen}
 				setIsFormOpen={setFormOpen}
-				tripId={parseInt(id)}
+				tripId={parseInt(id, 10)}
 				date={selectedDate}
 			/>
 		</>

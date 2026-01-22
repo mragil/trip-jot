@@ -1,0 +1,243 @@
+
+> itinerary-planner@ lint /home/mrtrr/code/itinerary-planner
+> biome lint
+
+src/routes/trips.$id.tsx:96:13 lint/correctness/useParseIntRadix  FIXABLE  ━━━━━━━━━━
+
+  i Missing radix parameter
+  
+    94 │ 				isFormOpen={formOpen}
+    95 │ 				setIsFormOpen={setFormOpen}
+  > 96 │ 				tripId={parseInt(id)}
+       │ 				        ^^^^^^^^^^^^
+    97 │ 				date={selectedDate}
+    98 │ 			/>
+  
+  i Add a non-fractional number between 2 and 36
+  
+  i Unsafe fix: Add a radix of 10
+  
+    96 │ → → → → tripId={parseInt(id,·10)}
+       │                            ++++  
+
+src/components/ui/input-group.tsx:51:4 suppressions/unused ━━━━━━━━━━
+
+  ! Suppression comment has no effect. Remove the suppression or make sure you are suppressing the correct rule.
+  
+    49 │ 	return (
+    50 │ 		<div
+  > 51 │ 			// biome-ignore lint/a11y/useSemanticElements: this is a layout container inside fieldset, not a group itself
+       │ 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    52 │ 			role="presentation"
+    53 │ 			data-slot="input-group-addon"
+  
+
+src/components/ui/input-group.tsx:56:4 suppressions/unused ━━━━━━━━━━
+
+  ! Suppression comment has no effect. Remove the suppression or make sure you are suppressing the correct rule.
+  
+    54 │ 			data-align={align}
+    55 │ 			className={cn(inputGroupAddonVariants({ align }), className)}
+  > 56 │ 			// biome-ignore lint/a11y/useKeyWithClickEvents: interaction is convenience only, input is accessible via tab
+       │ 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    57 │ 			onClick={(e) => {
+    58 │ 				if ((e.target as HTMLElement).closest('button')) {
+  
+
+src/components/ui/field.tsx:76:4 lint/a11y/useSemanticElements ━━━━━━━━━━
+
+  × The elements with this role can be changed to the following elements:
+    <fieldset>
+  
+    74 │ 	return (
+    75 │ 		<div
+  > 76 │ 			role="group"
+       │ 			^^^^^^^^^^^^
+    77 │ 			data-slot="field"
+    78 │ 			data-orientation={orientation}
+  
+  i For examples and more information, see WAI-ARIA Roles
+  
+
+src/components/ui/field.tsx:194:28 lint/suspicious/noDoubleEquals  FIXABLE  ━━━━━━━━━━
+
+  × Using == may be unsafe if you are relying on type coercion.
+  
+    192 │ 		];
+    193 │ 
+  > 194 │ 		if (uniqueErrors?.length == 1) {
+        │ 		                         ^^
+    195 │ 			return uniqueErrors[0]?.message;
+    196 │ 		}
+  
+  i == is only allowed when comparing against null.
+  
+  i Unsafe fix: Use === instead.
+  
+    194 │ → → if·(uniqueErrors?.length·===·1)·{
+        │                                +     
+
+src/components/ui/field.tsx:202:34 lint/suspicious/noArrayIndexKey ━━━━━━━━━━
+
+  × Avoid using the index of an array as key property in an element.
+  
+    200 │ 				{uniqueErrors.map(
+    201 │ 					(error, index) =>
+  > 202 │ 						error?.message && <li key={index}>{error.message}</li>,
+        │ 						                           ^^^^^
+    203 │ 				)}
+    204 │ 			</ul>
+  
+  i This is the source of the key value.
+  
+    199 │ 			<ul className="ml-4 flex list-disc flex-col gap-1">
+    200 │ 				{uniqueErrors.map(
+  > 201 │ 					(error, index) =>
+        │ 					        ^^^^^
+    202 │ 						error?.message && <li key={index}>{error.message}</li>,
+    203 │ 				)}
+  
+  i The order of the items may change, and this also affects performances and component state.
+  
+  i Check the React documentation. 
+  
+
+src/components/ui/input-group.tsx:50:3 lint/a11y/noStaticElementInteractions ━━━━━━━━━━
+
+  × Static Elements should not be interactive.
+  
+    48 │ }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
+    49 │ 	return (
+  > 50 │ 		<div
+       │ 		^^^^
+  > 51 │ 			// biome-ignore lint/a11y/useSemanticElements: this is a layout container inside fieldset, not a group itself
+        ...
+  > 63 │ 			{...props}
+  > 64 │ 		/>
+       │ 		^^
+    65 │ 	);
+    66 │ }
+  
+  i To add interactivity such as a mouse or key event listener to a static element, give the element an appropriate role value.
+  
+
+src/routes/index.tsx:5:2 lint/suspicious/noShadowRestrictedNames ━━━━━━━━━━
+
+  × Do not shadow the global "Map" property.
+  
+    3 │ 	ArrowRight,
+    4 │ 	FileText,
+  > 5 │ 	Map,
+      │ 	^^^
+    6 │ 	Navigation,
+    7 │ 	Users,
+  
+  i Consider renaming this variable. It's easy to confuse the origin of variables when they're named after a known global.
+  
+
+src/routes/index.tsx:31:8 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    29 │ 						<span className="text-primary relative inline-block">
+    30 │ 							Wander More.
+  > 31 │ 							<svg
+       │ 							^^^^
+  > 32 │ 								className="absolute -bottom-2 left-0 w-full h-3 text-primary/30 -z-10"
+  > 33 │ 								viewBox="0 0 100 10"
+  > 34 │ 								preserveAspectRatio="none"
+  > 35 │ 							>
+       │ 							^
+    36 │ 								<path
+    37 │ 									d="M0 5 Q 50 10 100 5"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/routes/index.tsx:243:11 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    241 │ 						</p>
+    242 │ 						<div className="flex gap-6 justify-center md:justify-end mt-4">
+  > 243 │ 							<a href="#" className="hover:text-foreground transition-colors">
+        │ 							   ^^^^^^^^
+    244 │ 								Privacy
+    245 │ 							</a>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/routes/index.tsx:246:11 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    244 │ 								Privacy
+    245 │ 							</a>
+  > 246 │ 							<a href="#" className="hover:text-foreground transition-colors">
+        │ 							   ^^^^^^^^
+    247 │ 								Terms
+    248 │ 							</a>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/routes/index.tsx:249:11 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    247 │ 								Terms
+    248 │ 							</a>
+  > 249 │ 							<a href="#" className="hover:text-foreground transition-colors">
+        │ 							   ^^^^^^^^
+    250 │ 								Support
+    251 │ 							</a>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/routes/index.tsx:104:4 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    103 │ 			{/* Benefits Grid */}
+  > 104 │ 			<section id="features" className="py-24">
+        │ 			^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    105 │ 				<div className="container mx-auto px-4">
+    106 │ 					<div className="text-center max-w-3xl mx-auto mb-16">
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/routes/index.tsx:153:4 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    152 │ 			{/* How It Works */}
+  > 153 │ 			<section
+        │ 			^^^^^^^^
+  > 154 │ 				id="how-it-works"
+  > 155 │ 				className="py-24 bg-primary text-primary-foreground relative overflow-hidden"
+  > 156 │ 			>
+        │ 			^
+    157 │ 				<div className="container mx-auto px-4 relative z-10">
+    158 │ 					<h2 className="text-3xl font-bold tracking-tight md:text-4xl text-center mb-16">
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+Checked 61 files in 17ms. No fixes applied.
+Found 11 errors.
+Found 2 warnings.
+lint ━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+ ELIFECYCLE  Command failed with exit code 1.

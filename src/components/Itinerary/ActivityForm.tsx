@@ -129,12 +129,12 @@ export default function ActivityForm({
 			const [endTimeHour, endTimeMinute] = value.endTime.split(':');
 
 			const fullDateStart = setHours(
-				setMinutes(date, parseInt(startTimeMinute)),
-				parseInt(startTimeHour),
+				setMinutes(date, parseInt(startTimeMinute, 10)),
+				parseInt(startTimeHour, 10),
 			);
 			const fullDateEnd = setHours(
-				setMinutes(date, parseInt(endTimeMinute)),
-				parseInt(endTimeHour),
+				setMinutes(date, parseInt(endTimeMinute, 10)),
+				parseInt(endTimeHour, 10),
 			);
 
 			console.log({ date, fullDateStart, fullDateEnd });
@@ -159,9 +159,8 @@ export default function ActivityForm({
 		>
 			<h2 className="text-xl font-semibold">Add Activity</h2>
 
-			<form.Field
-				name="name"
-				children={(field) => (
+			<form.Field name="name">
+				{(field) => (
 					<Field>
 						<FieldContent>
 							<FieldLabel htmlFor={nameId}>Name</FieldLabel>
@@ -177,11 +176,10 @@ export default function ActivityForm({
 						</FieldContent>
 					</Field>
 				)}
-			/>
+			</form.Field>
 
-			<form.Field
-				name="location"
-				children={(field) => (
+			<form.Field name="location">
+				{(field) => (
 					<Field>
 						<FieldContent>
 							<FieldLabel htmlFor={locationId}>Location</FieldLabel>
@@ -197,17 +195,17 @@ export default function ActivityForm({
 						</FieldContent>
 					</Field>
 				)}
-			/>
+			</form.Field>
 
 			<div className="grid grid-cols-2 gap-4">
-				<form.Field
-					name="type"
-					children={(field) => (
+				<form.Field name="type">
+					{(field) => (
 						<Field>
 							<FieldContent>
 								<FieldLabel htmlFor={typeId}>Type</FieldLabel>
 								<Select
 									value={field.state.value}
+									// biome-ignore lint/suspicious/noExplicitAny: library requires any for value change handler here
 									onValueChange={(value: any) => field.handleChange(value)}
 								>
 									<SelectTrigger id={typeId} className="w-full">
@@ -245,13 +243,12 @@ export default function ActivityForm({
 							</FieldContent>
 						</Field>
 					)}
-				/>
+				</form.Field>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
-				<form.Field
-					name="startTime"
-					children={(field) => (
+				<form.Field name="startTime">
+					{(field) => (
 						<Field>
 							<FieldContent>
 								<FieldLabel htmlFor={startTimeId}>Start Time</FieldLabel>
@@ -267,10 +264,9 @@ export default function ActivityForm({
 							</FieldContent>
 						</Field>
 					)}
-				/>
-				<form.Field
-					name="endTime"
-					children={(field) => (
+				</form.Field>
+				<form.Field name="endTime">
+					{(field) => (
 						<Field>
 							<FieldContent>
 								<FieldLabel htmlFor={endTimeId}>End Time</FieldLabel>
@@ -286,13 +282,12 @@ export default function ActivityForm({
 							</FieldContent>
 						</Field>
 					)}
-				/>
+				</form.Field>
 			</div>
 
 			<div className="grid grid-cols-2 gap-4">
-				<form.Field
-					name="cost"
-					children={(field) => (
+				<form.Field name="cost">
+					{(field) => (
 						<Field>
 							<FieldContent>
 								<FieldLabel htmlFor={costId}>Cost</FieldLabel>
@@ -310,10 +305,9 @@ export default function ActivityForm({
 							</FieldContent>
 						</Field>
 					)}
-				/>
-				<form.Field
-					name="currency"
-					children={(field) => (
+				</form.Field>
+				<form.Field name="currency">
+					{(field) => (
 						<Field>
 							<FieldContent>
 								<FieldLabel htmlFor={currencyId}>Currency</FieldLabel>
@@ -329,12 +323,11 @@ export default function ActivityForm({
 							</FieldContent>
 						</Field>
 					)}
-				/>
+				</form.Field>
 			</div>
 
-			<form.Field
-				name="notes"
-				children={(field) => (
+			<form.Field name="notes">
+				{(field) => (
 					<Field>
 						<FieldContent>
 							<FieldLabel htmlFor={notesId}>Notes</FieldLabel>
@@ -351,12 +344,13 @@ export default function ActivityForm({
 						</FieldContent>
 					</Field>
 				)}
-			/>
+			</form.Field>
 
 			<div className="pt-4">
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
-					children={([canSubmit, isSubmitting]) => (
+				>
+					{([canSubmit, isSubmitting]) => (
 						<Button
 							type="submit"
 							disabled={!canSubmit || isSubmitting}
@@ -368,7 +362,7 @@ export default function ActivityForm({
 							Add Activity
 						</Button>
 					)}
-				/>
+				</form.Subscribe>
 			</div>
 		</form>
 	);

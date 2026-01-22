@@ -106,7 +106,10 @@ export function HeroImage() {
 						></div>
 
 						{/* Map Nodes connected by dashed lines */}
-						<svg className="absolute inset-0 w-full h-full pointer-events-none">
+						<svg
+							className="absolute inset-0 w-full h-full pointer-events-none"
+							aria-hidden="true"
+						>
 							<path
 								d="M120 150 Q 200 100 280 180 T 400 140"
 								fill="none"

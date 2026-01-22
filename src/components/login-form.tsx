@@ -1,10 +1,6 @@
+import { useId } from 'react';
 import { Button } from '@/components/ui/button';
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
 	Field,
 	FieldDescription,
@@ -26,6 +22,7 @@ export function LoginForm({
 	isPending,
 	...props
 }: LoginFormProps) {
+	const id = useId();
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
@@ -44,9 +41,9 @@ export function LoginForm({
 					<form onSubmit={handleSubmit}>
 						<FieldGroup>
 							<Field>
-								<FieldLabel htmlFor="email">Email</FieldLabel>
+								<FieldLabel htmlFor={`${id}-email`}>Email</FieldLabel>
 								<Input
-									id="email"
+									id={`${id}-email`}
 									name="email"
 									type="email"
 									placeholder="mail@example.com"
@@ -55,15 +52,15 @@ export function LoginForm({
 							</Field>
 							<Field>
 								<div className="flex items-center">
-									<FieldLabel htmlFor="password">Password</FieldLabel>
+									<FieldLabel htmlFor={`${id}-password`}>Password</FieldLabel>
 									<a
-										href="#"
+										href="/forgot-password"
 										className="ml-auto text-sm underline-offset-4 hover:underline"
 									>
 										Forgot your password?
 									</a>
 								</div>
-								<Input id="password" name="password" type="password" required />
+								<Input id={`${id}-password`} name="password" type="password" required />
 							</Field>
 							<Field>
 								<Button type="submit" disabled={isPending}>
@@ -78,8 +75,8 @@ export function LoginForm({
 				</CardContent>
 			</Card>
 			<FieldDescription className="px-6 text-center">
-				By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
-				and <a href="#">Privacy Policy</a>.
+				By clicking continue, you agree to our <a href="/terms">Terms of Service</a>{' '}
+				and <a href="/privacy">Privacy Policy</a>.
 			</FieldDescription>
 		</div>
 	);

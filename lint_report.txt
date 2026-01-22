@@ -1,0 +1,335 @@
+
+> itinerary-planner@ lint /home/mrtrr/code/itinerary-planner
+> biome lint
+
+src/components/Itinerary/ItineraryDetail.tsx:73:31 lint/suspicious/noExplicitAny ━━━━━━━━━━
+
+  ! Unexpected any. Specify a different type.
+  
+    71 │ 										'transportation',
+    72 │ 									].includes(activity.type)
+  > 73 │ 										? (activity.type as any)
+       │ 										                    ^^^
+    74 │ 										: 'other'
+    75 │ 								}
+  
+  i any disables many type checking rules. Its use should be avoided.
+  
+
+src/components/Landing/HeroImage.tsx:109:7 lint/a11y/noSvgWithoutTitle ━━━━━━━━━━
+
+  × Alternative text title element cannot be empty
+  
+    108 │ 						{/* Map Nodes connected by dashed lines */}
+  > 109 │ 						<svg className="absolute inset-0 w-full h-full pointer-events-none">
+        │ 						^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    110 │ 							<path
+    111 │ 								d="M120 150 Q 200 100 280 180 T 400 140"
+  
+  i For accessibility purposes, SVGs should have an alternative text, provided via title element. If the svg element has role="img", you should add the aria-label or aria-labelledby attribute.
+  
+
+src/components/Trip/TripForm.tsx:57:7 lint/correctness/noChildrenProp ━━━━━━━━━━
+
+  × Avoid passing children using a prop
+  
+    55 │ 					<form.Field
+    56 │ 						name="name"
+  > 57 │ 						children={(field) => (
+       │ 						^^^^^^^^
+    58 │ 							<div className="grid gap-3">
+    59 │ 								<Label htmlFor={field.name}>Trip name</Label>
+  
+  i The canonical way to pass children in React is to use JSX elements
+  
+
+src/components/Trip/TripForm.tsx:82:7 lint/correctness/noChildrenProp ━━━━━━━━━━
+
+  × Avoid passing children using a prop
+  
+    80 │ 					<form.Field
+    81 │ 						name="destination"
+  > 82 │ 						children={(field) => (
+       │ 						^^^^^^^^
+    83 │ 							<div className="grid gap-3">
+    84 │ 								<Label htmlFor={field.name}>Destination</Label>
+  
+  i The canonical way to pass children in React is to use JSX elements
+  
+
+src/components/Trip/TripForm.tsx:108:8 lint/correctness/noChildrenProp ━━━━━━━━━━
+
+  × Avoid passing children using a prop
+  
+    106 │ 						<form.Field
+    107 │ 							name="startDate"
+  > 108 │ 							children={(field) => (
+        │ 							^^^^^^^^
+    109 │ 								<div className="grid gap-3">
+    110 │ 									<Label>Start Date</Label>
+  
+  i The canonical way to pass children in React is to use JSX elements
+  
+
+src/components/Trip/TripForm.tsx:148:8 lint/correctness/noChildrenProp ━━━━━━━━━━
+
+  × Avoid passing children using a prop
+  
+    146 │ 						<form.Field
+    147 │ 							name="endDate"
+  > 148 │ 							children={(field) => (
+        │ 							^^^^^^^^
+    149 │ 								<div className="grid gap-3">
+    150 │ 									<Label>End Date</Label>
+  
+  i The canonical way to pass children in React is to use JSX elements
+  
+
+src/components/Trip/TripForm.tsx:189:7 lint/correctness/noChildrenProp ━━━━━━━━━━
+
+  × Avoid passing children using a prop
+  
+    187 │ 					<form.Subscribe
+    188 │ 						selector={(state) => [state.canSubmit, state.isSubmitting]}
+  > 189 │ 						children={([canSubmit, isSubmitting]) => (
+        │ 						^^^^^^^^
+    190 │ 							<div className="flex flex-col gap-2">
+    191 │ 								<Button type="submit" disabled={!canSubmit}>
+  
+  i The canonical way to pass children in React is to use JSX elements
+  
+
+src/components/login-form.tsx:55:11 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    53 │ 									<FieldLabel htmlFor="password">Password</FieldLabel>
+    54 │ 									<a
+  > 55 │ 										href="#"
+       │ 										^^^^^^^^
+    56 │ 										className="ml-auto text-sm underline-offset-4 hover:underline"
+    57 │ 									>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/components/login-form.tsx:76:47 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    74 │ 			</Card>
+    75 │ 			<FieldDescription className="px-6 text-center">
+  > 76 │ 				By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
+       │ 				                                          ^^^^^^^^
+    77 │ 				and <a href="#">Privacy Policy</a>.
+    78 │ 			</FieldDescription>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/components/login-form.tsx:77:12 lint/a11y/useValidAnchor ━━━━━━━━━━
+
+  × Provide a valid value for the attribute href.
+  
+    75 │ 			<FieldDescription className="px-6 text-center">
+    76 │ 				By clicking continue, you agree to our <a href="#">Terms of Service</a>{' '}
+  > 77 │ 				and <a href="#">Privacy Policy</a>.
+       │ 				       ^^^^^^^^
+    78 │ 			</FieldDescription>
+    79 │ 		</div>
+  
+  i The href attribute should be a valid a URL
+  
+  i Check this thorough explanation to better understand the context.
+  
+
+src/components/login-form.tsx:43:9 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    41 │ 							<Field>
+    42 │ 								<FieldLabel htmlFor="email">Email</FieldLabel>
+  > 43 │ 								<Input
+       │ 								^^^^^^
+  > 44 │ 									id="email"
+        ...
+  > 48 │ 									required
+  > 49 │ 								/>
+       │ 								^^
+    50 │ 							</Field>
+    51 │ 							<Field>
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/components/login-form.tsx:61:9 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    59 │ 									</a>
+    60 │ 								</div>
+  > 61 │ 								<Input id="password" name="password" type="password" required />
+       │ 								^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    62 │ 							</Field>
+    63 │ 							<Field>
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/components/register-form.tsx:45:9 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    43 │ 							<Field>
+    44 │ 								<FieldLabel htmlFor="name">Name</FieldLabel>
+  > 45 │ 								<Input id="name" name="name" placeholder="John Doe" required />
+       │ 								^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    46 │ 							</Field>
+    47 │ 							<Field>
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/components/register-form.tsx:49:9 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    47 │ 							<Field>
+    48 │ 								<FieldLabel htmlFor="email">Email</FieldLabel>
+  > 49 │ 								<Input
+       │ 								^^^^^^
+  > 50 │ 									id="email"
+        ...
+  > 54 │ 									required
+  > 55 │ 								/>
+       │ 								^^
+    56 │ 							</Field>
+    57 │ 							<Field>
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/components/register-form.tsx:59:9 lint/correctness/useUniqueElementIds ━━━━━━━━━━
+
+  × id attribute should not be a static string literal. Generate unique IDs using useId().
+  
+    57 │ 							<Field>
+    58 │ 								<FieldLabel htmlFor="password">Password</FieldLabel>
+  > 59 │ 								<Input id="password" name="password" type="password" required />
+       │ 								^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    60 │ 							</Field>
+    61 │ 							<Field>
+  
+  i In React, if you hardcode IDs and use the component multiple times, it can lead to duplicate IDs in the DOM. Instead, generate unique IDs using useId().
+  
+
+src/components/ui/calendar.tsx:135:5 lint/correctness/noNestedComponentDefinitions ━━━━━━━━━━
+
+  × Components should not be defined inside other components.
+  
+    133 │ 			}}
+    134 │ 			components={{
+  > 135 │ 				Root: ({ className, rootRef, ...props }) => {
+        │ 				^^^^
+    136 │ 					return (
+    137 │ 						<div
+  
+  i Move it outside of the parent component or pass it as a prop.
+  
+    13 │ import { cn } from '@/lib/utils';
+    14 │ 
+  > 15 │ function Calendar({
+       │          ^^^^^^^^
+    16 │ 	className,
+    17 │ 	classNames,
+  
+  i Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
+  
+
+src/components/ui/calendar.tsx:145:5 lint/correctness/noNestedComponentDefinitions ━━━━━━━━━━
+
+  × Components should not be defined inside other components.
+  
+    143 │ 					);
+    144 │ 				},
+  > 145 │ 				Chevron: ({ className, orientation, ...props }) => {
+        │ 				^^^^^^^
+    146 │ 					if (orientation === 'left') {
+    147 │ 						return (
+  
+  i Move it outside of the parent component or pass it as a prop.
+  
+    13 │ import { cn } from '@/lib/utils';
+    14 │ 
+  > 15 │ function Calendar({
+       │          ^^^^^^^^
+    16 │ 	className,
+    17 │ 	classNames,
+  
+  i Component definitions inside other components cause them to be recreated on every render, which can lead to performance issues and unexpected behavior.
+  
+
+src/components/ui/input-group.tsx:14:4 lint/a11y/useSemanticElements ━━━━━━━━━━
+
+  × The elements with this role can be changed to the following elements:
+    <fieldset>
+  
+    12 │ 		<div
+    13 │ 			data-slot="input-group"
+  > 14 │ 			role="group"
+       │ 			^^^^^^^^^^^^
+    15 │ 			className={cn(
+    16 │ 				'border-input bg-input/30 has-[[data-slot=input-group-control]:focus-visible]:border-ring has-[[data-slot=input-group-control]:focus-visible]:ring-ring/50 has-[[data-slot][aria-invalid=true]]:ring-destructive/20 has-[[data-slot][aria-invalid=true]]:border-destructive dark:has-[[data-slot][aria-invalid=true]]:ring-destructive/40 h-9 rounded-4xl border transition-colors has-data-[align=block-end]:rounded-2xl has-data-[align=block-start]:rounded-2xl has-[[data-slot=input-group-control]:focus-visible]:ring-[3px] has-[[data-slot][aria-invalid=true]]:ring-[3px] has-[textarea]:rounded-xl has-[>[data-align=block-end]]:h-auto has-[>[data-align=block-end]]:flex-col has-[>[data-align=block-start]]:h-auto has-[>[data-align=block-start]]:flex-col has-[>[data-align=block-end]]:[&>input]:pt-3 has-[>[data-align=block-start]]:[&>input]:pb-3 has-[>[data-align=inline-end]]:[&>input]:pr-1.5 has-[>[data-align=inline-start]]:[&>input]:pl-1.5 [[data-slot=combobox-content]_&]:focus-within:border-inherit [[data-slot=combobox-content]_&]:focus-within:ring-0 group/input-group relative flex w-full min-w-0 items-center outline-none has-[>textarea]:h-auto',
+  
+  i For examples and more information, see WAI-ARIA Roles
+  
+
+src/components/ui/input-group.tsx:51:3 lint/a11y/useKeyWithClickEvents ━━━━━━━━━━
+
+  × Enforce to have the onClick mouse event with the onKeyUp, the onKeyDown, or the onKeyPress keyboard event.
+  
+    49 │ }: React.ComponentProps<'div'> & VariantProps<typeof inputGroupAddonVariants>) {
+    50 │ 	return (
+  > 51 │ 		<div
+       │ 		^^^^
+  > 52 │ 			role="group"
+        ...
+  > 62 │ 			{...props}
+  > 63 │ 		/>
+       │ 		^^
+    64 │ 	);
+    65 │ }
+  
+  i Actions triggered using mouse events should have corresponding keyboard events to account for keyboard-only navigation.
+  
+
+src/components/ui/input-group.tsx:52:4 lint/a11y/useSemanticElements ━━━━━━━━━━
+
+  × The elements with this role can be changed to the following elements:
+    <fieldset>
+  
+    50 │ 	return (
+    51 │ 		<div
+  > 52 │ 			role="group"
+       │ 			^^^^^^^^^^^^
+    53 │ 			data-slot="input-group-addon"
+    54 │ 			data-align={align}
+  
+  i For examples and more information, see WAI-ARIA Roles
+  
+
+The number of diagnostics exceeds the limit allowed. Use --max-diagnostics to increase it.
+Diagnostics not shown: 26.
+Checked 61 files in 19ms. No fixes applied.
+Found 39 errors.
+Found 2 warnings.
+lint ━━━━━━━━━━━━━━━━━
+
+  × Some errors were emitted while running checks.
+  
+
+ ELIFECYCLE  Command failed with exit code 1.

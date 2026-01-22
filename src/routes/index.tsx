@@ -2,7 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import {
 	ArrowRight,
 	FileText,
-	Map,
+	Map as MapIcon,
 	Navigation,
 	Users,
 	Wallet,
@@ -32,6 +32,7 @@ function LandingPage() {
 								className="absolute -bottom-2 left-0 w-full h-3 text-primary/30 -z-10"
 								viewBox="0 0 100 10"
 								preserveAspectRatio="none"
+								aria-hidden="true"
 							>
 								<path
 									d="M0 5 Q 50 10 100 5"
@@ -43,8 +44,9 @@ function LandingPage() {
 						</span>
 					</h1>
 					<p className="mx-auto mb-10 max-w-2xl text-xl text-muted-foreground md:text-2xl text-pretty leading-relaxed">
-						Turn chaotic travel notes into effortless, visual itineraries. Access
-						everything offline and focus on the journey, not the logistics.
+						Turn chaotic travel notes into effortless, visual itineraries.
+						Access everything offline and focus on the journey, not the
+						logistics.
 					</p>
 					<div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
 						<Link
@@ -62,7 +64,7 @@ function LandingPage() {
 						</a>
 					</div>
 				</div>
-				
+
 				{/* Abstract Background Elements */}
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-3xl -z-10" />
 				<div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-500/5 rounded-full blur-3xl -z-10" />
@@ -81,15 +83,17 @@ function LandingPage() {
 							</h2>
 							<div className="space-y-6 text-lg text-muted-foreground">
 								<p>
-									You know the feeling: five browser tabs open, a messy Google Doc, 
-									and screenshots buried in your camera roll. Planning meant 
-									stress before the trip even started.
+									You know the feeling: five browser tabs open, a messy Google
+									Doc, and screenshots buried in your camera roll. Planning
+									meant stress before the trip even started.
 								</p>
 								<p>
-									<strong className="text-foreground">WanderLog changes that.</strong> We bring your maps, 
-									bookings, and schedules into one beautiful, offline-ready 
-									timeline. So you can be present in the moment, not stuck in 
-									your phone.
+									<strong className="text-foreground">
+										WanderLog changes that.
+									</strong>{' '}
+									We bring your maps, bookings, and schedules into one
+									beautiful, offline-ready timeline. So you can be present in
+									the moment, not stuck in your phone.
 								</p>
 							</div>
 						</div>
@@ -98,20 +102,23 @@ function LandingPage() {
 			</section>
 
 			{/* Benefits Grid */}
+			{/* biome-ignore lint/correctness/useUniqueElementIds: landing page sections are singletons */}
 			<section id="features" className="py-24">
 				<div className="container mx-auto px-4">
 					<div className="text-center max-w-3xl mx-auto mb-16">
 						<h2 className="text-3xl font-bold tracking-tight md:text-5xl mb-4">
-							Everything you need to <span className="text-primary">travel smarter</span>
+							Everything you need to{' '}
+							<span className="text-primary">travel smarter</span>
 						</h2>
 						<p className="text-xl text-muted-foreground">
-							Powerful features that handle the details, so you can handle the adventure.
+							Powerful features that handle the details, so you can handle the
+							adventure.
 						</p>
 					</div>
-					
+
 					<div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 						<FeatureCard
-							icon={<Map className="h-8 w-8 text-primary" />}
+							icon={<MapIcon className="h-8 w-8 text-primary" />}
 							title="Visual Route Planning"
 							description="See your entire trip on an interactive map. Drag and drop to reorder stops and find the smartest route instantly."
 						/>
@@ -145,31 +152,57 @@ function LandingPage() {
 			</section>
 
 			{/* How It Works */}
-			<section id="how-it-works" className="py-24 bg-primary text-primary-foreground relative overflow-hidden">
+			{/* biome-ignore lint/correctness/useUniqueElementIds: landing page sections are singletons */}
+			<section
+				id="how-it-works"
+				className="py-24 bg-primary text-primary-foreground relative overflow-hidden"
+			>
 				<div className="container mx-auto px-4 relative z-10">
 					<h2 className="text-3xl font-bold tracking-tight md:text-4xl text-center mb-16">
 						From idea to departure in minutes
 					</h2>
 					<div className="grid md:grid-cols-3 gap-12">
 						<div className="text-center space-y-4">
-							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">1</div>
+							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">
+								1
+							</div>
 							<h3 className="text-xl font-bold">Add Your Stops</h3>
-							<p className="text-primary-foreground/80">Search and add places you want to visit. We'll automatically fetch photos and details.</p>
+							<p className="text-primary-foreground/80">
+								Search and add places you want to visit. We'll automatically
+								fetch photos and details.
+							</p>
 						</div>
 						<div className="text-center space-y-4">
-							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">2</div>
+							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">
+								2
+							</div>
 							<h3 className="text-xl font-bold">Optimize Flow</h3>
-							<p className="text-primary-foreground/80">Drag to reorder or let our smart optimizer arrange visits by location to save travel time.</p>
+							<p className="text-primary-foreground/80">
+								Drag to reorder or let our smart optimizer arrange visits by
+								location to save travel time.
+							</p>
 						</div>
 						<div className="text-center space-y-4">
-							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">3</div>
+							<div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center text-2xl font-bold mx-auto backdrop-blur-sm border border-white/20">
+								3
+							</div>
 							<h3 className="text-xl font-bold">Go Explore</h3>
-							<p className="text-primary-foreground/80">Hit the road with offline maps and documents. Navigate with one tap.</p>
+							<p className="text-primary-foreground/80">
+								Hit the road with offline maps and documents. Navigate with one
+								tap.
+							</p>
 						</div>
 					</div>
 				</div>
 				{/* Background patterning */}
-				<div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
+				<div
+					className="absolute inset-0 opacity-10"
+					style={{
+						backgroundImage:
+							'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+						backgroundSize: '40px 40px',
+					}}
+				/>
 			</section>
 
 			{/* Final CTA */}
@@ -179,7 +212,8 @@ function LandingPage() {
 						Your next adventure is waiting.
 					</h2>
 					<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-						Join thousands of travelers who have ditched the spreadsheets for WanderLog.
+						Join thousands of travelers who have ditched the spreadsheets for
+						WanderLog.
 					</p>
 					<div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
 						<Link
@@ -199,15 +233,25 @@ function LandingPage() {
 			<footer className="bg-muted/30 py-12 border-t border-border mt-auto">
 				<div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6">
 					<div className="flex items-center gap-2 font-bold text-xl">
-						<div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-white">W</div>
+						<div className="h-8 w-8 bg-primary rounded-lg flex items-center justify-center text-white">
+							W
+						</div>
 						WanderLog
 					</div>
 					<div className="text-sm text-muted-foreground text-center md:text-right">
-						<p>&copy; {new Date().getFullYear()} WanderLog. Built for explorers.</p>
+						<p>
+							&copy; {new Date().getFullYear()} WanderLog. Built for explorers.
+						</p>
 						<div className="flex gap-6 justify-center md:justify-end mt-4">
-							<a href="#" className="hover:text-foreground transition-colors">Privacy</a>
-							<a href="#" className="hover:text-foreground transition-colors">Terms</a>
-							<a href="#" className="hover:text-foreground transition-colors">Support</a>
+							<a href="/privacy" className="hover:text-foreground transition-colors">
+								Privacy
+							</a>
+							<a href="/terms" className="hover:text-foreground transition-colors">
+								Terms
+							</a>
+							<a href="/support" className="hover:text-foreground transition-colors">
+								Support
+							</a>
 						</div>
 					</div>
 				</div>

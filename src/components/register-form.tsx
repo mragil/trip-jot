@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -22,6 +23,7 @@ export function RegisterForm({
 	isPending,
 	...props
 }: RegisterFormProps) {
+	const id = useId();
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
 		const formData = new FormData(event.currentTarget);
@@ -41,13 +43,13 @@ export function RegisterForm({
 					<form onSubmit={handleSubmit}>
 						<FieldGroup>
 							<Field>
-								<FieldLabel htmlFor="name">Name</FieldLabel>
-								<Input id="name" name="name" placeholder="John Doe" required />
+								<FieldLabel htmlFor={`${id}-name`}>Name</FieldLabel>
+								<Input id={`${id}-name`} name="name" placeholder="John Doe" required />
 							</Field>
 							<Field>
-								<FieldLabel htmlFor="email">Email</FieldLabel>
+								<FieldLabel htmlFor={`${id}-email`}>Email</FieldLabel>
 								<Input
-									id="email"
+									id={`${id}-email`}
 									name="email"
 									type="email"
 									placeholder="mail@example.com"
@@ -55,8 +57,8 @@ export function RegisterForm({
 								/>
 							</Field>
 							<Field>
-								<FieldLabel htmlFor="password">Password</FieldLabel>
-								<Input id="password" name="password" type="password" required />
+								<FieldLabel htmlFor={`${id}-password`}>Password</FieldLabel>
+								<Input id={`${id}-password`} name="password" type="password" required />
 							</Field>
 							<Field>
 								<Button type="submit" disabled={isPending}>
@@ -71,8 +73,8 @@ export function RegisterForm({
 				</CardContent>
 			</Card>
 			<FieldDescription className="px-6 text-center">
-				By clicking continue, you agree to our <a href="/">Terms of Service</a>{' '}
-				and <a href="/">Privacy Policy</a>.
+				By clicking continue, you agree to our <a href="/terms">Terms of Service</a>{' '}
+				and <a href="/privacy">Privacy Policy</a>.
 			</FieldDescription>
 		</div>
 	);

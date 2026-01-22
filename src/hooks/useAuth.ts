@@ -33,7 +33,6 @@ export const useLogoutMutation = () => {
 	});
 };
 
-
 export const useRegisterMutation = () => {
 	return useMutation({
 		mutationFn: async (credentials: RegisterCredentials) => {

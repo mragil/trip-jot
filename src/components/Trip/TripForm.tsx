@@ -52,9 +52,8 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 						form.handleSubmit();
 					}}
 				>
-					<form.Field
-						name="name"
-						children={(field) => (
+					<form.Field name="name">
+						{(field) => (
 							<div className="grid gap-3">
 								<Label htmlFor={field.name}>Trip name</Label>
 								<Input
@@ -75,11 +74,10 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 								) : null}
 							</div>
 						)}
-					/>
+					</form.Field>
 
-					<form.Field
-						name="destination"
-						children={(field) => (
+					<form.Field name="destination">
+						{(field) => (
 							<div className="grid gap-3">
 								<Label htmlFor={field.name}>Destination</Label>
 								<Input
@@ -100,12 +98,11 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 								) : null}
 							</div>
 						)}
-					/>
+					</form.Field>
 
 					<div className="grid grid-cols-2 gap-4">
-						<form.Field
-							name="startDate"
-							children={(field) => (
+						<form.Field name="startDate">
+							{(field) => (
 								<div className="grid gap-3">
 									<Label>Start Date</Label>
 									<Popover modal={true}>
@@ -141,11 +138,10 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 									) : null}
 								</div>
 							)}
-						/>
+						</form.Field>
 
-						<form.Field
-							name="endDate"
-							children={(field) => (
+						<form.Field name="endDate">
+							{(field) => (
 								<div className="grid gap-3">
 									<Label>End Date</Label>
 									<Popover modal={true}>
@@ -181,12 +177,13 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 									) : null}
 								</div>
 							)}
-						/>
+						</form.Field>
 					</div>
 
 					<form.Subscribe
 						selector={(state) => [state.canSubmit, state.isSubmitting]}
-						children={([canSubmit, isSubmitting]) => (
+					>
+						{([canSubmit, isSubmitting]) => (
 							<div className="flex flex-col gap-2">
 								<Button type="submit" disabled={!canSubmit}>
 									{isSubmitting && (
@@ -205,7 +202,7 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 								</Button>
 							</div>
 						)}
-					/>
+					</form.Subscribe>
 				</form>
 			</CardContent>
 		</Card>

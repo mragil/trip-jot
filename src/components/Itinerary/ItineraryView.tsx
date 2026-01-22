@@ -25,9 +25,7 @@ export default function ItineraryView(props: Props) {
 		const dayNum = index + 1;
 		const dayActivities = trip.activities
 			? trip.activities
-					.filter((activity) =>
-						isSameDay(new Date(activity.startTime), date),
-					)
+					.filter((activity) => isSameDay(new Date(activity.startTime), date))
 					.sort(
 						(a, b) =>
 							new Date(a.startTime).getTime() - new Date(b.startTime).getTime(),
