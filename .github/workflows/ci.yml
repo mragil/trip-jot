@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Checks & Mock E2E
+    if: github.event_name != 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type Check
+        run: pnpm type-check
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Unit Tests (Coverage)
+        run: pnpm vitest run --coverage
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: E2E Tests (Mocked)
+        run: pnpm test:e2e:mock
+
+  e2e-real:
+    name: Real E2E Tests
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    # Service container for backend - TODO CONFIGURE IMAGE NAME
+    # services:
+    #   backend:
+    #     image: ghcr.io/your-username/backend-repo:latest
+    #     ports:
+    #       - 3000:3000
+    #     env:
+    #       DATABASE_URL: ${{ secrets.DATABASE_URL }}
+    #     options: >-
+    #       --health-cmd "curl --fail http://localhost:3000/health || exit 1"
+    #       --health-interval 10s
+    #       --health-timeout 5s
+    #       --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "pnpm"
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: E2E Tests (Real)
+        run: pnpm test:e2e:real
+        env:
+          # VITE_API_BASE_URL: http://localhost:3000 # Default matches service
+          # Add any other required secrets
+          TEST_ENV: real

@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './utils/mock-fixture';
 
 test.describe('Activity Management (Mobile)', () => {
     test.use({ viewport: { width: 390, height: 844 } });

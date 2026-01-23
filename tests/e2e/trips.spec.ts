@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './utils/mock-fixture';
 
 test.describe('Trip Management', () => {
   test.beforeEach(async ({ page }) => {
@@ -34,7 +34,7 @@ test.describe('Trip Management', () => {
     await expect(page).toHaveURL(/\/trips$/);
     
     await expect(page.locator('text=' + tripName)).toBeVisible();
-    await expect(page.locator('text=' + destination)).toBeVisible();
+    await expect(page.locator('a', { hasText: tripName }).locator('text=' + destination)).toBeVisible();
   });
 
   test('should allow user to view trip details', async ({ page }) => {

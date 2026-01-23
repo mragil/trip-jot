@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './utils/mock-fixture';
 
 test.describe('Authenticated Placeholder Pages', () => {
     test.beforeEach(async ({ page }) => {

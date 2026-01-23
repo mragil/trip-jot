@@ -12,6 +12,8 @@
     "check": "biome check",
     "type-check": "tsc -b",
     "test:e2e": "playwright test",
+    "test:e2e:mock": "E2E_MOCK=true playwright test",
+    "test:e2e:real": "playwright test",
     "prepare": "husky"
   },
   "dependencies": {
