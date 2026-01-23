@@ -11,9 +11,7 @@ import {
 export function HeroImage() {
 	return (
 		<div className="relative mx-auto w-full max-w-4xl perspective-1000">
-			{/* Main Container - The "App" */}
 			<div className="relative z-10 overflow-hidden rounded-2xl border border-border bg-background shadow-2xl transition-transform duration-700 hover:rotate-x-2">
-				{/* App Header Mockup */}
 				<div className="flex items-center justify-between border-b border-border bg-muted/40 px-4 py-3">
 					<div className="flex items-center gap-2">
 						<div className="flex gap-1.5">
@@ -29,11 +27,9 @@ export function HeroImage() {
 				</div>
 
 				<div className="grid grid-cols-1 md:grid-cols-3 bg-background h-[400px]">
-					{/* Left Panel: Itinerary Timeline */}
 					<div className="col-span-1 border-r border-border p-4 overflow-hidden relative">
 						<div className="absolute inset-x-0 top-0 h-8 bg-linear-to-b from-background to-transparent z-10" />
 						<div className="space-y-6 pt-2">
-							{/* Day Header */}
 							<div className="flex items-center justify-between">
 								<h3 className="font-semibold">Day 1: Kyoto</h3>
 								<span className="text-xs text-muted-foreground">
@@ -41,7 +37,6 @@ export function HeroImage() {
 								</span>
 							</div>
 
-							{/* Timeline Items */}
 							<div className="relative pl-4 border-l-2 border-muted space-y-6">
 								<div className="relative hover:translate-x-1 transition-transform cursor-pointer group">
 									<div className="absolute -left-[21px] top-0 h-3 w-3 rounded-full bg-primary border-2 border-background ring-4 ring-primary/10" />
@@ -93,9 +88,7 @@ export function HeroImage() {
 						</div>
 					</div>
 
-					{/* Right Panel: Map Placeholder */}
 					<div className="col-span-1 md:col-span-2 bg-muted/20 relative p-4 flex items-center justify-center overflow-hidden">
-						{/* Abstract Map UI */}
 						<div
 							className="absolute inset-0 opacity-20"
 							style={{
@@ -105,7 +98,6 @@ export function HeroImage() {
 							}}
 						></div>
 
-						{/* Map Nodes connected by dashed lines */}
 						<svg
 							className="absolute inset-0 w-full h-full pointer-events-none"
 							aria-hidden="true"
@@ -120,7 +112,6 @@ export function HeroImage() {
 							/>
 						</svg>
 
-						{/* Map Pins */}
 						<div className="absolute top-[140px] left-[110px] animate-bounce delay-0">
 							<div className="bg-primary text-primary-foreground p-2 rounded-lg shadow-lg">
 								<MapPin className="h-5 w-5" />
@@ -142,7 +133,6 @@ export function HeroImage() {
 							</div>
 						</div>
 
-						{/* Floating Trip Stat Card */}
 						<div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur border border-border p-3 rounded-lg shadow-xl max-w-[180px]">
 							<h4 className="text-xs font-semibold mb-2 flex items-center">
 								<Users className="h-3 w-3 mr-1" /> Travelers: 4
@@ -160,7 +150,6 @@ export function HeroImage() {
 				</div>
 			</div>
 
-			{/* Background Decorative Blobs */}
 			<div className="absolute -top-12 -right-12 h-64 w-64 rounded-full bg-primary/20 blur-3xl -z-10 animate-pulse" />
 			<div className="absolute -bottom-12 -left-12 h-64 w-64 rounded-full bg-blue-500/20 blur-3xl -z-10 animate-pulse delay-500" />
 		</div>

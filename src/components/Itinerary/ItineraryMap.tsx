@@ -30,8 +30,6 @@ const typeColors: Record<string, string> = {
 	other: 'bg-gray-500',
 };
 
-// Helper to calculate point on a Quadratic Bezier curve at t (0...1)
-// B(t) = (1-t)^2 * P0 + 2(1-t)t * P1 + t^2 * P2
 const getQuadraticBezierPoint = (
 	t: number,
 	p0: { x: number; y: number },
@@ -43,34 +41,24 @@ const getQuadraticBezierPoint = (
 	return { x, y };
 };
 
-// Calculate position on the specific SVG path defined in the component
-// d="M100 200 Q 256 100 400 200 T 700 150"
-// This path has 2 segments. We assume they are roughly equal length for visual spacing.
 const getPathPoint = (t: number) => {
-	// Segment 1: M100 200 Q 256 100 400 200
 	const s1 = {
 		p0: { x: 100, y: 200 },
 		p1: { x: 256, y: 100 },
 		p2: { x: 400, y: 200 },
 	};
 
-	// Segment 2: T 700 150
-	// T implied control point is reflection of previous control point relative to current start point
-	// P1' = P2 + (P2 - P1) = 400 + (400 - 256) = 544
-	// Y1' = 200 + (200 - 100) = 300
 	const s2 = {
 		p0: { x: 400, y: 200 },
 		p1: { x: 544, y: 300 },
 		p2: { x: 700, y: 150 },
 	};
 
-	// Determine which segment and calculate local T
 	const point =
 		t <= 0.5
 			? getQuadraticBezierPoint(t * 2, s1.p0, s1.p1, s1.p2)
 			: getQuadraticBezierPoint((t - 0.5) * 2, s2.p0, s2.p1, s2.p2);
 
-	// Convert absolute SVG coordinates (800x400 viewBox) to percentages for CSS positioning
 	return {
 		left: `${(point.x / 800) * 100}%`,
 		top: `${(point.y / 400) * 100}%`,
@@ -88,7 +76,6 @@ export default function ItineraryMap({ activities, onAddActivity }: Props) {
 				}}
 			/>
 
-			{/* Map Path */}
 			{activities.length > 0 && (
 				<svg
 					className="absolute inset-0 w-full h-full pointer-events-none"
@@ -122,9 +109,6 @@ export default function ItineraryMap({ activities, onAddActivity }: Props) {
 				</div>
 			) : (
 				activities.map((activity, index) => {
-					// Calculate t value (0 to 1) based on index
-					// If only 1 item, place it in the middle (t=0.5)
-					// Otherwise distribute evenly from start (t=0) to end (t=1)
 					const t =
 						activities.length === 1 ? 0 : index / (activities.length - 1);
 
@@ -146,7 +130,7 @@ export default function ItineraryMap({ activities, onAddActivity }: Props) {
 
 							<div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-popover text-popover-foreground text-xs font-bold px-3 py-1.5 rounded-md shadow-md whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity border border-border pointer-events-none z-20">
 								{activity.name}
-								{/* Little arrow tooltip */}
+
 								<div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-popover border-t border-l border-border rotate-45" />
 							</div>
 						</div>

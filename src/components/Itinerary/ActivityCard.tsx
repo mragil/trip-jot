@@ -8,7 +8,6 @@ import {
 	Utensils,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-
 import type { ActivityType } from '@/types/trip';
 
 interface ActivityCardProps {
@@ -26,7 +25,7 @@ const typeIcons: Record<string, typeof Utensils> = {
 	attraction: Camera,
 	accommodation: Bed,
 	transportation: Navigation,
-	other: Landmark, // simplified default
+	other: Landmark,
 };
 
 const typeColors: Record<string, string> = {
@@ -51,9 +50,7 @@ export default function ActivityCard({
 
 	return (
 		<div className="group relative">
-			{/* Timeline Dot connector handled by parent/layout, but we style the Card itself here */}
 			<div className="rounded-xl border border-border bg-card p-4 shadow-sm transition-all hover:translate-x-1 hover:shadow-md">
-				{/* Top Row: Time & Icon */}
 				<div className="flex justify-between items-start mb-2">
 					{time ? (
 						<span className="text-xs font-mono text-muted-foreground bg-muted/50 px-1.5 py-0.5 rounded">
@@ -65,7 +62,6 @@ export default function ActivityCard({
 						</span>
 					)}
 
-					{/* Actions (hidden by default, show on hover) */}
 					<div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 bg-card/80 backdrop-blur rounded-md p-0.5 border border-border">
 						{onNavigate && (
 							<Button
@@ -92,7 +88,6 @@ export default function ActivityCard({
 					<Icon className={`h-4 w-4 ${iconColor}`} />
 				</div>
 
-				{/* Content */}
 				<h3 className="font-medium text-sm text-foreground line-clamp-2 leading-tight">
 					{title}
 				</h3>

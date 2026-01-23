@@ -56,4 +56,21 @@ test.describe('Authentication', () => {
     
     await expect(page).toHaveURL(/\/trips/);
   });
+
+
+  test('should allow a user to logout', async ({ page }) => {
+    const uniqueId = Date.now();
+    await page.goto('/register');
+    await page.fill('input[name="name"]', 'Logout User');
+    await page.fill('input[name="email"]', `logout${uniqueId}@example.com`);
+    await page.fill('input[name="password"]', 'password123');
+    await page.click('button[type="submit"]');
+    await expect(page).toHaveURL(/\/trips/);
+
+    await page.click('[data-testid="user-menu-trigger"]');
+    await expect(page.locator('[data-testid="logout-button"]')).toBeVisible();
+    await page.click('[data-testid="logout-button"]');
+
+    await expect(page).toHaveURL(/\/login/);
+  });
 });

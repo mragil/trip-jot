@@ -11,7 +11,7 @@ export const tripSchema = z.object({
 });
 
 export type TripSchema = z.infer<typeof tripSchema>;
-// Schema for creating an activity (Omit<Activity, 'id'>)
+
 export const activitySchema = z
 	.object({
 		tripId: z.number(),

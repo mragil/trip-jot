@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 
 function Label({ className, ...props }: React.ComponentProps<'label'>) {
 	return (
-		// biome-ignore lint/a11y/noLabelWithoutControl: This is a reusable component where control association is handled at usage
+
 		<label
 			data-slot="label"
 			className={cn(

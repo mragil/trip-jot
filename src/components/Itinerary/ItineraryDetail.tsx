@@ -19,7 +19,6 @@ export default function ItineraryDetail({
 }: ItineraryDetailProps) {
 	return (
 		<div className="h-full flex flex-col">
-			{/* Day Header */}
 			<div className="flex items-center justify-between mb-6">
 				<div>
 					<h3 className="text-2xl font-bold tracking-tight">
@@ -41,7 +40,6 @@ export default function ItineraryDetail({
 				)}
 			</div>
 
-			{/* Timeline Container */}
 			<div className="relative pl-6 border-l-2 border-muted space-y-8 pb-10">
 				{activities.length === 0 ? (
 					<div className="relative">
@@ -58,7 +56,6 @@ export default function ItineraryDetail({
 				) : (
 					activities.map((activity) => (
 						<div key={activity.id} className="relative">
-							{/* Timeline Dot */}
 							<div className="absolute -left-[33px] top-4 h-4 w-4 rounded-full bg-primary border-4 border-background ring-1 ring-border shadow-sm z-10" />
 
 							<ActivityCard
