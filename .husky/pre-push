@@ -1,2 +1,2 @@
 pnpm test --coverage
-pnpm test:e2e
+pnpm test:e2e:mock
