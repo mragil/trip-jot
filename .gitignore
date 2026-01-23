@@ -17,4 +17,4 @@ biome
 playwright-report/
 test-results/
 coverage/
-coverage
+coverage*.tsbuildinfo
