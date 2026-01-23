@@ -1,0 +1,127 @@
+
+> test
+> vitest run --coverage
+
+
+ RUN  v3.2.4 /home/mrtrr/code/itinerary-planner
+      Coverage enabled with v8
+
+ ✓ tests/unit/lib/api-retry.test.ts (4 tests) 334ms
+   ✓ API Interceptors > passes success response through  310ms
+ ✓ tests/unit/hooks/useTrips.test.tsx (3 tests) 222ms
+ ✓ tests/unit/components/DynamicTabs.test.tsx (4 tests) 383ms
+ ✓ tests/unit/components/Landing/LandingPage.test.tsx (1 test) 465ms
+   ✓ LandingPage > renders correctly  462ms
+ ✓ tests/unit/routes/trips-index.test.tsx (5 tests) 164ms
+ ✓ tests/unit/routes/register.test.tsx (4 tests) 229ms
+ ✓ tests/unit/components/Itinerary/ActivityCard.test.tsx (4 tests) 731ms
+   ✓ ActivityCard > renders delete button when onDelete is provided  544ms
+ ✓ tests/unit/components/Trip/TripCard.test.tsx (2 tests) 581ms
+   ✓ TripCard > renders link to trip details  407ms
+ ✓ tests/unit/components/simple-components.test.tsx (6 tests) 761ms
+   ✓ Simple Components > TripErrorState > renders error message and retry button  440ms
+ ✓ tests/unit/components/login-form.test.tsx (3 tests) 1017ms
+   ✓ LoginForm > renders correctly  691ms
+ ✓ tests/unit/components/register-form.test.tsx (3 tests) 1053ms
+   ✓ RegisterForm > renders correctly  695ms
+ ✓ tests/unit/components/Header.test.tsx (3 tests) 1388ms
+   ✓ Header > renders correctly with user data  629ms
+   ✓ Header > logout button calls mutation  707ms
+ ✓ tests/unit/lib/api.test.ts (7 tests) 104ms
+stdout | tests/unit/components/Itinerary/ActivityFormDrawer.test.tsx > ActivityFormDrawer > renders Dialog on desktop
+Rendering Dialog for desktop view
+
+stdout | tests/unit/components/Itinerary/ActivityFormDrawer.test.tsx > ActivityFormDrawer > does not render content when closed
+Rendering Dialog for desktop view
+
+stdout | tests/unit/components/Itinerary/ActivityFormDrawer.test.tsx > ActivityFormDrawer > calls setIsFormOpen(false) when cancelled from form
+Rendering Dialog for desktop view
+
+stdout | tests/unit/components/complex-components.test.tsx > Complex Components > ItineraryDetail > handles activity actions
+Delete [33m1[39m
+Navigate [33m1[39m
+
+ ✓ tests/unit/hooks/useAuth.test.tsx (3 tests) 68ms
+ ✓ tests/unit/routes/remaining-routes.test.tsx (4 tests) 93ms
+ ✓ tests/unit/components/Itinerary/ActivityFormDrawer.test.tsx (4 tests) 167ms
+ ✓ tests/unit/routes/explore.test.tsx (1 test) 91ms
+ ✓ tests/unit/routes/login.test.tsx (5 tests) 220ms
+ ✓ tests/unit/components/complex-components.test.tsx (9 tests) 549ms
+ ✓ tests/unit/components/NotFound.test.tsx (1 test) 104ms
+ ✓ tests/unit/hooks/useMediaQuery.test.ts (3 tests) 69ms
+ ✓ tests/unit/routes/index.test.tsx (1 test) 54ms
+ ✓ tests/unit/routes/root.test.tsx (2 tests) 78ms
+stdout | tests/unit/components/Itinerary/ActivityForm.test.tsx > ActivityForm > submits form with valid data
+{
+  date: [35m2023-01-01T00:00:00.000Z[39m,
+  fullDateStart: [35m2023-01-01T05:00:00.000Z[39m,
+  fullDateEnd: [35m2023-01-01T06:00:00.000Z[39m
+}
+
+ ✓ tests/unit/components/Itinerary/ActivityForm.test.tsx (2 tests) 958ms
+   ✓ ActivityForm > renders form fields  360ms
+   ✓ ActivityForm > submits form with valid data  594ms
+ ✓ tests/unit/routes/profile.test.tsx (1 test) 47ms
+ ✓ tests/unit/lib/schemas.test.ts (9 tests) 11ms
+ ✓ tests/unit/store/user.test.ts (4 tests) 6ms
+ ✓ tests/unit/routes/trips.test.tsx (2 tests) 5ms
+ ✓ tests/unit/routes/routes.test.tsx (9 tests) 173ms
+ ✓ tests/unit/components/Trip/TripForm.test.tsx (2 tests) 402ms
+   ✓ TripForm > renders correctly  312ms
+
+ Test Files  30 passed (30)
+      Tests  111 passed (111)
+   Start at  23:05:57
+   Duration  9.16s (transform 3.62s, setup 9.00s, collect 26.10s, tests 10.53s, environment 39.45s, prepare 6.79s)
+
+ % Coverage report from v8
+-------------------|---------|----------|---------|---------|-------------------
+File               | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-------------------|---------|----------|---------|---------|-------------------
+All files          |    96.6 |     85.3 |   84.61 |    96.6 |                   
+ components        |   97.26 |    81.81 |     100 |   97.26 |                   
+  Construction.tsx |     100 |      100 |     100 |     100 |                   
+  ...eadcrumbs.tsx |   84.74 |       80 |     100 |   84.74 | 20-21,24-32       
+  DynamicTabs.tsx  |     100 |      100 |     100 |     100 |                   
+  Header.tsx       |      99 |    55.55 |     100 |      99 | 36                
+  NotFound.tsx     |     100 |      100 |     100 |     100 |                   
+  login-form.tsx   |     100 |      100 |     100 |     100 |                   
+  ...ster-form.tsx |     100 |      100 |     100 |     100 |                   
+ ...ents/Itinerary |   97.47 |    82.66 |      80 |   97.47 |                   
+  ActivityCard.tsx |   97.05 |     62.5 |     100 |   97.05 | 60-62             
+  ActivityForm.tsx |   96.01 |    92.59 |   86.36 |   96.01 | 56-66,226         
+  ...ormDrawer.tsx |     100 |      100 |   66.66 |     100 |                   
+  ...aryDetail.tsx |     100 |      100 |      60 |     100 |                   
+  ItineraryMap.tsx |   99.04 |    63.63 |     100 |   99.04 | 60                
+  ...eraryView.tsx |      98 |    77.77 |      50 |      98 | 31,33             
+ ...onents/Landing |     100 |      100 |     100 |     100 |                   
+  HeroImage.tsx    |     100 |      100 |     100 |     100 |                   
+  LandingPage.tsx  |     100 |      100 |     100 |     100 |                   
+ components/Trip   |   93.81 |    70.83 |   73.68 |   93.81 |                   
+  ...yTripCard.tsx |     100 |      100 |     100 |     100 |                   
+  TripCard.tsx     |     100 |      100 |     100 |     100 |                   
+  ...dSkeleton.tsx |     100 |      100 |     100 |     100 |                   
+  ...rrorState.tsx |     100 |      100 |     100 |     100 |                   
+  TripForm.tsx     |    90.1 |    63.15 |   64.28 |    90.1 | ...38,157,177,190 
+ hooks             |     100 |       90 |     100 |     100 |                   
+  useAuth.ts       |     100 |      100 |     100 |     100 |                   
+  useMediaQuery.ts |     100 |    71.42 |     100 |     100 | 5,10              
+  useTrips.ts      |     100 |      100 |     100 |     100 |                   
+ lib               |     100 |      100 |     100 |     100 |                   
+  api.ts           |     100 |      100 |     100 |     100 |                   
+  schemas.ts       |     100 |      100 |     100 |     100 |                   
+  utils.ts         |     100 |      100 |     100 |     100 |                   
+ routes            |   91.75 |    93.02 |   79.16 |   91.75 |                   
+  __root.tsx       |     100 |      100 |     100 |     100 |                   
+  explore.tsx      |   68.42 |      100 |      50 |   68.42 | 6-11              
+  index.tsx        |     100 |      100 |     100 |     100 |                   
+  login.tsx        |   86.95 |      100 |      80 |   86.95 | 11-16             
+  profile.tsx      |   68.42 |      100 |      50 |   68.42 | 6-11              
+  register.tsx     |      86 |    66.66 |      80 |      86 | 11-16,36          
+  trips.$id.tsx    |   94.11 |       90 |     100 |   94.11 | 34-39             
+  trips.index.tsx  |     100 |      100 |      50 |     100 |                   
+  ....new-trip.tsx |     100 |      100 |     100 |     100 |                   
+  trips.tsx        |     100 |      100 |     100 |     100 |                   
+ store             |     100 |      100 |     100 |     100 |                   
+  user.ts          |     100 |      100 |     100 |     100 |                   
+-------------------|---------|----------|---------|---------|-------------------

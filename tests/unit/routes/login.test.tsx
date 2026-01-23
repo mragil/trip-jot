@@ -3,6 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { AxiosError } from 'axios';
 import { Route } from '@/routes/login';
 import { useLoginMutation } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/user';
 import { toast } from 'sonner';
 import { Suspense } from 'react';
 
@@ -12,7 +13,7 @@ vi.mock('@/hooks/useAuth', () => ({
 
 vi.mock('@/store/user', () => {
     const fn = vi.fn();
-    (fn as any).getState = () => ({ user: null });
+    (fn as any).getState = vi.fn(() => ({ user: null }));
     return { useUserStore: fn };
 });
 
@@ -44,8 +45,10 @@ vi.mock('@tanstack/react-router', async (importOriginal) => {
 	const actual = await importOriginal<typeof import('@tanstack/react-router')>();
 	return {
 		...actual,
-        redirect: vi.fn(),
+        redirect: vi.fn((opts) => { throw { options: opts }; }),
         createFileRoute: () => (config: any) => ({
+            ...config,
+            options: config,
             component: config.component,
             useNavigate: () => mockNavigate,
         }),
@@ -146,4 +149,21 @@ describe('Login Route', () => {
         
         expect(toast.error).toHaveBeenCalledWith('Custom server error');
 	});
+
+    it('redirects if user is already logged in', () => {
+        (useUserStore as any).mockImplementationOnce((_selector: any) => ({ user: { id: 1 } }));
+        (useUserStore.getState as any).mockReturnValue({ user: { id: 1 } });
+        
+        try {
+            Route.options.beforeLoad?.({ context: {} as any, location: {} as any, params: {} as any, cause: 'enter' } as any);
+        } catch (e: any) {
+             expect(e).toMatchObject({ options: { to: '/trips' } });
+        }
+    });
+
+    it('does not redirect if user is not logged in', () => {
+        (useUserStore.getState as any).mockReturnValue({ user: null });
+        const result = Route.options.beforeLoad?.({ context: {} as any, location: {} as any, params: {} as any, cause: 'enter' } as any);
+        expect(result).toBeUndefined();
+    });
 });

@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { AxiosError } from 'axios';
 import { Route as RegisterRoute } from '@/routes/register';
 import { useRegisterMutation } from '@/hooks/useAuth';
+import { useUserStore } from '@/store/user';
 import { toast } from 'sonner';
 
 // Mock Hooks
@@ -9,11 +11,11 @@ vi.mock('@/hooks/useAuth', () => ({
     useRegisterMutation: vi.fn(),
 }));
 
-vi.mock('@/store/user', () => ({
-    useUserStore: {
-        getState: vi.fn(() => ({ user: null })), // Default to no user
-    }
-}));
+vi.mock('@/store/user', () => {
+    const fn = vi.fn();
+    (fn as any).getState = vi.fn(() => ({ user: null }));
+    return { useUserStore: fn };
+});
 
 vi.mock('sonner', () => ({
     toast: {
@@ -27,9 +29,11 @@ const mockNavigate = vi.fn();
 vi.mock('@tanstack/react-router', () => ({
     createFileRoute: () => (options: any) => ({
         ...options,
+        options: options,
+        component: options.component,
         useNavigate: () => mockNavigate,
     }),
-    redirect: vi.fn(),
+    redirect: vi.fn((opts) => { throw { options: opts }; }),
 }));
 
 // Mock Components
@@ -110,6 +114,50 @@ describe('Register Route', () => {
         const button = screen.getByText('Register');
         button.click();
 
-        expect(toast.error).toHaveBeenCalled();
+        expect(toast.error).toHaveBeenCalledWith('Registration failed. Please try again.');
+    });
+
+
+
+    it('shows specific axios error message', () => {
+        const axiosError = new AxiosError('Axios Error');
+        (axiosError as any).response = { data: { message: 'Email taken' } };
+
+        const mutateMock = vi.fn((_data, options) => {
+             options.onError(axiosError);
+        });
+        (useRegisterMutation as any).mockReturnValue({
+            mutate: mutateMock,
+            isPending: false,
+        });
+
+        const Component = (RegisterRoute as any).component;
+        render(<Component />);
+        
+        const button = screen.getByText('Register');
+        button.click();
+
+        expect(toast.error).toHaveBeenCalledWith('Email taken');
+    });
+
+    it('redirects if user is already logged in', () => {
+         // Mock user store to return a user
+        (useUserStore as any).mockImplementationOnce((_selector: any) => ({ user: { id: 1 } }));
+        // Mock getState as well since beforeLoad might use it directly
+        (useUserStore.getState as any).mockReturnValue({ user: { id: 1 } });
+        
+        try {
+            // Need to ensure Route.options exists in mock or is accessible
+            // Register Route mock in this file?
+            RegisterRoute.options.beforeLoad?.({ context: {} as any, location: {} as any, params: {} as any, cause: 'enter' } as any);
+        } catch (e: any) {
+             expect(e).toMatchObject({ options: { to: '/trips' } });
+        }
+    });
+
+    it('does not redirect if user is not logged in', () => {
+        (useUserStore.getState as any).mockReturnValue({ user: null });
+        const result = RegisterRoute.options.beforeLoad?.({ context: {} as any, location: {} as any, params: {} as any, cause: 'enter' } as any);
+        expect(result).toBeUndefined();
     });
 });

@@ -78,6 +78,19 @@ describe('Header', () => {
 		expect(screen.getByText('JD')).toBeTruthy();
 	});
 
+    it('renders default initial when name is missing', () => {
+        (useUserStore as any).mockImplementation((selector: any) =>
+            selector({
+                user: {
+                    name: undefined,
+                    email: 'test@example.com',
+                },
+            }),
+        );
+        render(<Header />);
+        expect(screen.getByText('U')).toBeTruthy();
+    });
+
 	it('logout button calls mutation', () => {
 		(useUserStore as any).mockImplementation((selector: any) =>
 			selector({

@@ -18,18 +18,36 @@ describe('ActivityCard', () => {
 		expect(screen.getByText('10:00')).toBeTruthy();
 		expect(screen.getByText('Paris, France')).toBeTruthy();
 	});
+    
+    it('renders empty time when time is missing', () => {
+        render(<ActivityCard {...defaultProps} time={undefined} />);
+        expect(screen.getByText('--:--')).toBeTruthy();
+    });
+    
+    it('does not render location when missing', () => {
+        render(<ActivityCard {...defaultProps} location={undefined} />);
+        // MapPin is typically inside a div with the text. 
+        // We can check that the text is not present.
+        expect(screen.queryByText('Paris, France')).toBeNull();
+    });
 
 	it('renders delete button when onDelete is provided', () => {
 		const onDelete = vi.fn();
 		render(<ActivityCard {...defaultProps} onDelete={onDelete} />);
 
-		const deleteBtn = screen.getAllByRole('button')[0]; // There might be navigate button too if not careful, but here we didn't pass onNavigate
-        // Actually the button is inside a group that shows on hover, but for testing-library it's in the DOM.
+		const deleteBtn = screen.getAllByRole('button')[0]; 
 		expect(deleteBtn).toBeTruthy();
         
         fireEvent.click(deleteBtn);
         expect(onDelete).toHaveBeenCalledWith('1');
 	});
+
+    it('does not render delete button when not provided', () => {
+        render(<ActivityCard {...defaultProps} onDelete={undefined} />);
+        const btns = screen.queryAllByRole('button');
+        // Might be 0 buttons
+        expect(btns.length).toBe(0);
+    });
 
 	it('renders navigate button when onNavigate is provided', () => {
 		const onNavigate = vi.fn();
@@ -42,11 +60,14 @@ describe('ActivityCard', () => {
         expect(onNavigate).toHaveBeenCalledWith('1');
 	});
     
+    it('does not render navigate button when not provided', () => {
+         render(<ActivityCard {...defaultProps} onNavigate={undefined} />);
+         const btns = screen.queryAllByRole('button');
+         expect(btns.length).toBe(0);
+    });
+    
     it('renders correct icon for type', () => {
-        // This is hard to test mainly by text/role. 
-        // We can check if the SVG has some class or if we just assume it renders without crashing.
         render(<ActivityCard {...defaultProps} type="restaurant" />);
-        // If it renders successfully, good enough for now.
         expect(screen.getByText('Visit Eiffel Tower')).toBeTruthy();
     });
 });
