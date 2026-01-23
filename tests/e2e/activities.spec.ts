@@ -4,7 +4,7 @@ test.describe('Activity Management (Mobile)', () => {
     test.use({ viewport: { width: 390, height: 844 } });
 
     test.beforeEach(async ({ page }) => {
-        const uniqueId = Date.now();
+        const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
         await page.goto('/register');
         await page.fill('input[name="name"]', 'Mobile User');
         await page.fill('input[name="email"]', `mobile${uniqueId}@example.com`);

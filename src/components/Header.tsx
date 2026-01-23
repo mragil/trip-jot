@@ -69,7 +69,10 @@ export default function Header() {
 
 				<div className="flex items-center gap-4">
 					<DropdownMenu>
-						<DropdownMenuTrigger className="relative h-9 w-9  cursor-pointer rounded-full ring-offset-background selection:focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 flex items-center justify-center hover:opacity-90 transition-opacity">
+						<DropdownMenuTrigger
+							className="relative h-9 w-9  cursor-pointer rounded-full ring-offset-background selection:focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 flex items-center justify-center hover:opacity-90 transition-opacity"
+							data-testid="user-menu-trigger"
+						>
 							<Avatar className="h-9 w-9 border">
 								<AvatarImage src={user?.avatar} alt={user?.name || 'User'} />
 								<AvatarFallback className="bg-primary/10 text-primary font-medium">
@@ -114,6 +117,7 @@ export default function Header() {
 								className="text-red-600 focus:text-red-600 focus:bg-red-50 dark:focus:bg-red-950/50 cursor-pointer"
 								onClick={handleLogout}
 								disabled={logoutMutation.isPending}
+								data-testid="logout-button"
 							>
 								<LogOut className="mr-2 h-4 w-4" />
 								{logoutMutation.isPending ? 'Logging out...' : 'Log out'}

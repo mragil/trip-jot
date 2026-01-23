@@ -1,9 +1,8 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Placeholder Pages', () => {
-
+test.describe('Authenticated Placeholder Pages', () => {
     test.beforeEach(async ({ page }) => {
-        const uniqueId = Date.now();
+        const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
         const email = `testuser${uniqueId}@example.com`;
         const name = 'Test User';
 
@@ -17,7 +16,7 @@ test.describe('Placeholder Pages', () => {
 
 	test('Explore page shows construction message', async ({ page }) => {
 		await page.goto('/explore');
-		await expect(page.getByText('Explore')).toBeVisible();
+		await expect(page.getByRole('heading', { name: 'Explore' })).toBeVisible();
 		await expect(page.getByText("We're building a way for you to discover amazing trips.")).toBeVisible();
 		await expect(page.getByText('Back to Dashboard')).toBeVisible();
 	});
@@ -41,4 +40,16 @@ test.describe('Placeholder Pages', () => {
 		await page.getByText('Back to Dashboard').click();
 		await expect(page).toHaveURL(/\/trips/);
 	});
+});
+
+test.describe('Unauthenticated Access', () => {
+    test('should redirect /profile to /login', async ({ page }) => {
+        await page.goto('/profile');
+        await expect(page).toHaveURL(/\/login/);
+    });
+
+    test('should redirect /explore to /login', async ({ page }) => {
+        await page.goto('/explore');
+        await expect(page).toHaveURL(/\/login/);
+    });
 });

@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Trip Management', () => {
   test.beforeEach(async ({ page }) => {
-    const uniqueId = Date.now();
+    const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
     await page.goto('/register');
     await page.fill('input[name="name"]', 'Trip Master');
     await page.fill('input[name="email"]', `tripmaster${uniqueId}@example.com`);

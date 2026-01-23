@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Authentication', () => {
   test('should allow a user to register', async ({ page }) => {
-    const uniqueId = Date.now();
+    const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
     const email = `testuser${uniqueId}@example.com`;
     const name = 'Test User';
 
@@ -19,7 +19,7 @@ test.describe('Authentication', () => {
   });
 
   test('should allow a used to login', async ({ page }) => {
-    const uniqueId = Date.now();
+    const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
     const email = `loginuser${uniqueId}@example.com`;
     const password = 'password123';
     
@@ -44,7 +44,7 @@ test.describe('Authentication', () => {
   });
 
   test('should redirect authenticated users from login page', async ({ page }) => {
-    const uniqueId = Date.now();
+    const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
     await page.goto('/register');
     await page.fill('input[name="name"]', 'Auth User');
     await page.fill('input[name="email"]', `auth${uniqueId}@example.com`);
@@ -59,7 +59,7 @@ test.describe('Authentication', () => {
 
 
   test('should allow a user to logout', async ({ page }) => {
-    const uniqueId = Date.now();
+    const uniqueId = Date.now().toString() + Math.floor(Math.random() * 1000).toString();
     await page.goto('/register');
     await page.fill('input[name="name"]', 'Logout User');
     await page.fill('input[name="email"]', `logout${uniqueId}@example.com`);
