@@ -30,7 +30,7 @@ vi.mock('@/components/ui/sonner', () => ({
 
 describe('Root Route', () => {
     it('renders Header only on appropriate routes', () => {
-        const Component = (Route as any).shellComponent;
+        const Component = (Route as any).component;
         
         // Mock return value for this test
         (router.useLocation as any).mockReturnValue({ pathname: '/trips' });
@@ -40,7 +40,7 @@ describe('Root Route', () => {
     });
 
     it('hides Header on login/register', () => {
-        const Component = (Route as any).shellComponent;
+        const Component = (Route as any).component;
         
         (router.useLocation as any).mockReturnValue({ pathname: '/login' });
 
