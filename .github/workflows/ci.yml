@@ -106,11 +106,12 @@ jobs:
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Create .env file
+        run: echo "VITE_API_BASE_URL=http://localhost:3000" > .env
+
       - name: E2E Tests (Real)
         run: pnpm test:e2e:real
         env:
-          # VITE_API_BASE_URL: http://localhost:3000 # Default matches service
-          # Add any other required secrets
           TEST_ENV: real
 
       - name: Dump Backend Logs
