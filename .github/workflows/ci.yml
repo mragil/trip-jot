@@ -82,10 +82,10 @@ jobs:
           JWT_REFRESH_EXPIRES_IN: 7d
           FRONTEND_URL: http://localhost:5173
         options: >-
-          --health-cmd "curl --fail http://localhost:3000/health || exit 1"
+          --health-cmd "node -e \"require('http').get('http://localhost:3000/health', (r) => {if (r.statusCode !== 200) process.exit(1)}).on('error', () => process.exit(1))\""
           --health-interval 10s
           --health-timeout 5s
-          --health-retries 5
+          --health-retries 10
 
     steps:
       - uses: actions/checkout@v4
