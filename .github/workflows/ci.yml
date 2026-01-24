@@ -47,6 +47,9 @@ jobs:
     name: Real E2E Tests
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
     services:
       postgres:
         image: postgres:15-alpine
