@@ -7,12 +7,14 @@ import ItineraryView from '@/components/Itinerary/ItineraryView';
 import { Activity } from '@/types/trip';
 
 
-const mockLocation = { pathname: '/trips/1' };
-vi.mock('@tanstack/react-router', () => ({
-    useRouterState: () => ({ location: mockLocation }),
-    Link: ({ children, to }: any) => <a href={to}>{children}</a>,
-    redirect: vi.fn(),
-}));
+vi.mock('@tanstack/react-router', () => {
+    const mockLocation = { pathname: '/trips/1' };
+    return {
+        useRouterState: () => ({ location: mockLocation }),
+        Link: ({ children, to }: any) => <a href={to}>{children}</a>,
+        redirect: vi.fn(),
+    };
+});
 
 // Mock sub-components
 vi.mock('@/components/Itinerary/ActivityCard', () => ({ 
