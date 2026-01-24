@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import NotFound from '@/components/NotFound';
 import { describe, it, expect, vi } from 'vitest';
 
-// Mock Link from @tanstack/react-router
+
 vi.mock('@tanstack/react-router', () => ({
     Link: ({ children, to, className }: any) => (
         <a href={to} className={className}>{children}</a>

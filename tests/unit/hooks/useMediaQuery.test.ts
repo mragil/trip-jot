@@ -13,8 +13,8 @@ describe('useMediaQuery', () => {
             matches: false,
             media: query,
             onchange: null,
-            addListener: vi.fn(), // Deprecated
-            removeListener: vi.fn(), // Deprecated
+            addListener: vi.fn(), 
+            removeListener: vi.fn(), 
             addEventListener: vi.fn((type, callback) => {
                 listeners[type] = callback;
             }),
@@ -56,7 +56,7 @@ describe('useMediaQuery', () => {
          expect(result.current).toBe(false);
 
          act(() => {
-             // Simulate event
+             
              if (listeners['change']) {
                  listeners['change']({ matches: true } as any);
              }

@@ -3,9 +3,9 @@ import { describe, it, expect, vi } from 'vitest';
 import { Route as ProfileRoute } from '@/routes/profile';
 import { Route as ExploreRoute } from '@/routes/explore';
 import { Route as TripsRoute } from '@/routes/trips';
-// import { Route as RootRoute } from '@/routes/__root'; // Root is hard to test due to context
 
-// Mock Components
+
+
 vi.mock('@/components/Construction', () => ({ 
     default: ({ title }: any) => <div>Construction: {title}</div> 
 }));

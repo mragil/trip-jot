@@ -6,7 +6,7 @@ import { useRegisterMutation } from '@/hooks/useAuth';
 import { useUserStore } from '@/store/user';
 import { toast } from 'sonner';
 
-// Mock Hooks
+
 vi.mock('@/hooks/useAuth', () => ({
     useRegisterMutation: vi.fn(),
 }));
@@ -24,7 +24,7 @@ vi.mock('sonner', () => ({
     }
 }));
 
-// Mock Router
+
 const mockNavigate = vi.fn();
 vi.mock('@tanstack/react-router', () => ({
     createFileRoute: () => (options: any) => ({
@@ -36,7 +36,7 @@ vi.mock('@tanstack/react-router', () => ({
     redirect: vi.fn((opts) => { throw { options: opts }; }),
 }));
 
-// Mock Components
+
 vi.mock('@/components/register-form', () => ({
     RegisterForm: ({ onSubmit, isPending }: any) => (
         <form onSubmit={(e) => { e.preventDefault(); onSubmit({ name: 'Test', email: 'test@example.com', password: 'password' }); }}>
@@ -141,14 +141,14 @@ describe('Register Route', () => {
     });
 
     it('redirects if user is already logged in', () => {
-         // Mock user store to return a user
+         
         (useUserStore as any).mockImplementationOnce((_selector: any) => ({ user: { id: 1 } }));
-        // Mock getState as well since beforeLoad might use it directly
+        
         (useUserStore.getState as any).mockReturnValue({ user: { id: 1 } });
         
         try {
-            // Need to ensure Route.options exists in mock or is accessible
-            // Register Route mock in this file?
+            
+            
             RegisterRoute.options.beforeLoad?.({ context: {} as any, location: {} as any, params: {} as any, cause: 'enter' } as any);
         } catch (e: any) {
              expect(e).toMatchObject({ options: { to: '/trips' } });

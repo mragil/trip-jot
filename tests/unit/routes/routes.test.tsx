@@ -1,24 +1,35 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// import { Route as TripsRoute } from '@/routes/trips'; // Layout, maybe skip or basic test
+
 import { Route as TripsIndexRoute } from '@/routes/trips.index';
 import { Route as TripDetailRoute } from '@/routes/trips.$id';
 import { Route as NewTripRoute } from '@/routes/trips.new-trip';
 import { useTrips, useTrip } from '@/hooks/useTrips';
 import { useUserStore } from '@/store/user';
 
-// Mock Hooks
+
 vi.mock('@/hooks/useTrips', () => ({
 	useTrips: vi.fn(),
     useTrip: vi.fn(),
+}));
+
+vi.mock('@/hooks/useDocuments', () => ({
+    useDocuments: vi.fn(() => ({
+        documents: [],
+        isLoading: false,
+        isUploading: false,
+        isDeleting: false,
+        upload: vi.fn(),
+        remove: vi.fn(),
+    })),
 }));
 
 vi.mock('@/store/user', () => ({
 	useUserStore: vi.fn(),
 }));
 
-// Mock Router
+
 vi.mock('@tanstack/react-router', () => ({
 	createFileRoute: () => (options: any) => ({
         ...options,
@@ -29,8 +40,8 @@ vi.mock('@tanstack/react-router', () => ({
     redirect: vi.fn(),
 }));
 
-// Mock Components to avoid deep rendering
-// Mock Components to avoid deep rendering
+
+
 vi.mock('@/components/Landing/HeroImage', () => ({ HeroImage: () => <div>HeroImage</div> }));
 vi.mock('@/components/Trip/TripCard', () => ({ default: ({ trip }: any) => <div>Trip: {trip.name}</div> }));
 vi.mock('@/components/Trip/EmptyTripCard', () => ({ default: () => <div>EmptyTripCard</div> }));

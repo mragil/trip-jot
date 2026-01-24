@@ -6,7 +6,7 @@ import ItineraryDetail from '@/components/Itinerary/ItineraryDetail';
 import ItineraryView from '@/components/Itinerary/ItineraryView';
 import { Activity } from '@/types/trip';
 
-// Mock Router
+
 const mockLocation = { pathname: '/trips/1' };
 vi.mock('@tanstack/react-router', () => ({
     useRouterState: () => ({ location: mockLocation }),
@@ -29,8 +29,8 @@ describe('Complex Components', () => {
     describe('DynamicBreadcrumbs', () => {
         it('renders breadcrumbs based on path', () => {
             render(<DynamicBreadcrumbs />);
-            // Assuming mockLocation /trips/1
-            // default label logic: Trips, 1
+            
+            
             expect(screen.getByText('Trips')).toBeTruthy();
             expect(screen.getByText('1')).toBeTruthy();
         });
@@ -105,9 +105,9 @@ describe('Complex Components', () => {
             const { container } = render(
                 <ItineraryMap activities={mockActivities} onAddActivity={mockAdd} />
             );
-            // It renders an SVG when activities exist
+            
             expect(container.querySelector('svg')).toBeTruthy();
-            expect(screen.getByText('Activity 1')).toBeTruthy(); // Tooltip text exists in DOM hidden/visible
+            expect(screen.getByText('Activity 1')).toBeTruthy(); 
         });
 
         it('renders empty map state', () => {
@@ -134,17 +134,17 @@ describe('Complex Components', () => {
             expect(screen.getByText(/Jan 02/)).toBeTruthy();
             expect(screen.getByText(/Jan 03/)).toBeTruthy();
             
-            // Day 1 selected by default, so A1 should be visible (mocked Detail renders it)
-            // But w8, ItineraryView renders ItineraryDetail.
-            // We mocked ActivityCard, but ItineraryDetail is real component here (not mocked in this file yet).
-            // So it should render "ActivityCard: A1"
+            
+            
+            
+            
             expect(screen.getByText('ActivityCard: A1')).toBeTruthy();
         });
 
         it('toggles map view (mobile)', { timeout: 10000 }, () => {
             render(<ItineraryView addActivity={mockAdd} trip={tripMock} />);
             
-            // Map view toggle is hidden on desktop (lg:hidden) but meaningful for coverage
+            
             const toggleBtn = screen.getByText('Show Map');
             fireEvent.click(toggleBtn);
             

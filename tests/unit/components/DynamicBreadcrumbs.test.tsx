@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 
-// Mock Router
+
 const mockLocation = { pathname: '/' };
 vi.mock('@tanstack/react-router', () => ({
 	useRouterState: () => ({

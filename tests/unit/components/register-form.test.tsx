@@ -40,7 +40,7 @@ describe('RegisterForm', () => {
         
         const button = screen.getByRole('button', { name: 'Creating account...' });
         expect(button.getAttribute('disabled')).toBeDefined();
-        // Check property
+        
         expect((button as HTMLButtonElement).disabled).toBe(true);
 	});
 });

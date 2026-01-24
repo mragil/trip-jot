@@ -34,7 +34,7 @@ describe('LoginForm', () => {
 		expect(screen.getByRole('button', { name: 'Logging in...' })).toBeTruthy();
         const button = screen.getByRole('button', { name: 'Logging in...' });
         expect(button.getAttribute('disabled')).toBeDefined();
-        // Or check property if jsdom supports it well
+        
         expect((button as HTMLButtonElement).disabled).toBe(true);
 	});
 });

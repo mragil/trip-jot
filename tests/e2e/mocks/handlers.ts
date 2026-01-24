@@ -1,6 +1,6 @@
 import { Page } from '@playwright/test';
 
-// Mock Data Definitions
+
 const defaultUser = {
   id: 1,
   email: 'test@example.com',
@@ -21,18 +21,18 @@ const defaultTrip = {
   updatedAt: new Date().toISOString(),
 };
 
-// Handlers
+
 export async function setupMocks(page: Page) {
-  // Application State
+  
   const users = [defaultUser];
   const trips = [defaultTrip];
   let nextTripId = 2;
   let nextActivityId = 1;
 
-  // Auth
+  
   await page.route('**/auth/login', async (route) => {
     if (route.request().method() === 'POST') {
-        // Just return default user for any login for simplicity
+        
       const json = { user: users[0] };
       await route.fulfill({ json });
     } else {
@@ -62,7 +62,7 @@ export async function setupMocks(page: Page) {
   });
 
 
-  // Trips
+  
   await page.route('**/trips', async (route) => {
     if (route.request().method() === 'GET') {
       await route.fulfill({ json: { trips } });
@@ -75,7 +75,7 @@ export async function setupMocks(page: Page) {
             activities: [], 
             createdAt: new Date().toISOString(), 
             updatedAt: new Date().toISOString(),
-            isCompleted: false // Ensure this field exists
+            isCompleted: false 
         };
         trips.push(newTrip);
         await route.fulfill({ json: newTrip });
@@ -101,13 +101,13 @@ export async function setupMocks(page: Page) {
       }
   });
   
-  // Activities
+  
    await page.route('**/activities', async (route) => {
       if (route.request().method() === 'POST') {
           const data = route.request().postDataJSON();
           const newActivity = { ...data, id: nextActivityId++ };
           
-          // Add to trip
+          
           const trip = trips.find(t => t.id === Number(data.tripId));
           if (trip) {
               trip.activities.push(newActivity);

@@ -7,7 +7,7 @@ import EmptyTripCard from '@/components/Trip/EmptyTripCard';
 import TripCardSkeleton from '@/components/Trip/TripCardSkeleton';
 import TripErrorState from '@/components/Trip/TripErrorState';
 
-// Mock router for links
+
 vi.mock('@tanstack/react-router', () => ({
     Link: ({ children, to }: any) => <a href={to}>{children}</a>,
     useRouter: vi.fn(),
@@ -45,7 +45,7 @@ describe('Simple Components', () => {
     describe('TripCardSkeleton', () => {
         it('renders skeleton elements', () => {
             const { container } = render(<TripCardSkeleton />);
-            // Check for skeleton classes or structure
+            
             expect(container.getElementsByClassName('animate-pulse').length).toBeGreaterThan(0);
         });
     });

@@ -3,7 +3,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ActivityForm from '@/components/Itinerary/ActivityForm';
 import { useCreateActivity } from '@/hooks/useTrips';
 
-// Mock Hooks
+
 vi.mock('@/hooks/useTrips', () => ({
 	useCreateActivity: vi.fn(),
 }));
@@ -61,7 +61,7 @@ describe('ActivityForm', () => {
                 location: 'Restaurant A',
                 cost: 5000,
             }));
-            // Verify onCancel is called after successful submission
+            
             expect(defaultProps.onCancel).toHaveBeenCalled();
         });
 	});

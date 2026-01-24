@@ -3,7 +3,7 @@ import { RouteComponent, Route } from '@/routes/explore';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { useUserStore } from '@/store/user';
 
-// Mock the Construction component
+
 vi.mock('@/components/Construction', () => ({
     default: ({ title, message }: { title: string; message: string }) => (
         <div data-testid="construction">

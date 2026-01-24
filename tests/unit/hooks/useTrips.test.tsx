@@ -4,7 +4,7 @@ import { useTrips, useTrip, useCreateActivity } from '@/hooks/useTrips';
 import api from '@/lib/api';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Mock API
+
 vi.mock('@/lib/api', () => ({
 	default: {
 		get: vi.fn(),

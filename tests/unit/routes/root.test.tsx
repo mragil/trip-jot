@@ -3,7 +3,7 @@ import { Route } from '@/routes/__root';
 import { describe, it, expect, vi } from 'vitest';
 import * as router from '@tanstack/react-router';
 
-// Mock dependencies
+
 vi.mock('@tanstack/react-router', () => ({
     createRootRouteWithContext: () => (options: any) => options,
     HeadContent: () => null,

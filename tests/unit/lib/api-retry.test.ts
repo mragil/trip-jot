@@ -1,14 +1,14 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 
-// Mock axios module
+
 vi.mock('axios', async (importOriginal) => {
 await importOriginal();
     const mockAxios: any = vi.fn((config) => Promise.resolve({ data: {}, config }));
     
     mockAxios.create = vi.fn(() => mockAxios);
     mockAxios.defaults = { baseURL: '' };
-    // Interceptors
+    
     mockAxios.interceptors = {
         response: {
             use: vi.fn(),
@@ -28,14 +28,14 @@ describe('API Interceptors', () => {
     beforeEach(async () => {
         vi.clearAllMocks();
         
-        // Isolate module state if possible, but simplest is to catch the interceptor registration
-        // checking how api is imported.
-        // We need to re-import api to trigger axios.create and interceptors.use
+        
+        
+        
         vi.resetModules();
         
         api = (await import('@/lib/api')).default;
         
-        // Get the registered handlers
+        
         const useCalls = (api.interceptors.response.use as any).mock.calls;
         if (useCalls.length > 0) {
             successHandler = useCalls[0][0];
@@ -64,10 +64,10 @@ describe('API Interceptors', () => {
             config: originalRequest 
         };
 
-        // Mock api.post for refresh
+        
         api.post = vi.fn().mockResolvedValue({});
         
-        // Mock api call for retry
+        
         api.mockResolvedValue('retried');
 
         const result = await errorHandler(error);
@@ -84,10 +84,10 @@ describe('API Interceptors', () => {
             config: originalRequest 
         };
 
-        // Mock api.post failure
+        
         api.post = vi.fn().mockRejectedValue('refresh failed');
 
-        // Mock window location
+        
         const originalLocation = window.location;
         delete (window as any).location;
         (window as any).location = { href: '' };
@@ -100,7 +100,7 @@ describe('API Interceptors', () => {
 
         expect(window.location.href).toBe('/login');
         
-        // Cleanup
+        
         (window as any).location = originalLocation;
     });
 });

@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { LandingPage } from '@/components/Landing/LandingPage';
 import { describe, it, expect, vi } from 'vitest';
 
-// Mock mocks
+
 vi.mock('@tanstack/react-router', () => ({
     Link: ({ children, to, className }: any) => (
         <a href={to} className={className}>{children}</a>

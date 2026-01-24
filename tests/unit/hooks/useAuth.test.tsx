@@ -5,27 +5,27 @@ import { useUserStore } from '@/store/user';
 import api from '@/lib/api';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// Mock API
+
 vi.mock('@/lib/api', () => ({
 	default: {
 		post: vi.fn(),
 	},
 }));
 
-// Mock Store
+
 vi.mock('@/store/user', () => ({
 	useUserStore: {
 		getState: vi.fn(),
 	}
 }));
 
-// Mock Router
+
 const mockNavigate = vi.fn();
 vi.mock('@tanstack/react-router', () => ({
 	useNavigate: () => mockNavigate,
 }));
 
-// Setup QueryClient for hooks
+
 const createWrapper = () => {
     const queryClient = new QueryClient({
         defaultOptions: { queries: { retry: false } },

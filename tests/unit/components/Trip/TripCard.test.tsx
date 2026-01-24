@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TripCard from '@/components/Trip/TripCard';
 
-// Mock Router Link
+
 vi.mock('@tanstack/react-router', () => ({
 	Link: ({ to, params, children, className }: any) => (
 		<a href={to.replace('$id', params.id)} className={className}>

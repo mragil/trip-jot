@@ -6,6 +6,7 @@ import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 import DynamicTabs from '@/components/DynamicTabs';
 import ActivityFormDrawer from '@/components/Itinerary/ActivityFormDrawer';
 import ItineraryView from '@/components/Itinerary/ItineraryView';
+import DocumentVault from '@/components/Trip/DocumentVault';
 import TripErrorState from '@/components/Trip/TripErrorState';
 import { useTrip } from '@/hooks/useTrips';
 
@@ -57,7 +58,7 @@ function RouteComponent() {
 		{
 			id: 'documents',
 			title: 'Documents',
-			content: <p className="text-gray-600">Documents content goes here</p>,
+			content: <DocumentVault tripId={id} />,
 		},
 	];
 

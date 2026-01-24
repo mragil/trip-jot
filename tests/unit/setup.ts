@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 import '@testing-library/react';
 
-// Global mocks
+
 global.ResizeObserver = class ResizeObserver {
 	observe() {}
 	unobserve() {}

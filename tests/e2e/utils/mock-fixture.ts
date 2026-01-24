@@ -3,7 +3,7 @@ import { setupMocks } from '../mocks/handlers';
 
 export const test = base.extend({
   page: async ({ page }, use) => {
-    // If E2E_MOCK env var is set, setup mocks
+    
     if (process.env.E2E_MOCK === 'true') {
       await setupMocks(page);
     }

@@ -26,8 +26,8 @@ describe('ActivityCard', () => {
     
     it('does not render location when missing', () => {
         render(<ActivityCard {...defaultProps} location={undefined} />);
-        // MapPin is typically inside a div with the text. 
-        // We can check that the text is not present.
+        
+        
         expect(screen.queryByText('Paris, France')).toBeNull();
     });
 
@@ -45,7 +45,7 @@ describe('ActivityCard', () => {
     it('does not render delete button when not provided', () => {
         render(<ActivityCard {...defaultProps} onDelete={undefined} />);
         const btns = screen.queryAllByRole('button');
-        // Might be 0 buttons
+        
         expect(btns.length).toBe(0);
     });
 
