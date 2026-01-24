@@ -47,19 +47,39 @@ jobs:
     name: Real E2E Tests
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
-    # Service container for backend - TODO CONFIGURE IMAGE NAME
-    # services:
-    #   backend:
-    #     image: ghcr.io/your-username/backend-repo:latest
-    #     ports:
-    #       - 3000:3000
-    #     env:
-    #       DATABASE_URL: ${{ secrets.DATABASE_URL }}
-    #     options: >-
-    #       --health-cmd "curl --fail http://localhost:3000/health || exit 1"
-    #       --health-interval 10s
-    #       --health-timeout 5s
-    #       --health-retries 5
+    services:
+      postgres:
+        image: postgres:15-alpine
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_DB: itinerary_planner
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+      backend:
+        image: ghcr.io/mragil/itinerary-planner-be:latest
+        ports:
+          - 3000:3000
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/itinerary_planner
+          NODE_ENV: development
+          PORT: 3000
+          JWT_SECRET: your_jwt_secret_key
+          JWT_EXPIRES_IN: 3600
+          JWT_REFRESH_SECRET: your_jwt_refresh_secret
+          JWT_REFRESH_EXPIRES_IN: 7d
+          FRONTEND_URL: http://localhost:5173
+        options: >-
+          --health-cmd "curl --fail http://localhost:3000/health || exit 1"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     steps:
       - uses: actions/checkout@v4
