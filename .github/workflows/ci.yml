@@ -112,3 +112,9 @@ jobs:
           # VITE_API_BASE_URL: http://localhost:3000 # Default matches service
           # Add any other required secrets
           TEST_ENV: real
+
+      - name: Dump Backend Logs
+        if: failure()
+        run: |
+          docker ps -a
+          docker ps -q -f ancestor=ghcr.io/mragil/itinerary-planner-be:latest | xargs -r docker logs
