@@ -64,6 +64,9 @@ jobs:
 
       backend:
         image: ghcr.io/mragil/itinerary-planner-be:latest
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
         ports:
           - 3000:3000
         env:
