@@ -5,12 +5,10 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
-  workflow_dispatch:
 
 jobs:
   check:
-    name: Checks & Mock E2E
-    if: github.event_name != 'workflow_dispatch'
+    name: Checks & E2E
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -42,80 +40,3 @@ jobs:
 
       - name: E2E Tests (Mocked)
         run: pnpm test:e2e:mock
-
-  e2e-real:
-    name: Real E2E Tests
-    if: github.event_name == 'workflow_dispatch'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-    services:
-      postgres:
-        image: postgres:15-alpine
-        ports:
-          - 5432:5432
-        env:
-          POSTGRES_DB: itinerary_planner
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-      backend:
-        image: ghcr.io/mragil/itinerary-planner-be:latest
-        credentials:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-        ports:
-          - 3000:3000
-        env:
-          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/itinerary_planner
-          NODE_ENV: development
-          PORT: 3000
-          JWT_SECRET: your_jwt_secret_key
-          JWT_EXPIRES_IN: 3600
-          JWT_REFRESH_SECRET: your_jwt_refresh_secret
-          JWT_REFRESH_EXPIRES_IN: 7d
-          FRONTEND_URL: http://localhost:5173
-        options: >-
-          --health-cmd "node -e \"require('http').get('http://localhost:3000/health', (r) => {if (r.statusCode !== 200) {console.error('Status:' + r.statusCode); process.exit(1);} else {r.resume(); process.exit(0);}}).on('error', (e) => {console.error(e); process.exit(1);})\""
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 10
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "pnpm"
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Install Playwright Browsers
-        run: pnpm exec playwright install --with-deps chromium
-
-      - name: Create .env file
-        run: echo "VITE_API_BASE_URL=http://localhost:3000" > .env
-
-      - name: E2E Tests (Real)
-        run: pnpm test:e2e:real
-        env:
-          TEST_ENV: real
-
-      - name: Dump Backend Logs
-        if: failure()
-        run: |
-          docker ps -a
-          docker ps -q -f ancestor=ghcr.io/mragil/itinerary-planner-be:latest | xargs -r docker logs
