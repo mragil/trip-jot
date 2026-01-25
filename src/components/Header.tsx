@@ -46,7 +46,7 @@ export default function Header() {
 							/>
 						</div>
 						<span className="bg-linear-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-							WanderLog
+							TripJot
 						</span>
 					</Link>
 

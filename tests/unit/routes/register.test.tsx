@@ -57,7 +57,7 @@ describe('Register Route', () => {
         });
         const Component = (RegisterRoute as any).component;
         render(<Component />);
-        expect(screen.getByText('WanderLog')).toBeTruthy();
+        expect(screen.getByText('TripJot')).toBeTruthy();
         expect(screen.getByText('Register')).toBeTruthy();
     });
 

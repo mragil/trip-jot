@@ -82,7 +82,7 @@ export function LandingPage() {
 								</p>
 								<p>
 									<strong className="text-foreground">
-										WanderLog changes that.
+										TripJot changes that.
 									</strong>{' '}
 									We bring your maps, bookings, and schedules into one
 									beautiful, offline-ready timeline. So you can be present in
@@ -203,7 +203,7 @@ export function LandingPage() {
 					</h2>
 					<p className="text-xl text-muted-foreground max-w-2xl mx-auto">
 						Join thousands of travelers who have ditched the spreadsheets for
-						WanderLog.
+						TripJot.
 					</p>
 					<div className="flex flex-col items-center justify-center gap-4 pt-4 sm:flex-row">
 						<Link
@@ -229,11 +229,11 @@ export function LandingPage() {
 								className="h-full w-full object-cover"
 							/>
 						</div>
-						WanderLog
+						TripJot
 					</div>
 					<div className="text-sm text-muted-foreground text-center md:text-right">
 						<p>
-							&copy; {new Date().getFullYear()} WanderLog. Built for explorers.
+							&copy; {new Date().getFullYear()} TripJot. Built for explorers.
 						</p>
 						<div className="flex gap-6 justify-center md:justify-end mt-4">
 							<a

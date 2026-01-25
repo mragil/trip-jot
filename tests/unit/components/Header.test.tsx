@@ -55,7 +55,7 @@ describe('Header', () => {
 
 		render(<Header />);
 
-		expect(screen.getByText('WanderLog')).toBeTruthy();
+		expect(screen.getByText('TripJot')).toBeTruthy();
 		expect(screen.getByText('Dashboard')).toBeTruthy();
 		expect(screen.getByText('Explore')).toBeTruthy();
 

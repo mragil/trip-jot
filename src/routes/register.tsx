@@ -28,7 +28,7 @@ function RouteComponent() {
 	}) => {
 		registerMutation.mutate(data, {
 			onSuccess: () => {
-				toast.success('Welcome to WanderLog! Let’s plan your first trip.');
+				toast.success('Welcome to TripJot! Let’s plan your first trip.');
 				navigate({ to: '/trips' });
 			},
 			onError: (error) => {
@@ -48,7 +48,7 @@ function RouteComponent() {
 					<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
 						<GalleryVerticalEnd className="size-4" />
 					</div>
-					WanderLog
+					TripJot
 				</a>
 				<RegisterForm
 					onSubmit={handleRegister}

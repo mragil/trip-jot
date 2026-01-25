@@ -31,7 +31,7 @@ describe('db', () => {
 
       const result = await addDocument(document);
 
-      expect(openDB).toHaveBeenCalledWith('wanderlog-db', 2, expect.any(Object));
+      expect(openDB).toHaveBeenCalledWith('tripjot-db', 2, expect.any(Object));
       expect(mockDb.add).toHaveBeenCalledWith('documents', expect.objectContaining({
         tripId: 'trip-123',
         userId: 'user-123',

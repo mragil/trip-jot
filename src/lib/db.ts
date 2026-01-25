@@ -1,6 +1,6 @@
 import { type DBSchema, openDB } from 'idb';
 
-interface WanderLogDB extends DBSchema {
+interface TripJotDB extends DBSchema {
 	documents: {
 		key: string;
 		value: {
@@ -17,11 +17,11 @@ interface WanderLogDB extends DBSchema {
 	};
 }
 
-const DB_NAME = 'wanderlog-db';
+const DB_NAME = 'tripjot-db';
 const STORE_NAME = 'documents';
 
 async function getDB() {
-	return openDB<WanderLogDB>(DB_NAME, 2, {
+	return openDB<TripJotDB>(DB_NAME, 2, {
 		upgrade(db, oldVersion, _newVersion, tx) {
 			if (oldVersion < 1) {
 				const store = db.createObjectStore(STORE_NAME, {

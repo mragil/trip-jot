@@ -24,8 +24,10 @@ export function RegisterForm({
 	...props
 }: RegisterFormProps) {
 	const id = useId();
+	console.log('RegisterForm rendering. isPending:', isPending);
 	const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
+		console.log('RegisterForm submitted');
 		const formData = new FormData(event.currentTarget);
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
@@ -44,7 +46,12 @@ export function RegisterForm({
 						<FieldGroup>
 							<Field>
 								<FieldLabel htmlFor={`${id}-name`}>Name</FieldLabel>
-								<Input id={`${id}-name`} name="name" placeholder="John Doe" required />
+								<Input
+									id={`${id}-name`}
+									name="name"
+									placeholder="John Doe"
+									required
+								/>
 							</Field>
 							<Field>
 								<FieldLabel htmlFor={`${id}-email`}>Email</FieldLabel>
@@ -58,7 +65,12 @@ export function RegisterForm({
 							</Field>
 							<Field>
 								<FieldLabel htmlFor={`${id}-password`}>Password</FieldLabel>
-								<Input id={`${id}-password`} name="password" type="password" required />
+								<Input
+									id={`${id}-password`}
+									name="password"
+									type="password"
+									required
+								/>
 							</Field>
 							<Field>
 								<Button type="submit" disabled={isPending}>
@@ -73,8 +85,9 @@ export function RegisterForm({
 				</CardContent>
 			</Card>
 			<FieldDescription className="px-6 text-center">
-				By clicking continue, you agree to our <a href="/terms">Terms of Service</a>{' '}
-				and <a href="/privacy">Privacy Policy</a>.
+				By clicking continue, you agree to our{' '}
+				<a href="/terms">Terms of Service</a> and{' '}
+				<a href="/privacy">Privacy Policy</a>.
 			</FieldDescription>
 		</div>
 	);

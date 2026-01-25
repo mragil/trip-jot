@@ -36,6 +36,7 @@ export const useLogoutMutation = () => {
 export const useRegisterMutation = () => {
 	return useMutation({
 		mutationFn: async (credentials: RegisterCredentials) => {
+			console.log('useAuth: Calling register API', credentials);
 			const response = await api.post<LoginResponse>(
 				'/auth/register',
 				credentials,

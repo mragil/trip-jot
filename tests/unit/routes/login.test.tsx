@@ -79,7 +79,7 @@ describe('Login Route', () => {
         );
 
 		await waitFor(() => expect(screen.getByTestId('login-form')).toBeTruthy());
-        expect(screen.getByText('WanderLog')).toBeTruthy();
+        expect(screen.getByText('TripJot')).toBeTruthy();
 	});
 
 	it('calls login mutation on submit', async () => {
