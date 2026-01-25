@@ -1,12 +1,6 @@
 import type * as React from 'react';
-import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
-import {
-	Drawer,
-	DrawerClose,
-	DrawerContent,
-	DrawerFooter,
-} from '@/components/ui/drawer';
+import { Drawer, DrawerContent } from '@/components/ui/drawer';
 import useMediaQuery from '@/hooks/useMediaQuery';
 import ActivityForm from './ActivityForm';
 
@@ -26,10 +20,9 @@ export default function ActivityFormDrawer({
 	const isDesktop = useMediaQuery('(min-width: 768px)');
 
 	if (isDesktop) {
-		console.log('Rendering Dialog for desktop view');
 		return (
 			<Dialog open={open} onOpenChange={setOpen}>
-				<DialogContent className="sm:max-w-2xl">
+				<DialogContent className="sm:max-w-2xl max-h-[85vh] p-0 flex flex-col overflow-hidden gap-0">
 					<ActivityForm
 						tripId={tripId}
 						date={date}
@@ -42,19 +35,12 @@ export default function ActivityFormDrawer({
 
 	return (
 		<Drawer open={open} onOpenChange={setOpen}>
-			<DrawerContent className="max-h-[90vh]">
-				<div className="overflow-y-auto px-4">
-					<ActivityForm
-						tripId={tripId}
-						date={date}
-						onCancel={() => setOpen(false)}
-					/>
-				</div>
-				<DrawerFooter className="pt-2">
-					<DrawerClose asChild>
-						<Button variant="outline">Cancel</Button>
-					</DrawerClose>
-				</DrawerFooter>
+			<DrawerContent className="max-h-[90vh] flex flex-col">
+				<ActivityForm
+					tripId={tripId}
+					date={date}
+					onCancel={() => setOpen(false)}
+				/>
 			</DrawerContent>
 		</Drawer>
 	);

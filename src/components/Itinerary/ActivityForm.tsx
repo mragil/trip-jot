@@ -156,89 +156,195 @@ export default function ActivityForm({
 				e.stopPropagation();
 				form.handleSubmit();
 			}}
-			className="flex flex-col gap-6 p-4"
+			className="flex flex-col flex-1 min-h-0 w-full"
 		>
-			<h2 className="text-xl font-semibold">Add Activity</h2>
+			<div className="px-6 py-4 border-b bg-background shrink-0">
+				<h2 className="text-xl font-semibold">Add Activity</h2>
+			</div>
 
-			<form.Field name="name">
-				{(field) => (
-					<Field>
-						<FieldContent>
-							<FieldLabel htmlFor={nameId}>Name</FieldLabel>
-							<Input
-								id={nameId}
-								name={field.name}
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="Activity name"
-							/>
-							<FieldInfo field={field} />
-						</FieldContent>
-					</Field>
-				)}
-			</form.Field>
-
-			<form.Field name="location">
-				{(field) => (
-					<Field>
-						<FieldContent>
-							<FieldLabel htmlFor={locationId}>Location</FieldLabel>
-							<Input
-								id={locationId}
-								name={field.name}
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="Activity location"
-							/>
-							<FieldInfo field={field} />
-						</FieldContent>
-					</Field>
-				)}
-			</form.Field>
-
-			<div className="grid grid-cols-2 gap-4">
-				<form.Field name="type">
+			<div className="flex-1 overflow-y-auto min-h-0 px-6 py-4 space-y-6">
+				<form.Field name="name">
 					{(field) => (
 						<Field>
 							<FieldContent>
-								<FieldLabel htmlFor={typeId}>Type</FieldLabel>
-								<Select
+								<FieldLabel htmlFor={nameId}>Name</FieldLabel>
+								<Input
+									id={nameId}
+									name={field.name}
 									value={field.state.value}
-									onValueChange={(value) => field.handleChange(value as ActivityType)}
-								>
-									<SelectTrigger id={typeId} className="w-full">
-										<SelectValue>
-											{(() => {
-												const selectedType = activityTypes.find(
-													(t) => t.value === field.state.value,
-												);
-												if (selectedType) {
-													const Icon = selectedType.icon;
-													return (
-														<>
-															<Icon className="size-4" />
-															{selectedType.label}
-														</>
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									placeholder="Activity name"
+								/>
+								<FieldInfo field={field} />
+							</FieldContent>
+						</Field>
+					)}
+				</form.Field>
+
+				<form.Field name="location">
+					{(field) => (
+						<Field>
+							<FieldContent>
+								<FieldLabel htmlFor={locationId}>Location</FieldLabel>
+								<Input
+									id={locationId}
+									name={field.name}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									placeholder="Activity location"
+								/>
+								<FieldInfo field={field} />
+							</FieldContent>
+						</Field>
+					)}
+				</form.Field>
+
+				<div className="grid grid-cols-2 gap-4">
+					<form.Field name="type">
+						{(field) => (
+							<Field>
+								<FieldContent>
+									<FieldLabel htmlFor={typeId}>Type</FieldLabel>
+									<Select
+										value={field.state.value}
+										onValueChange={(value) =>
+											field.handleChange(value as ActivityType)
+										}
+									>
+										<SelectTrigger id={typeId} className="w-full">
+											<SelectValue>
+												{(() => {
+													const selectedType = activityTypes.find(
+														(t) => t.value === field.state.value,
 													);
-												}
-												return null;
-											})()}
-										</SelectValue>
-									</SelectTrigger>
-									<SelectContent>
-										{activityTypes.map((t) => {
-											const Icon = t.icon;
-											return (
-												<SelectItem key={t.value} value={t.value}>
-													<Icon className="size-4" />
-													{t.label}
-												</SelectItem>
-											);
-										})}
-									</SelectContent>
-								</Select>
+													if (selectedType) {
+														const Icon = selectedType.icon;
+														return (
+															<>
+																<Icon className="size-4" />
+																{selectedType.label}
+															</>
+														);
+													}
+													return null;
+												})()}
+											</SelectValue>
+										</SelectTrigger>
+										<SelectContent>
+											{activityTypes.map((t) => {
+												const Icon = t.icon;
+												return (
+													<SelectItem key={t.value} value={t.value}>
+														<Icon className="size-4" />
+														{t.label}
+													</SelectItem>
+												);
+											})}
+										</SelectContent>
+									</Select>
+									<FieldInfo field={field} />
+								</FieldContent>
+							</Field>
+						)}
+					</form.Field>
+				</div>
+
+				<div className="grid grid-cols-2 gap-4">
+					<form.Field name="startTime">
+						{(field) => (
+							<Field>
+								<FieldContent>
+									<FieldLabel htmlFor={startTimeId}>Start Time</FieldLabel>
+									<Input
+										id={startTimeId}
+										type="time"
+										name={field.name}
+										value={field.state.value}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+									/>
+									<FieldInfo field={field} />
+								</FieldContent>
+							</Field>
+						)}
+					</form.Field>
+					<form.Field name="endTime">
+						{(field) => (
+							<Field>
+								<FieldContent>
+									<FieldLabel htmlFor={endTimeId}>End Time</FieldLabel>
+									<Input
+										id={endTimeId}
+										type="time"
+										name={field.name}
+										value={field.state.value}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+									/>
+									<FieldInfo field={field} />
+								</FieldContent>
+							</Field>
+						)}
+					</form.Field>
+				</div>
+
+				<div className="grid grid-cols-2 gap-4">
+					<form.Field name="cost">
+						{(field) => (
+							<Field>
+								<FieldContent>
+									<FieldLabel htmlFor={costId}>Cost</FieldLabel>
+									<Input
+										id={costId}
+										type="number"
+										min={0}
+										name={field.name}
+										value={field.state.value}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(Number(e.target.value))}
+										placeholder="0"
+									/>
+									<FieldInfo field={field} />
+								</FieldContent>
+							</Field>
+						)}
+					</form.Field>
+					<form.Field name="currency">
+						{(field) => (
+							<Field>
+								<FieldContent>
+									<FieldLabel htmlFor={currencyId}>Currency</FieldLabel>
+									<Input
+										id={currencyId}
+										name={field.name}
+										value={field.state.value}
+										onBlur={field.handleBlur}
+										onChange={(e) => field.handleChange(e.target.value)}
+										placeholder="JPY"
+									/>
+									<FieldInfo field={field} />
+								</FieldContent>
+							</Field>
+						)}
+					</form.Field>
+				</div>
+
+				<form.Field name="notes">
+					{(field) => (
+						<Field>
+							<FieldContent>
+								<FieldLabel htmlFor={notesId}>Notes</FieldLabel>
+								<Textarea
+									id={notesId}
+									name={field.name}
+									value={field.state.value}
+									onBlur={field.handleBlur}
+									onChange={(e) => field.handleChange(e.target.value)}
+									placeholder="Additional notes"
+									rows={3}
+								/>
 								<FieldInfo field={field} />
 							</FieldContent>
 						</Field>
@@ -246,107 +352,7 @@ export default function ActivityForm({
 				</form.Field>
 			</div>
 
-			<div className="grid grid-cols-2 gap-4">
-				<form.Field name="startTime">
-					{(field) => (
-						<Field>
-							<FieldContent>
-								<FieldLabel htmlFor={startTimeId}>Start Time</FieldLabel>
-								<Input
-									id={startTimeId}
-									type="time"
-									name={field.name}
-									value={field.state.value}
-									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
-								/>
-								<FieldInfo field={field} />
-							</FieldContent>
-						</Field>
-					)}
-				</form.Field>
-				<form.Field name="endTime">
-					{(field) => (
-						<Field>
-							<FieldContent>
-								<FieldLabel htmlFor={endTimeId}>End Time</FieldLabel>
-								<Input
-									id={endTimeId}
-									type="time"
-									name={field.name}
-									value={field.state.value}
-									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
-								/>
-								<FieldInfo field={field} />
-							</FieldContent>
-						</Field>
-					)}
-				</form.Field>
-			</div>
-
-			<div className="grid grid-cols-2 gap-4">
-				<form.Field name="cost">
-					{(field) => (
-						<Field>
-							<FieldContent>
-								<FieldLabel htmlFor={costId}>Cost</FieldLabel>
-								<Input
-									id={costId}
-									type="number"
-									min={0}
-									name={field.name}
-									value={field.state.value}
-									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(Number(e.target.value))}
-									placeholder="0"
-								/>
-								<FieldInfo field={field} />
-							</FieldContent>
-						</Field>
-					)}
-				</form.Field>
-				<form.Field name="currency">
-					{(field) => (
-						<Field>
-							<FieldContent>
-								<FieldLabel htmlFor={currencyId}>Currency</FieldLabel>
-								<Input
-									id={currencyId}
-									name={field.name}
-									value={field.state.value}
-									onBlur={field.handleBlur}
-									onChange={(e) => field.handleChange(e.target.value)}
-									placeholder="JPY"
-								/>
-								<FieldInfo field={field} />
-							</FieldContent>
-						</Field>
-					)}
-				</form.Field>
-			</div>
-
-			<form.Field name="notes">
-				{(field) => (
-					<Field>
-						<FieldContent>
-							<FieldLabel htmlFor={notesId}>Notes</FieldLabel>
-							<Textarea
-								id={notesId}
-								name={field.name}
-								value={field.state.value}
-								onBlur={field.handleBlur}
-								onChange={(e) => field.handleChange(e.target.value)}
-								placeholder="Additional notes"
-								rows={3}
-							/>
-							<FieldInfo field={field} />
-						</FieldContent>
-					</Field>
-				)}
-			</form.Field>
-
-			<div className="pt-4">
+			<div className="px-6 py-4 border-t bg-background mt-auto shrink-0 z-10 flex flex-col sm:flex-row-reverse gap-2">
 				<form.Subscribe
 					selector={(state) => [state.canSubmit, state.isSubmitting]}
 				>
@@ -354,7 +360,7 @@ export default function ActivityForm({
 						<Button
 							type="submit"
 							disabled={!canSubmit || isSubmitting}
-							className="w-full"
+							className="w-full sm:w-auto"
 						>
 							{isSubmitting && (
 								<Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -363,6 +369,16 @@ export default function ActivityForm({
 						</Button>
 					)}
 				</form.Subscribe>
+				{onCancel && (
+					<Button
+						type="button"
+						variant="outline"
+						className="w-full sm:w-auto"
+						onClick={onCancel}
+					>
+						Cancel
+					</Button>
+				)}
 			</div>
 		</form>
 	);
