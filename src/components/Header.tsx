@@ -1,10 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import {
-	Compass,
-	LogOut,
-	Map as MapIcon,
-	User as UserIcon,
-} from 'lucide-react';
+import { Compass, LogOut, User as UserIcon } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
 	DropdownMenu,
@@ -44,7 +39,11 @@ export default function Header() {
 						className="flex items-center gap-2 font-bold text-xl hover:opacity-90 transition-opacity"
 					>
 						<div className="bg-primary/10 p-1.5 rounded-lg">
-							<MapIcon className="h-5 w-5 text-primary" />
+							<img
+								src="/favicon.png"
+								alt="Logo"
+								className="h-5 w-5 object-contain"
+							/>
 						</div>
 						<span className="bg-linear-to-r from-primary to-primary/80 bg-clip-text text-transparent">
 							WanderLog
