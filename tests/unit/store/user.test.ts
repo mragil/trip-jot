@@ -3,9 +3,9 @@ import { useUserStore } from '@/store/user';
 
 describe('User Store', () => {
     beforeEach(() => {
-        
-        useUserStore.setState({ user: null });
         localStorage.clear();
+        (useUserStore as any).persist?.clearStorage();
+        useUserStore.setState({ user: null });
     });
 
     it('initializes with null user', () => {
