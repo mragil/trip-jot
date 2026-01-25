@@ -10,6 +10,10 @@ on:
         description: "API Base URL for the build"
         required: true
         default: "https://api.example.com"
+      hsts_max_age:
+        description: "HSTS max-age in seconds (300 for testing, 31536000 for production)"
+        required: false
+        default: "300"
 
 env:
   REGISTRY: ghcr.io
@@ -55,5 +59,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             VITE_API_BASE_URL=${{ github.event.inputs.api_url || secrets.VITE_API_BASE_URL }}
+            HSTS_MAX_AGE=${{ github.event.inputs.hsts_max_age || '300' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

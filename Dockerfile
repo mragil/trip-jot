@@ -32,6 +32,11 @@ COPY nginx.conf.template /etc/nginx/templates/default.conf.template
 ARG VITE_API_BASE_URL
 ENV API_URL=$VITE_API_BASE_URL
 
+# HSTS max-age in seconds (default: 300 for testing)
+# Override with higher values (e.g., 31536000 = 1 year) for production
+ARG HSTS_MAX_AGE=300
+ENV HSTS_MAX_AGE=$HSTS_MAX_AGE
+
 EXPOSE 80
 
 # nginx:alpine automatically runs envsubst on /etc/nginx/templates/*.template

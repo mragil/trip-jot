@@ -31,8 +31,8 @@ server {
     add_header X-Content-Type-Options "nosniff" always;
     add_header X-XSS-Protection "1; mode=block" always;
     
-    # HSTS - only use HTTPS (start with short max-age for testing)
-    add_header Strict-Transport-Security "max-age=300; includeSubDomains" always;
+    # HSTS - only use HTTPS (${HSTS_MAX_AGE} will be replaced by envsubst at container startup)
+    add_header Strict-Transport-Security "max-age=${HSTS_MAX_AGE}; includeSubDomains" always;
     
     # CSP - controls what resources can be loaded
     # ${API_URL} will be replaced by envsubst at container startup
