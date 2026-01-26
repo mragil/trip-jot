@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import ActivityForm from '@/components/Itinerary/ActivityForm';
 import { useCreateActivity } from '@/hooks/useTrips';
@@ -43,6 +44,7 @@ describe('ActivityForm', () => {
 	});
 
 	it('submits form with valid data', async () => {
+        const user = userEvent.setup();
 		render(<ActivityForm {...defaultProps} />);
 
 		fireEvent.change(screen.getByLabelText('Name'), { target: { value: 'Lunch' } });
@@ -51,13 +53,21 @@ describe('ActivityForm', () => {
         fireEvent.change(screen.getByLabelText('Start Time'), { target: { value: '12:00' } });
         fireEvent.change(screen.getByLabelText('End Time'), { target: { value: '13:00' } });
         fireEvent.change(screen.getByLabelText('Budget'), { target: { value: '5000' } });
+
+        // Select 'Restaurant' type
+        const typeTrigger = screen.getByLabelText('Type');
+        await user.click(typeTrigger);
+
+        const restaurantOption = await screen.findByRole('option', { name: 'Restaurant' });
+        await user.click(restaurantOption);
         
-        fireEvent.click(screen.getByRole('button', { name: 'Add Activity' }));
+        await user.click(screen.getByRole('button', { name: 'Add Activity' }));
 
         await waitFor(() => {
              expect(mockMutateAsync).toHaveBeenCalledWith(expect.objectContaining({
                 tripId: 1,
                 name: 'Lunch',
+                type: 'restaurant',
                 location: 'Restaurant A',
                 cost: 5000,
             }));

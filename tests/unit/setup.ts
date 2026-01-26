@@ -11,6 +11,9 @@ global.ResizeObserver = class ResizeObserver {
 window.HTMLElement.prototype.hasPointerCapture = vi.fn();
 window.HTMLElement.prototype.setPointerCapture = vi.fn();
 window.HTMLElement.prototype.releasePointerCapture = vi.fn();
+window.HTMLElement.prototype.scrollIntoView = vi.fn();
+
+global.PointerEvent = MouseEvent as any;
 
 const localStorageMock = (function () {
 	let store: Record<string, string> = {};
