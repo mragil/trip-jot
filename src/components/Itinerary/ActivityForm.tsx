@@ -9,19 +9,21 @@ import {
 	Train,
 	Utensils,
 } from 'lucide-react';
-import { z } from 'zod';
 import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
 	Select,
 	SelectContent,
+	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateActivity } from '@/hooks/useTrips';
+import { activitySchema } from '@/lib/schemas';
 import type { ActivityType } from '@/types/trip';
 
 interface ActivityFormProps {
@@ -69,25 +71,6 @@ function FieldInfo({
 	);
 }
 
-const formSchema = z.object({
-	tripId: z.number(),
-	name: z.string().min(1, 'Name is required'),
-	location: z.string().min(1, 'Location is required'),
-	type: z.enum([
-		'attraction',
-		'restaurant',
-		'accommodation',
-		'transportation',
-		'other',
-	]),
-	startTime: z.string().min(1, 'Start time is required'),
-	endTime: z.string().min(1, 'End time is required'),
-	cost: z.number().min(0, 'Cost must be positive'),
-	currency: z.string().min(1, 'Currency is required'),
-	notes: z.string(),
-	isCompleted: z.boolean(),
-});
-
 export default function ActivityForm({
 	tripId,
 	date,
@@ -123,7 +106,7 @@ export default function ActivityForm({
 		},
 
 		validators: {
-			onChange: formSchema,
+			onChange: activitySchema,
 		},
 		onSubmit: async ({ value }) => {
 			const [startTimeHour, startTimeMinute] = value.startTime.split(':');
@@ -233,15 +216,18 @@ export default function ActivityForm({
 											</SelectValue>
 										</SelectTrigger>
 										<SelectContent>
-											{activityTypes.map((t) => {
-												const Icon = t.icon;
-												return (
-													<SelectItem key={t.value} value={t.value}>
-														<Icon className="size-4" />
-														{t.label}
-													</SelectItem>
-												);
-											})}
+											<SelectGroup>
+												<SelectLabel>Type</SelectLabel>
+												{activityTypes.map((t) => {
+													const Icon = t.icon;
+													return (
+														<SelectItem key={t.value} value={t.value}>
+															<Icon className="size-4" />
+															{t.label}
+														</SelectItem>
+													);
+												})}
+											</SelectGroup>
 										</SelectContent>
 									</Select>
 									<FieldInfo field={field} />

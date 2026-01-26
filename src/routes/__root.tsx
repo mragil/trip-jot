@@ -1,3 +1,4 @@
+import * as React from 'react';
 import {
 	createRootRouteWithContext,
 	Outlet,
@@ -26,11 +27,25 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootComponent() {
+	const [showDevtools, setShowDevtools] = React.useState(
+		import.meta.env.VITE_SHOW_TANSTACK_DEVTOOLS !== 'false',
+	);
+
+	React.useEffect(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.altKey && e.key === 't') {
+				setShowDevtools((prev) => !prev);
+			}
+		};
+		window.addEventListener('keydown', handleKeyDown);
+		return () => window.removeEventListener('keydown', handleKeyDown);
+	}, []);
+
 	return (
 		<>
 			{_shouldShowHeader(useLocation().pathname) && <Header />}
 			<Outlet />
-			{import.meta.env.VITE_SHOW_TANSTACK_DEVTOOLS !== 'false' && (
+			{showDevtools && (
 				<TanStackDevtools
 					config={{
 						position: 'bottom-right',
