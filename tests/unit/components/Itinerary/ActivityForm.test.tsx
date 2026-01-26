@@ -37,7 +37,7 @@ describe('ActivityForm', () => {
         expect(screen.getByLabelText('Type')).toBeTruthy();
         expect(screen.getByLabelText('Start Time')).toBeTruthy();
         expect(screen.getByLabelText('End Time')).toBeTruthy();
-        expect(screen.getByLabelText('Cost')).toBeTruthy();
+        expect(screen.getByLabelText('Budget')).toBeTruthy();
         expect(screen.getByLabelText('Currency')).toBeTruthy();
         expect(screen.getByLabelText('Notes')).toBeTruthy();
 	});
@@ -50,7 +50,7 @@ describe('ActivityForm', () => {
         
         fireEvent.change(screen.getByLabelText('Start Time'), { target: { value: '12:00' } });
         fireEvent.change(screen.getByLabelText('End Time'), { target: { value: '13:00' } });
-        fireEvent.change(screen.getByLabelText('Cost'), { target: { value: '5000' } });
+        fireEvent.change(screen.getByLabelText('Budget'), { target: { value: '5000' } });
         
         fireEvent.click(screen.getByRole('button', { name: 'Add Activity' }));
 

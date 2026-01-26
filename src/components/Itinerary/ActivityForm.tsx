@@ -295,15 +295,26 @@ export default function ActivityForm({
 						{(field) => (
 							<Field>
 								<FieldContent>
-									<FieldLabel htmlFor={costId}>Cost</FieldLabel>
+									<FieldLabel htmlFor={costId}>Budget</FieldLabel>
 									<Input
 										id={costId}
-										type="number"
-										min={0}
+										type="text"
+										inputMode="numeric"
 										name={field.name}
-										value={field.state.value}
+										value={
+											field.state.value === 0 && !field.state.meta.isTouched
+												? ''
+												: new Intl.NumberFormat('id-ID').format(
+														field.state.value,
+													)
+										}
 										onBlur={field.handleBlur}
-										onChange={(e) => field.handleChange(Number(e.target.value))}
+										onChange={(e) => {
+											const rawValue = e.target.value.replace(/\./g, '');
+											if (/^\d*$/.test(rawValue)) {
+												field.handleChange(Number(rawValue));
+											}
+										}}
 										placeholder="0"
 									/>
 									<FieldInfo field={field} />
