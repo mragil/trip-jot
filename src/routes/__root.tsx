@@ -30,18 +30,20 @@ function RootComponent() {
 		<>
 			{_shouldShowHeader(useLocation().pathname) && <Header />}
 			<Outlet />
-			<TanStackDevtools
-				config={{
-					position: 'bottom-right',
-				}}
-				plugins={[
-					{
-						name: 'Tanstack Router',
-						render: <TanStackRouterDevtoolsPanel />,
-					},
-					TanStackQueryDevtools,
-				]}
-			/>
+			{import.meta.env.VITE_SHOW_TANSTACK_DEVTOOLS !== 'false' && (
+				<TanStackDevtools
+					config={{
+						position: 'bottom-right',
+					}}
+					plugins={[
+						{
+							name: 'Tanstack Router',
+							render: <TanStackRouterDevtoolsPanel />,
+						},
+						TanStackQueryDevtools,
+					]}
+				/>
+			)}
 			<Toaster position="top-center" />
 		</>
 	);

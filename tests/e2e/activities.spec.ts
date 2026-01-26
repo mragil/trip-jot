@@ -12,7 +12,8 @@ test.describe('Activity Management (Mobile)', () => {
         await page.click('button[type="submit"]');
         await expect(page).toHaveURL(/\/trips/);
 
-        await page.click('a[href="/trips/new-trip"]');
+        await page.addStyleTag({ content: 'button[aria-label="Open TanStack Devtools"], .TanStackDevtools { display: none !important; }' });
+        await page.locator('a[href="/trips/new-trip"]:visible').click({ force: true });
         await expect(page).toHaveURL(/\/trips\/new-trip/);
         await page.fill('input[name="name"]', 'Mobile Adv.');
         await page.fill('input[name="destination"]', 'Bali');

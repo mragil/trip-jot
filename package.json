@@ -11,8 +11,8 @@
     "lint": "biome lint",
     "check": "biome check",
     "type-check": "tsc -b",
-    "test:e2e": "playwright test",
-    "test:e2e:mock": "cross-env E2E_MOCK=true playwright test",
+    "test:e2e": "cross-env VITE_SHOW_TANSTACK_DEVTOOLS=false playwright test",
+    "test:e2e:mock": "cross-env VITE_SHOW_TANSTACK_DEVTOOLS=false E2E_MOCK=true playwright test",
     "prepare": "husky"
   },
   "dependencies": {
