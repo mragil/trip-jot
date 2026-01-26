@@ -13,14 +13,14 @@ import { Button } from '@/components/ui/button';
 import { Field, FieldContent, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
-	Select,
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectLabel,
-	SelectTrigger,
-	SelectValue,
-} from '@/components/ui/select';
+	RadixSelect,
+	RadixSelectContent,
+	RadixSelectGroup,
+	RadixSelectItem,
+	RadixSelectLabel,
+	RadixSelectTrigger,
+	RadixSelectValue,
+} from '@/components/ui/radix-select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateActivity } from '@/hooks/useTrips';
 import { activitySchema } from '@/lib/schemas';
@@ -190,14 +190,14 @@ export default function ActivityForm({
 							<Field>
 								<FieldContent>
 									<FieldLabel htmlFor={typeId}>Type</FieldLabel>
-									<Select
+									<RadixSelect
 										value={field.state.value}
 										onValueChange={(value) =>
 											field.handleChange(value as ActivityType)
 										}
 									>
-										<SelectTrigger id={typeId} className="w-full">
-											<SelectValue>
+										<RadixSelectTrigger id={typeId} className="w-full">
+											<RadixSelectValue>
 												{(() => {
 													const selectedType = activityTypes.find(
 														(t) => t.value === field.state.value,
@@ -205,31 +205,28 @@ export default function ActivityForm({
 													if (selectedType) {
 														const Icon = selectedType.icon;
 														return (
-															<>
-																<Icon className="size-4" />
-																{selectedType.label}
-															</>
+															<span className="flex items-center gap-2"><Icon className="size-4" />{selectedType.label}</span>
 														);
 													}
 													return null;
 												})()}
-											</SelectValue>
-										</SelectTrigger>
-										<SelectContent>
-											<SelectGroup>
-												<SelectLabel>Type</SelectLabel>
+											</RadixSelectValue>
+										</RadixSelectTrigger>
+										<RadixSelectContent>
+											<RadixSelectGroup>
+												<RadixSelectLabel>Type</RadixSelectLabel>
 												{activityTypes.map((t) => {
 													const Icon = t.icon;
 													return (
-														<SelectItem key={t.value} value={t.value}>
+														<RadixSelectItem key={t.value} value={t.value}>
 															<Icon className="size-4" />
 															{t.label}
-														</SelectItem>
+														</RadixSelectItem>
 													);
 												})}
-											</SelectGroup>
-										</SelectContent>
-									</Select>
+											</RadixSelectGroup>
+										</RadixSelectContent>
+									</RadixSelect>
 									<FieldInfo field={field} />
 								</FieldContent>
 							</Field>
