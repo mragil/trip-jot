@@ -24,7 +24,7 @@ function RouteComponent() {
 					<Skeleton className="h-10 w-48" />
 					<Skeleton className="h-8 w-96" />
 				</div>
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				<div className="flex flex-wrap justify-center gap-6">
 					{Array.from({ length: 6 }).map((_, i) => (
 						// biome-ignore lint/suspicious/noArrayIndexKey: Skeletons do not have stable IDs
 						<TripCardSkeleton key={i} />
@@ -51,13 +51,28 @@ function RouteComponent() {
 
 			{trips && trips.length > 0 ? (
 				<>
-					<Link to="/trips/new-trip">
-						<Button className="w-fit px-6">
-							<Plus className="mr-2 h-4 w-4" />
-							New Trip
+					{/* Desktop/Tablet Button - Hidden on Mobile */}
+					<div className="hidden md:flex justify-start w-full">
+						<Link to="/trips/new-trip" className="w-fit">
+							<Button className="w-fit px-6">
+								<Plus className="mr-2 h-4 w-4" />
+								New Trip
+							</Button>
+						</Link>
+					</div>
+
+					{/* Mobile FAB - Hidden on Desktop/Tablet */}
+					<Link
+						to="/trips/new-trip"
+						className="md:hidden fixed bottom-6 right-6 z-50"
+					>
+						<Button size="icon" className="rounded-full h-14 w-14 shadow-lg">
+							<Plus className="h-6 w-6" />
 						</Button>
 					</Link>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+					{/* Grid for Tablet/Desktop, Centered Flex for Mobile */}
+					<div className="flex flex-wrap justify-center gap-6 md:grid md:grid-cols-2 lg:grid-cols-3">
 						{trips.map((trip) => (
 							<TripCard key={trip.id} trip={trip} />
 						))}
