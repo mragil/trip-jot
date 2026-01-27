@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import { Plus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useDeleteActivity } from '@/hooks/useTrips';
 import type { Activity } from '@/types/trip';
 import ActivityCard from './ActivityCard';
 
@@ -9,6 +10,7 @@ interface ItineraryDetailProps {
 	date: Date;
 	addActivity: (date: Date) => void;
 	selectedDay: number;
+	tripId: number;
 }
 
 export default function ItineraryDetail({
@@ -16,7 +18,9 @@ export default function ItineraryDetail({
 	date,
 	addActivity,
 	activities,
+	tripId,
 }: ItineraryDetailProps) {
+	const deleteActivity = useDeleteActivity();
 	return (
 		<div className="h-full flex flex-col">
 			<div className="flex items-center justify-between mb-6">
@@ -64,7 +68,11 @@ export default function ItineraryDetail({
 								title={activity.name}
 								time={format(new Date(activity.startTime), 'h:mm a')}
 								location={activity.location}
-								onDelete={() => console.log('Delete', activity.id)}
+								cost={activity.cost}
+								currency={activity.currency}
+								onDelete={() =>
+									deleteActivity.mutate({ id: String(activity.id), tripId })
+								}
 								onNavigate={() => console.log('Navigate', activity.id)}
 							/>
 						</div>

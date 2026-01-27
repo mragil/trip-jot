@@ -1,6 +1,6 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import { useTrips, useTrip, useCreateActivity } from '@/hooks/useTrips';
+import { useTrips, useTrip, useCreateActivity, useDeleteActivity } from '@/hooks/useTrips';
 import api from '@/lib/api';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -9,6 +9,7 @@ vi.mock('@/lib/api', () => ({
 	default: {
 		get: vi.fn(),
 		post: vi.fn(),
+		delete: vi.fn(),
 	},
 }));
 
@@ -67,6 +68,26 @@ describe('useTrips Hooks', () => {
             await result.current.mutateAsync({ name: 'New Activity', tripId: 10 } as any);
 
             expect(api.post).toHaveBeenCalledWith('/activities', { name: 'New Activity', tripId: 10 });
+            expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['trips', '10'] });
+        });
+    });
+    describe('useDeleteActivity', () => {
+        it('deletes an activity and invalidates queries', async () => {
+             const mockResponse = { success: true };
+             (api.delete as any).mockResolvedValue({ data: mockResponse });
+
+             const queryClient = new QueryClient();
+             const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+             
+             const wrapper = ({ children }: { children: React.ReactNode }) => (
+                <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+            );
+
+            const { result } = renderHook(() => useDeleteActivity(), { wrapper });
+
+            await result.current.mutateAsync({ id: '55', tripId: 10 });
+
+            expect(api.delete).toHaveBeenCalledWith('/activities/55?tripId=10');
             expect(invalidateSpy).toHaveBeenCalledWith({ queryKey: ['trips', '10'] });
         });
     });

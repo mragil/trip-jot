@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 import ItineraryMap from '@/components/Itinerary/ItineraryMap';
 import ItineraryDetail from '@/components/Itinerary/ItineraryDetail';
@@ -27,11 +27,16 @@ vi.mock('@/components/Itinerary/ActivityCard', () => ({
     ) 
 }));
 
+const mockDeleteMutate = vi.fn();
+
+vi.mock('@/hooks/useTrips', () => ({
+    useDeleteActivity: () => ({ mutate: mockDeleteMutate })
+}));
+
 describe('Complex Components', () => {
     describe('DynamicBreadcrumbs', () => {
         it('renders breadcrumbs based on path', () => {
             render(<DynamicBreadcrumbs />);
-            
             
             expect(screen.getByText('Trips')).toBeTruthy();
             expect(screen.getByText('1')).toBeTruthy();
@@ -50,6 +55,10 @@ describe('Complex Components', () => {
             { id: 1, name: 'Activity 1', type: 'restaurant', startTime: new Date().toISOString() } as any
         ];
         const mockAdd = vi.fn();
+        
+        beforeEach(() => {
+            mockDeleteMutate.mockClear();
+        });
 
         it('renders activities', () => {
             render(
@@ -58,6 +67,7 @@ describe('Complex Components', () => {
                     date={new Date()} 
                     addActivity={mockAdd} 
                     activities={mockActivities} 
+                    tripId={1}
                 />
             );
             expect(screen.getByText('ActivityCard: Activity 1')).toBeTruthy();
@@ -71,6 +81,7 @@ describe('Complex Components', () => {
                     date={new Date()} 
                     addActivity={mockAdd} 
                     activities={[]} 
+                    tripId={1}
                 />
             );
             expect(screen.getByText(/No plans yet/i)).toBeTruthy();
@@ -84,11 +95,12 @@ describe('Complex Components', () => {
                     date={new Date()} 
                     addActivity={mockAdd} 
                     activities={mockActivities} 
+                    tripId={1}
                 />
             );
             
             fireEvent.click(screen.getByText('Delete'));
-            expect(consoleSpy).toHaveBeenCalledWith('Delete', 1);
+            expect(mockDeleteMutate).toHaveBeenCalledWith({ id: '1', tripId: 1 });
 
             fireEvent.click(screen.getByText('Navigate'));
             expect(consoleSpy).toHaveBeenCalledWith('Navigate', 1);

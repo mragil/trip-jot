@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/radix-select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCreateActivity } from '@/hooks/useTrips';
+import { formatNumber } from '@/lib/formatter';
 import { activitySchema } from '@/lib/schemas';
 import type { ActivityType } from '@/types/trip';
 
@@ -205,7 +206,10 @@ export default function ActivityForm({
 													if (selectedType) {
 														const Icon = selectedType.icon;
 														return (
-															<span className="flex items-center gap-2"><Icon className="size-4" />{selectedType.label}</span>
+															<span className="flex items-center gap-2">
+																<Icon className="size-4" />
+																{selectedType.label}
+															</span>
 														);
 													}
 													return null;
@@ -287,9 +291,7 @@ export default function ActivityForm({
 										value={
 											field.state.value === 0 && !field.state.meta.isTouched
 												? ''
-												: new Intl.NumberFormat('id-ID').format(
-														field.state.value,
-													)
+												: formatNumber(field.state.value)
 										}
 										onBlur={field.handleBlur}
 										onChange={(e) => {

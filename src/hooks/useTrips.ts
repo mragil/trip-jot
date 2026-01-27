@@ -38,3 +38,27 @@ export const useCreateActivity = () => {
 		},
 	});
 };
+
+export const useDeleteActivity = () => {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: async ({
+			id,
+			tripId,
+		}: {
+			id: string;
+			tripId: string | number;
+		}) => {
+			const response = await api.delete<Activity>(
+				`/activities/${id}?tripId=${tripId}`,
+			);
+			return response.data;
+		},
+		onSuccess: (_, variables) => {
+			queryClient.invalidateQueries({
+				queryKey: ['trips', String(variables.tripId)],
+			});
+		},
+	});
+};

@@ -8,6 +8,7 @@ import {
 	Utensils,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { formatCurrency } from '@/lib/formatter';
 import type { ActivityType } from '@/types/trip';
 
 interface ActivityCardProps {
@@ -16,6 +17,8 @@ interface ActivityCardProps {
 	type: ActivityType;
 	time?: string;
 	location?: string;
+	cost?: number;
+	currency?: string;
 	onDelete?: (id: string) => void;
 	onNavigate?: (id: string) => void;
 }
@@ -42,6 +45,8 @@ export default function ActivityCard({
 	type,
 	time,
 	location,
+	cost,
+	currency,
 	onDelete,
 	onNavigate,
 }: ActivityCardProps) {
@@ -98,6 +103,14 @@ export default function ActivityCard({
 					<div className="mt-2 flex items-center gap-1.5 text-xs text-muted-foreground">
 						<MapPin className="h-3 w-3 shrink-0" />
 						<span className="truncate">{location}</span>
+					</div>
+				)}
+
+				{(cost ?? 0) > 0 && (
+					<div className="mt-1.5 flex items-center justify-end">
+						<span className="text-xs font-medium text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 px-1.5 py-0.5 rounded">
+							{formatCurrency(cost ?? 0, currency)}
+						</span>
 					</div>
 				)}
 			</div>

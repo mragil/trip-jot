@@ -91,6 +91,7 @@ export default function ItineraryView(props: Props) {
 						date={currentDayData.fullDate}
 						addActivity={addActivity}
 						activities={currentDayData ? currentDayData.activities : []}
+						tripId={trip.id}
 					/>
 				</div>
 
