@@ -25,7 +25,7 @@ describe('TripCard', () => {
 
 		expect(screen.getByText('Summer Trip')).toBeTruthy();
 		expect(screen.getByText('Paris, France')).toBeTruthy();
-		expect(screen.getByText('Jun 1, 2023 - Jun 10, 2023')).toBeTruthy();
+		expect(screen.getByText('Jun 01 - Jun 10, 2023')).toBeTruthy();
 	});
 
 	it('renders link to trip details', () => {

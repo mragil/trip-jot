@@ -1,7 +1,6 @@
 import type * as React from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { useForm } from '@tanstack/react-form';
-import { format } from 'date-fns';
 import { CalendarIcon, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -15,6 +14,7 @@ import {
 	PopoverTrigger,
 } from '@/components/ui/popover';
 import api from '@/lib/api';
+import { formatDateLong } from '@/lib/date-utils';
 import { tripSchema } from '@/lib/schemas';
 import { cn } from '@/lib/utils';
 
@@ -115,7 +115,7 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 										>
 											<CalendarIcon className="mr-2 h-4 w-4" />
 											{field.state.value ? (
-												format(field.state.value, 'PPP')
+												formatDateLong(field.state.value)
 											) : (
 												<span>Pick a date</span>
 											)}
@@ -154,7 +154,7 @@ export default function TripForm({ className }: React.ComponentProps<'form'>) {
 										>
 											<CalendarIcon className="mr-2 h-4 w-4" />
 											{field.state.value ? (
-												format(field.state.value, 'PPP')
+												formatDateLong(field.state.value)
 											) : (
 												<span>Pick a date</span>
 											)}

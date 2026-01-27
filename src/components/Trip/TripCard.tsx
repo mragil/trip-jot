@@ -9,6 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from '@/components/ui/card';
+import { formatDateRange } from '@/lib/date-utils';
 import type { Trip } from '@/types/trip';
 
 interface TripCardProps {
@@ -16,14 +17,6 @@ interface TripCardProps {
 }
 
 export default function TripCard({ trip }: TripCardProps) {
-	const formatDate = (date: Date) => {
-		return new Date(date).toLocaleDateString('en-US', {
-			month: 'short',
-			day: 'numeric',
-			year: 'numeric',
-		});
-	};
-
 	return (
 		<Link to="/trips/$id" params={{ id: trip.id.toString() }} className="block">
 			<Card className="w-full max-w-sm overflow-hidden pt-0 transition-all hover:shadow-lg">
@@ -42,7 +35,7 @@ export default function TripCard({ trip }: TripCardProps) {
 				<CardFooter className="flex items-center justify-between">
 					<Badge variant="secondary">
 						<Calendar className="mr-1 inline h-4 w-4" />
-						{formatDate(trip.startDate)} - {formatDate(trip.endDate)}
+						{formatDateRange(trip.startDate, trip.endDate)}
 					</Badge>
 					<Button size="icon" variant="secondary" className="rounded-full">
 						<ArrowRight className="h-4 w-4" />

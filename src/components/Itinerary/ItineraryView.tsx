@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { eachDayOfInterval, format, isSameDay } from 'date-fns';
+import { eachDayOfInterval, isSameDay } from 'date-fns';
 import { Calendar, MapPin } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { formatDayMonth } from '@/lib/date-utils';
 import type { Trip } from '@/types/trip';
 import ItineraryDetail from './ItineraryDetail';
 import ItineraryMap from './ItineraryMap';
@@ -34,7 +35,7 @@ export default function ItineraryView(props: Props) {
 
 		return {
 			day: dayNum,
-			date: format(date, 'MMM dd'),
+			date: formatDayMonth(date),
 			fullDate: date,
 			places: dayActivities.length,
 			activities: dayActivities,

@@ -18,3 +18,30 @@ export function formatDateRange(
 
 	return `${format(startDate, 'MMM dd')} - ${format(endDate, 'MMM dd, yyyy')}`;
 }
+
+/**
+ * Formats a date into a standard string.
+ * Format: "MMM dd, yyyy"
+ * Example: "Jan 01, 2024"
+ */
+export function formatDate(date: Date | string | number): string {
+	return format(new Date(date), 'MMM dd, yyyy');
+}
+
+/**
+ * Formats a date into a day and month string.
+ * Format: "MMM dd"
+ * Example: "Jan 01"
+ */
+export function formatDayMonth(date: Date | string | number): string {
+	return format(new Date(date), 'MMM dd');
+}
+
+/**
+ * Formats a date into a long string.
+ * Format: "PPP" (localized text)
+ * Example: "January 1st, 2024"
+ */
+export function formatDateLong(date: Date | string | number): string {
+	return format(new Date(date), 'PPP');
+}
