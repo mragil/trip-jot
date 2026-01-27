@@ -50,6 +50,7 @@ export function RegisterForm({
 									id={`${id}-name`}
 									name="name"
 									placeholder="John Doe"
+									autoComplete="name"
 									required
 								/>
 							</Field>
@@ -60,6 +61,7 @@ export function RegisterForm({
 									name="email"
 									type="email"
 									placeholder="mail@example.com"
+									autoComplete="username"
 									required
 								/>
 							</Field>
@@ -69,6 +71,7 @@ export function RegisterForm({
 									id={`${id}-password`}
 									name="password"
 									type="password"
+									autoComplete="new-password"
 									required
 								/>
 							</Field>

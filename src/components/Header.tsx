@@ -71,6 +71,7 @@ export default function Header() {
 						<DropdownMenuTrigger
 							className="relative h-9 w-9  cursor-pointer rounded-full ring-offset-background selection:focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 flex items-center justify-center hover:opacity-90 transition-opacity"
 							data-testid="user-menu-trigger"
+							aria-label="User menu"
 						>
 							<Avatar className="h-9 w-9 border">
 								<AvatarImage src={user?.avatar} alt={user?.name || 'User'} />
