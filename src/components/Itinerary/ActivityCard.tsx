@@ -62,13 +62,14 @@ export default function ActivityCard({
 						</span>
 					)}
 
-					<div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity absolute top-2 right-2 bg-card/80 backdrop-blur rounded-md p-0.5 border border-border">
+					<div className="flex gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity absolute top-2 right-2 bg-card/80 backdrop-blur rounded-md p-0.5 border border-border">
 						{onNavigate && (
 							<Button
 								variant="ghost"
 								size="icon-xs"
 								className="h-6 w-6"
 								onClick={() => onNavigate(id)}
+								aria-label="Navigate to location"
 							>
 								<Navigation className="h-3 w-3" />
 							</Button>
@@ -79,6 +80,7 @@ export default function ActivityCard({
 								size="icon-xs"
 								className="h-6 w-6 text-destructive hover:text-destructive"
 								onClick={() => onDelete(id)}
+								aria-label="Delete activity"
 							>
 								<Trash2 className="h-3 w-3" />
 							</Button>

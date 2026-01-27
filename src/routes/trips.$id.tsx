@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
-import { format } from 'date-fns';
 import { Calendar, Loader2, MapPin } from 'lucide-react';
 import DynamicBreadcrumbs from '@/components/DynamicBreadcrumbs';
 import DynamicTabs from '@/components/DynamicTabs';
@@ -9,6 +8,7 @@ import ItineraryView from '@/components/Itinerary/ItineraryView';
 import DocumentVault from '@/components/Trip/DocumentVault';
 import TripErrorState from '@/components/Trip/TripErrorState';
 import { useTrip } from '@/hooks/useTrips';
+import { formatDateRange } from '@/lib/date-utils';
 
 export const Route = createFileRoute('/trips/$id')({
 	component: RouteComponent,
@@ -39,7 +39,7 @@ function RouteComponent() {
 		);
 	}
 
-	const dateRange = `${format(new Date(trip.startDate), 'MMM dd')} - ${format(new Date(trip.endDate), 'MMM dd, yyyy')}`;
+	const dateRange = formatDateRange(trip.startDate, trip.endDate);
 
 	const tabsData = [
 		{
