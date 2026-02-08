@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useUserStore } from '@/store/user';
 
 const api = axios.create({
 	baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -21,6 +22,7 @@ api.interceptors.response.use(
 				await api.post('/auth/refresh');
 				return api(originalRequest);
 			} catch {
+				useUserStore.getState().logout();
 				window.location.href = '/login';
 				return Promise.reject(error);
 			}
