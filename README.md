@@ -1,6 +1,10 @@
 # Trip Jot
 
-Trip Jot is a itinerary planner designed to help users organize their travel plans efficiently. Built with the latest web technologies, it offers a seamless and interactive user experience.
+Trip Jot is a itinerary planner designed to help users organize their travel plans efficiently. Built with the latest web technologies, it offers a seamless and interactive user experience. 
+
+## Live
+
+https://tripjot.mrtrr.web.id/
 
 ## Features
 
